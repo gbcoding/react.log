@@ -1,0 +1,27 @@
+{
+  "name": "reactexpress",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "cd client && npm install",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "concurrently": "^4.1.0",
+    "create-react-app": "^2.1.5",
+    "express": "^4.16.4",
+    "react": "^16.8.4",
+    "react-bootstrap": "^1.0.0-beta.5",
+    "react-dom": "^16.8.4"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.10"
+  }
+}
