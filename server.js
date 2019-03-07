@@ -6,7 +6,7 @@ const app = express();
 // GET request/response function. Pass in data to be sent to client
 app.get('/api/customers', (req, res) => {
 
-    // Do data transfer here
+    // Do data transfer here, customers is just an example object
     const customers = [
         {id: 1, firstName: 'John', lastName: 'Doe'},
         {id: 2, firstName: 'Steve', lastName: 'Smith'},
