@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Button, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import "./Login.css";
 
+
 export default class Login extends Component{
     constructor(props){
         super(props);
@@ -60,7 +61,9 @@ export default class Login extends Component{
                 </form>
                 
             </div>
+        
         );
         // To do: Add nav bar to Login page on line 61
+    
     }
 }

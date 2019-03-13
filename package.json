@@ -17,9 +17,11 @@
     "concurrently": "^4.1.0",
     "create-react-app": "^2.1.5",
     "express": "^4.16.4",
+    "mysql": "^2.16.0",
     "react": "^16.8.4",
     "react-bootstrap": "^1.0.0-beta.5",
-    "react-dom": "^16.8.4"
+    "react-dom": "^16.8.4",
+    "react-scripts": "^2.1.8"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
