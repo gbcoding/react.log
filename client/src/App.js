@@ -31,10 +31,10 @@ class App extends Component {
   render() {
     return (
       <BrowserRouter>
-      <div className="App"> 
-        <Header />
-        <Main />
-      </div>
+        <div className="App"> 
+          <Header />
+          <Main />
+        </div>
       </BrowserRouter>
     );
   }
