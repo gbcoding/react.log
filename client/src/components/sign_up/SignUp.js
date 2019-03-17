@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Button, Form, Col, Row} from "react-bootstrap";
+import { Button, Form, Row, Card} from "react-bootstrap";
+import { Link } from "react-router-dom";
 import "./SignUp.css";
 
 export default class SignUpPage extends Component{
@@ -10,8 +11,12 @@ export default class SignUpPage extends Component{
         email: "",
         password: "",
         confirmPassword: "",
-        newUser: null
+        FirstName: null,
+        LastName: null
     };
+
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
 }
 
 handleChange = event => {
@@ -23,59 +28,58 @@ handleChange = event => {
 handleSubmit = async event => {
     event.preventDefault();
     this.setState({ isLoading: true });
-    this.setState({ newUser: "test"});
     this.setState({ isLoading: false});
+    alert(
+        "First Name: " + this.state.FirstName + "\nLast Name: " + this.state.LastName + 
+        "\nEmail: " + this.state.email + "\nPassword: " + this.state.password + "\nConfirmed Password: " + this.state.confirmPassword 
+    );
 }
 
 render() {
     return (
         <div className="FormStyle">
-            <h1 style={{textAlign: "center"}}>Sign Up Form</h1>
-            
             <Form onSubmit={this.handleSubmit}>
 
-        
-            <Form.Group as={Row} controlId="FirstName" bsSiz="large">
-                <Form.Label>First Name </Form.Label>
-                <Form.Control placeholder="First Name" />
-            </Form.Group>
+                <Card style={{ width: "500px"}}>
+                    <Card.Title style={{ fontWeight: "bold", color: "gray", marginTop: "10px"}}>Sign up to track your food allergies/symptoms.</Card.Title>
+                
+                    <Card.Body style={{ width: "320px", marginLeft: "80px"}}>
+                        <Form.Group as={Row} controlId="FirstName" bsSiz="large">
+                            <Form.Label column-sm={2}>First Name </Form.Label>
+                            <Form.Control placeholder="First Name" onChange={this.handleChange}/>
+                        </Form.Group>
 
-            <Form.Group controlId="LastName" bsSize="large">
-                <Form.Label>Last Name </Form.Label>   
-                <Form.Control placeholder="Last Name" />
-            </Form.Group>
+                        <Form.Group as={Row} controlId="LastName" bsSize="large">
+                            <Form.Label>Last Name</Form.Label>   
+                            <Form.Control placeholder="Last Name" onChange={this.handleChange} />
+                        </Form.Group>
 
-            <Form.Group controlId="email" bsSize="large">
-                <Form.Label style={{ fontWeight: "bold"}}>Email Address </Form.Label>
-                <Form.Control type="email" placeholder="Enter email" value={this.state.email} onChange={this.handleChange}/>
-            </Form.Group>
+                        <Form.Group as={Row} controlId="email" bsSize="large">
+                            <Form.Label>Email Address </Form.Label>
+                            <Form.Control type="email" placeholder="Enter email" onChange={this.handleChange}/>
+                        </Form.Group>
 
-            <Form.Group controlId="password" bsSize="large">
-                <Form.Label style={{ fontWeight: "bold"}}>Password </Form.Label>
-                <Form.Control
-                    placeholder="Password"
-                    value={this.state.password}
-                    onChange={this.handleChange}
-                    type="password"
-                />
-            </Form.Group>
+                        <Form.Group as={Row} controlId="password" bsSize="large">
+                            <Form.Label>Password</Form.Label>
+                            <Form.Control placeholder="Password" onChange={this.handleChange} type="password"/>
+                        </Form.Group>
 
-            <Form.Group controlId="confirmPassword" bsSize="large">
-                <Form.Label>Confirm Password </Form.Label>
-                <Form.Control
-                    placeholder="Confirm Password"
-                    value={this.state.confirmPassword}
-                    onChange={this.handleChange}
-                    type="password"
-                />
-            </Form.Group>
+                        <Form.Group as={Row} controlId="confirmPassword" bsSize="large">
+                            <Form.Label>Confirm Password </Form.Label>
+                            <Form.Control placeholder="Confirm Password" value={this.state.confirmPassword} onChange={this.handleChange} type="password"/>
+                        </Form.Group>
 
-            <Button 
-                variant="primary"
-                bsSize="large"
-                type="submit"
-            >Sign Up!</Button>
-            </Form>  
+                        <Button variant="primary" bsSize="large" type="submit">Sign Up</Button>
+                    </Card.Body>    
+                </Card> 
+            </Form>
+            <div className="loginCard">
+                <Card style={{ width: "500px", height: "50px"}}>
+                    <Card.Text style={{ marginTop: "10px"}}>
+                        Have an account already? <Link to='/'>Log in</Link>
+                    </Card.Text>
+                </Card>
+            </div>  
         </div>
     );
 }
