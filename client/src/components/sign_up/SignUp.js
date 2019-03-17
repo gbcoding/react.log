@@ -19,11 +19,11 @@ export default class SignUpPage extends Component{
     this.handleSubmit = this.handleSubmit.bind(this);
 }
 
-handleChange = event => {
-    this.setState({
-        [event.target.id]: event.target.value
-    });
-}
+    handleChange = event => {
+       this.setState({
+            [event.target.id]: event.target.value
+        });
+    }
 
 handleSubmit = async event => {
     event.preventDefault();
