@@ -5,7 +5,7 @@ import Login from './components/login/Login';
 import SignUpPage from './components/sign_up/SignUp';
 
 // Main component
-
+//test branch commit
 
 const Main = () => (
   <main>
