@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React, { Component } from "react";
-import { Button, Form, Nav, Navbar, FormControl, ButtonToolbar, ButtonGroup} from "react-bootstrap";
+import { Button, Nav, Navbar, ButtonToolbar, ButtonGroup} from "react-bootstrap";
 
 
 export default class home extends Component{
