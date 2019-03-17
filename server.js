@@ -4,9 +4,15 @@ const express = require('express');
 const app = express();
 
 // GET request/response function. Pass in data to be sent to client
-app.get('/api/customers', (req, res) => {
+app.get('/login', (req, res) => {
 
     // Do data transfer here, customers is just an example object
+    const form_data = {
+        username: username,
+        password: password
+    };
+
+    /*
     const customers = [
         {id: 1, firstName: 'John', lastName: 'Doe'},
         {id: 2, firstName: 'Steve', lastName: 'Smith'},
@@ -15,6 +21,8 @@ app.get('/api/customers', (req, res) => {
 
     // send data as a json object
     res.json(customers);
+
+    */
 });
 
 // Set port to 8000 and listen for clients
