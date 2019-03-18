@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Button, Form, Col, Row} from "react-bootstrap";
+import { Button, FormGroup, FormControl, FormLabel, Col, Row} from "react-bootstrap";
 import "./SignUp.css";
 
 export default class SignUpPage extends Component{
@@ -29,53 +29,65 @@ export default class SignUpPage extends Component{
 
     render() {
         return (
-            <div className="FormStyle">
-                <h1 style={{textAlign: "center"}}>Sign Up Form</h1>
+            <div className="SignUp">
+                <h1 style={{textAlign: "center"}}>Sign Up</h1>
             
-                <Form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleSubmit}>
 
-        
-                <Form.Group as={Row} controlId="FirstName" bsSiz="large">
-                    <Form.Label>First Name </Form.Label>
-                    <Form.Control placeholder="First Name" />
-                </Form.Group>
+                    <FormGroup controlId="firstName">
+                        <FormLabel>First Name </FormLabel>
+                        <FormControl 
+                            autofocus
+                            type="firstName"
+                            value={this.state.firstName}
+                            onChange={this.handleChange}
+                        />
+                    </FormGroup>
 
-                <Form.Group controlId="LastName" bsSize="large">
-                    <Form.Label>Last Name </Form.Label>   
-                    <Form.Control placeholder="Last Name" />
-                </Form.Group>
+                    <FormGroup controlId="lastName">
+                        <FormLabel>Last Name </FormLabel>   
+                        <FormControl
+                            type="lastName"
+                            value={this.state.lastName}
+                            onChange={this.handleChange} 
+                        />
+                    </FormGroup>
 
-                <Form.Group controlId="email" bsSize="large">
-                    <Form.Label style={{ fontWeight: "bold"}}>Email Address </Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" value={this.state.email} onChange={this.handleChange}/>
-                </Form.Group>
+                    <FormGroup controlId="email">
+                        <FormLabel>Email Address </FormLabel>
+                        <FormControl 
+                            type="email"  
+                            value={this.state.email} 
+                            onChange={this.handleChange}
+                        />
+                    </FormGroup>
 
-                <Form.Group controlId="password" bsSize="large">
-                    <Form.Label style={{ fontWeight: "bold"}}>Password </Form.Label>
-                    <Form.Control
-                        placeholder="Password"
-                        value={this.state.password}
-                        onChange={this.handleChange}
-                        type="password"
-                    />
-                </Form.Group>
+                    <FormGroup controlId="password">
+                        <FormLabel>Password </FormLabel>
+                        <FormControl
+                            type="password"
+                            value={this.state.password}
+                            onChange={this.handleChange}
+                            
+                        />
+                    </FormGroup>
 
-                <Form.Group controlId="confirmPassword" bsSize="large">
-                    <Form.Label>Confirm Password </Form.Label>
-                    <Form.Control
-                        placeholder="Confirm Password"
-                        value={this.state.confirmPassword}
-                        onChange={this.handleChange}
-                        type="password"
-                    />
-                </Form.Group>
+                    <FormGroup controlId="confirmPassword">
+                        <FormLabel>Confirm Password </FormLabel>
+                        <FormControl
+                            type="confirmPassword"
+                            value={this.state.confirmPassword}
+                            onChange={this.handleChange}
+                            
+                        />
+                    </FormGroup>
 
-                <Button 
-                    variant="primary"
-                    bsSize="large"
-                    type="submit"
-                >Sign Up!</Button>
-                </Form>  
+                    <Button 
+                        variant="primary"
+                        bsSize="large"
+                        type="submit"
+                    >Sign Up!</Button>
+                </form>  
             </div>
         ); 
     }

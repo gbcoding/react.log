@@ -1,3 +1,13 @@
-.FormStyle {
-  height: 100%;
+@media all and (min-width: 480px) {
+  .SignUp {
+    padding: 100px 0;
+    color: black;
+    height: 80%;
+  }
+
+  .SignUp form {  
+    margin: 0 auto;
+    max-width: 320px;
+    color: grey;
+  }
 }
