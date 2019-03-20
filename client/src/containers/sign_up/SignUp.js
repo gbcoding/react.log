@@ -2,30 +2,57 @@ import React, { Component } from "react";
 import { Button, FormGroup, FormControl, FormLabel, Col, Row} from "react-bootstrap";
 import "./SignUp.css";
 
+import { Link } from "react-router-dom";
+
+
+
 export default class SignUpPage extends Component{
     constructor(props) {
         super(props);
         this.state = {
-        isLoading: false,
-        email: "",
-        password: "",
-        confirmPassword: "",
-        newUser: null
+            firstName: "",
+            lastName: "",    
+            email: "",
+            password: "",
+            confirmPassword: "",
+            isLoading: false
         };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     handleChange = event => {
-       this.setState({
-            [event.target.id]: event.target.value
-        });
+        this.setState({
+              [event.target.id]: event.target.value
+         });
+    }
+
+
+    validateForm(){
+            return this.state.email.length > 0 && this.state.password.length > 0;
     }
 
     handleSubmit = async event => {
         event.preventDefault();
+
         this.setState({ isLoading: true });
-        this.setState({ newUser: "test"});
         this.setState({ isLoading: false});
+
+        if(this.state.password != this.state.confirmPassword){
+            alert("Passwords do not match!");
+        }
+        else{
+            //Login and authenticate
+        }
+        
+        //For Testing
+        alert(
+             "First Name: " + this.state.firstName + "\nLast Name: " + this.state.lastName + 
+            "\nEmail: " + this.state.email + "\nPassword: " + this.state.password + "\nConfirmed Password: " + this.state.confirmPassword 
+        );
     }
+
 
     render() {
         return (
@@ -35,9 +62,9 @@ export default class SignUpPage extends Component{
                 <form onSubmit={this.handleSubmit}>
 
                     <FormGroup controlId="firstName">
-                        <FormLabel>First Name </FormLabel>
+                        <FormLabel>First Name</FormLabel>
                         <FormControl 
-                            autofocus
+                            autoFocus
                             type="firstName"
                             value={this.state.firstName}
                             onChange={this.handleChange}
@@ -45,7 +72,7 @@ export default class SignUpPage extends Component{
                     </FormGroup>
 
                     <FormGroup controlId="lastName">
-                        <FormLabel>Last Name </FormLabel>   
+                        <FormLabel>Last Name</FormLabel>   
                         <FormControl
                             type="lastName"
                             value={this.state.lastName}
@@ -54,7 +81,7 @@ export default class SignUpPage extends Component{
                     </FormGroup>
 
                     <FormGroup controlId="email">
-                        <FormLabel>Email Address </FormLabel>
+                        <FormLabel>Email Address</FormLabel>
                         <FormControl 
                             type="email"  
                             value={this.state.email} 
@@ -63,7 +90,7 @@ export default class SignUpPage extends Component{
                     </FormGroup>
 
                     <FormGroup controlId="password">
-                        <FormLabel>Password </FormLabel>
+                        <FormLabel>Password</FormLabel>
                         <FormControl
                             type="password"
                             value={this.state.password}
@@ -73,9 +100,9 @@ export default class SignUpPage extends Component{
                     </FormGroup>
 
                     <FormGroup controlId="confirmPassword">
-                        <FormLabel>Confirm Password </FormLabel>
+                        <FormLabel>Confirm Password</FormLabel>
                         <FormControl
-                            type="confirmPassword"
+                            type="password"
                             value={this.state.confirmPassword}
                             onChange={this.handleChange}
                             
@@ -83,11 +110,19 @@ export default class SignUpPage extends Component{
                     </FormGroup>
 
                     <Button 
+                        disabled={!this.validateForm()}
                         variant="primary"
-                        bsSize="large"
                         type="submit"
                     >Sign Up!</Button>
                 </form>  
+
+
+                <div id="login_msg">              
+                    <p>
+                        Have an account already? <Link to='/login'>Log in</Link>
+                    </p>
+                
+                </div>  
             </div>
         ); 
     }

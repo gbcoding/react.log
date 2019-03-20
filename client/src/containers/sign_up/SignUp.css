@@ -1,4 +1,4 @@
-@media all and (min-width: 480px) {
+@media all { 
   .SignUp {
     padding: 100px 0;
     color: black;

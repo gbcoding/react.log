@@ -1,8 +1,9 @@
-@media all and (min-width: 480px) {
+@media all {
     .Login {
       padding: 100px 0;
       color: black;
       height: 80%;
+     
     }
   
     .Login form {

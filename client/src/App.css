@@ -3,4 +3,13 @@
   background-color: #FFD077;
   height: 100%;
   margin: 0;
+
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  
+}
+
+.mainContent {
+  flex: 1;
 }
