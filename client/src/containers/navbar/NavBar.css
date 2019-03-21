@@ -1,16 +1,10 @@
 @media all {
-
-    .footer {
-        min-height: 100vh; /*(100% of the viewport height)*/
-        min-height: 100%; /*(100% of the parent's element height)*/
-    }
-
     .mainNav{
         height: 93px;
         background-color: #4E4A4A;
     }
 
-    .table{
+    .button-bar{
        
         flex-direction: row;
         justify-content: center;
@@ -21,16 +15,5 @@
     .button-box{
         display: inline-flex;
         padding-inline-start: 5px;
-    }
-
-    ul#horizontal-list {
-        min-width: 696px;
-        list-style: none;
-        padding-top: 20px;
-    
-    }
-
-    ul#horizontal-list li{
-        display: inline;
     }
 }
