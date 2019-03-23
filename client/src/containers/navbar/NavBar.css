@@ -16,4 +16,11 @@
         display: inline-flex;
         padding-inline-start: 5px;
     }
+
+    .time{
+        display: inline-flex;
+        position: absolute;
+        right: 20px;
+        color: white
+    }
 }
