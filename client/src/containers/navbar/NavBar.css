@@ -1,0 +1,19 @@
+@media all {
+    .mainNav{
+        height: 93px;
+        background-color: #4E4A4A;
+    }
+
+    .button-bar{
+       
+        flex-direction: row;
+        justify-content: center;
+        margin: 0 auto;
+        padding: 20px;
+    }
+
+    .button-box{
+        display: inline-flex;
+        padding-inline-start: 5px;
+    }
+}

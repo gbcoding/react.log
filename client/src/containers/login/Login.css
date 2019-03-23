@@ -1,0 +1,14 @@
+@media all {
+    .Login {
+      padding: 100px 0;
+      color: black;
+      height: 80%;
+     
+    }
+  
+    .Login form {
+      margin: 0 auto;
+      max-width: 320px;
+      color: grey;
+    }
+  }
