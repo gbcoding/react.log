@@ -1,8 +1,8 @@
 // Import required modules
 const express = require('express');
-const sql = require('sql');
+//const sql = require('sql');
 
-const db = sql();
+//const db = sql();
 const app = express();
 
 // GET request/response function. Pass in data to be sent to client
