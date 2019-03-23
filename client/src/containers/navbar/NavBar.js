@@ -15,7 +15,7 @@ export default class NavBar extends Component{
             <View style={{flexDirection: 'column', justifyContent: 'flex-end'}}>
 
                 <div className="mainNav">
-                    <div className="table">
+                    <div className="button-bar">
  
                         <div className="button-box">
                         <Link to='/home'>

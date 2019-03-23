@@ -1,28 +1,32 @@
 // Import required modules
 const express = require('express');
+const sql = require('sql');
 
+const db = sql();
 const app = express();
 
 // GET request/response function. Pass in data to be sent to client
 app.get('/login', (req, res) => {
 
-    // Do data transfer here, customers is just an example object
+    // Make a form data object for login credentials
     const form_data = {
-        username: username,
-        password: password
+        username: username = res.username,
+        password: password = res.password,
     };
 
-    /*
-    const customers = [
-        {id: 1, firstName: 'John', lastName: 'Doe'},
-        {id: 2, firstName: 'Steve', lastName: 'Smith'},
-        {id: 3, firstName: 'Mary', lastName: 'Swanson'},
-    ];
 
-    // send data as a json object
-    res.json(customers);
+    // Check database to see if password matches stored salted hash
 
-    */
+    
+    //if (username and password are found in db) {
+    //    handle session send to updated login page
+
+    //}
+    //else {
+        //Send login rejection notice
+    //}
+
+    
 });
 
 // Set port to 8000 and listen for clients
