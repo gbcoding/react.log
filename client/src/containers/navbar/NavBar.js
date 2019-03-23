@@ -8,6 +8,24 @@ import { NavButton } from '../../components/navbutton/NavButton';
 
 export default class NavBar extends Component{
 
+    state = {
+        time: new Date()
+      };
+    
+      componentDidMount() {
+        this.timerID = setInterval(() => this.tick(), 1000);
+      }
+    
+      componentWillUnmount() {
+        clearInterval(this.timerID);
+      }
+    
+      tick() {
+        this.setState({
+          time: new Date()
+        });
+    }
+
     //Render view of home page
     render(){
 
@@ -73,6 +91,10 @@ export default class NavBar extends Component{
                         </Link>
                         </div>
                         
+                        <div className="time">
+                            <h5>{this.state.time.toLocaleTimeString()}</h5>
+                        </div>
+
                     </div>
                     
                     
