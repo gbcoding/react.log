@@ -1,10 +1,10 @@
 import 'bootstrap/dist/css/bootstrap.css';
 import React, { Component } from "react";
-import {View, Text} from 'react-native';
-import { Button, Nav, Navbar, ButtonToolbar, ButtonGroup} from "react-bootstrap";
-import { Switch, Route, Link, BrowserRouter } from 'react-router-dom';
+import {View } from 'react-native';
+import { Button } from "react-bootstrap";
+import { Link } from 'react-router-dom';
 import './NavBar.css';
-import { NavButton } from '../../components/navbutton/NavButton';
+
 
 export default class NavBar extends Component{
 

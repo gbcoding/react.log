@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { Switch, Route, Link, BrowserRouter } from 'react-router-dom';
+import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import './App.css';
 import Login from './containers/login/Login';
 import SignUp from './containers/sign_up/SignUp';
@@ -9,6 +9,7 @@ import LogView from './containers/log_view/LogView';
 import AddLog from './containers/add_log/AddLog';
 import NavBar from './containers/navbar/NavBar';
 import Reports from './containers/reports/Reports';
+//
 
 // Main component
 const Main = () => (
@@ -38,25 +39,48 @@ const Footer = () => (
 
 
 class App extends Component {
+  constructor(props){
+    super(props);
+
+    this.state = {
+    //  serverMessage: "",
+      items: [],
+      isLoaded: false,
+    }
+
+  }
+
   render() {
-    return (
-      <BrowserRouter>
-        <div className="App"> 
-          <View style={{ height: '100%', flexDirection: 'column', alignSelf:'stretch'}}>
-            <div className="mainContent">
+
+     return (
+        <BrowserRouter>
+          <div className="App"> 
+            <View style={{ height: '100%', flexDirection: 'column', alignSelf:'stretch'}}>
+              <div className="mainContent">
             
-              <Header />
-              <Main  />
+                <Header />
+                <Main  />
             
-            </div>
-            <Footer />
-          </View>
-        </div>
-      </BrowserRouter>
-    );
+              </div>
+              <Footer />
+            </View>
+          </div>
+        </BrowserRouter>
+      );
   }
 }
 
+
+//snippet for displaying lists
+/*
+ <ul>
+                  {items.map(item => (
+                    <li key={item.id}>
+                      Name: {item.name} | Email: {item.email}
+                    </li>
+                  ))}
+                </ul>
+*/ 
 
 export default App;
 
