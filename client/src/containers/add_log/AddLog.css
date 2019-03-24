@@ -1,0 +1,14 @@
+@media all { 
+
+    .new_log {
+        padding: 100px 0;
+        color: black;
+        height: 80%;
+      }
+
+    .new_log form {  
+      margin: 0 auto;
+      max-width: 320px;
+      color: black;
+    }
+  }

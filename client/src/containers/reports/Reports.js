@@ -1,4 +1,4 @@
-import React, { Component } from "react"; 
+import React, { Component } from "react";
 
 export default class Reports extends Component{
 
@@ -7,10 +7,7 @@ export default class Reports extends Component{
         return(
             <div className="reports">
                 <h1>Reports</h1>
-                    <div className="navy">
-                       
-                    </div>
-
+                    <div className="navy"></div> 
             </div>
         );
     }
