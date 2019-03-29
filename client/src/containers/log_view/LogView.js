@@ -107,7 +107,7 @@ export default class LogView extends Component{
                 <h1>View Logs</h1>
                 <hr></hr>
                 <div className="scroller">
-                    <View style={{ flex: 1, height: 450, width: 900}}>
+                    <View style={{ flexDirection: 'row', height: 450}}>
                         <ScrollView>
                             {
                                 this.state.items.map(item => {
