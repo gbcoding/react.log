@@ -15,15 +15,15 @@
   "dependencies": {
     "@mobiscroll/react-lite": "^4.5.2",
     "axios": "^0.18.0",
-    "babel-preset-env": "^1.7.0",
     "bootstrap": "^4.3.1",
     "concurrently": "^4.1.0",
     "cookie-parser": "^1.4.4",
     "cors": "^2.8.5",
     "create-react-app": "^2.1.5",
     "express": "^4.16.4",
+    "jquery": "^3.3.1",
     "mysql": "^2.16.0",
-    "react": "^16.8.4",
+    "react": "^16.8.5",
     "react-art": "^16.8.5",
     "react-bootstrap": "^1.0.0-beta.5",
     "react-calendar": "^2.18.1",
@@ -35,7 +35,8 @@
     "react-router-dom": "^4.3.1",
     "react-router-native": "^5.0.0",
     "react-scripts": "^2.1.8",
-    "sql": "^0.78.0"
+    "sql": "^0.78.0",
+    "typescript": "^3.3.4000"
   },
   "devDependencies": {
     "nodemon": "^1.18.10"
