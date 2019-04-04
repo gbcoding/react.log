@@ -23,7 +23,7 @@ export default class Login extends Component{
         this.axiosGET('/login')
             .then(response => {
                 this.setState({ serverMessage: response.data.serverMessage});
-                console.log("Login omponent mounted and data recieved");
+                console.log("Login component mounted and data recieved");
                 console.log(this.state.serverMessage);
             })
             .catch(err => console.log(err));
