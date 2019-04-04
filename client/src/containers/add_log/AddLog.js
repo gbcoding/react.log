@@ -17,7 +17,7 @@ export default class AddLog extends Component{
             <div className="new_log">
                 <h1>Add New Log</h1>
                 <h2>Input date/time</h2>
-                    <div className="navy"></div>
+                    <div className="navy">
                     <DateTimePicker
                         onChange={this.onChange}
                         value={this.state.date}
@@ -81,6 +81,7 @@ export default class AddLog extends Component{
                         </Form.Group>
 
                     </Form>
+                </div>
             </div>
         );
     }

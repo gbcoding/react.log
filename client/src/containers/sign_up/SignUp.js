@@ -3,7 +3,7 @@ import { Button, FormGroup, FormControl, FormLabel, Col, Row} from "react-bootst
 import "./SignUp.css";
 
 import { Link } from "react-router-dom";
-
+import axios from 'axios';
 
 
 export default class SignUpPage extends Component{
@@ -21,6 +21,41 @@ export default class SignUpPage extends Component{
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
+
+    componentDidMount(){
+
+        // Call our fetch function below once the component mounts 
+        this.axiosGET('/signup')
+        .then(response => {
+            this.setState({ serverMessage: response.data.serverMessage});
+            console.log("Signup component mounted and data recieved");
+            console.log(this.state.serverMessage);
+        })
+        .catch(err => console.log(err));
+
+    }
+
+    //Async Axios get request
+    axiosGET = async(serverPath) => {
+        try{
+            const response = await axios.get(serverPath);
+            console.log(response);
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    //Async Axios post request
+    axiosPOST = async(serverPath, formData) => {
+        return axios.post(serverPath, formData)
+            .then(response => {
+                return response;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
 
     handleChange = event => {
         this.setState({
@@ -44,13 +79,35 @@ export default class SignUpPage extends Component{
         }
         else{
             //Login and authenticate
+            const formData = {
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                email: this.state.email,
+                password: this.state.password
+            };
+
+            //Send form data to express
+            this.axiosPOST('/signup', formData)
+                .then(function(response){
+                    console.log(response.data.serverMessage);
+                    alert(response.data.serverMessage);
+                    
+                    //return response;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+            
         }
-        
+        /*  
         //For Testing
         alert(
              "First Name: " + this.state.firstName + "\nLast Name: " + this.state.lastName + 
             "\nEmail: " + this.state.email + "\nPassword: " + this.state.password + "\nConfirmed Password: " + this.state.confirmPassword 
-        );
+        );*/
+
+
+
     }
 
 

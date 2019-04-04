@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import './Login.css';
 
 import axios from 'axios';
-//const axios = require('axios');
 
 
 export default class Login extends Component{
@@ -21,10 +20,10 @@ export default class Login extends Component{
 
     componentDidMount() {
         // Call our fetch function below once the component mounts 
-        this.axiosGET()
+        this.axiosGET('/login')
             .then(response => {
                 this.setState({ serverMessage: response.data.serverMessage});
-                console.log("Component mounted and data recieved");
+                console.log("Login omponent mounted and data recieved");
                 console.log(this.state.serverMessage);
             })
             .catch(err => console.log(err));
@@ -43,9 +42,9 @@ export default class Login extends Component{
     }
 
     //Async Axios get request
-    axiosGET = async() => {
+    axiosGET = async(serverPath) => {
         try{
-            const response = await axios.get('/login');
+            const response = await axios.get(serverPath);
             console.log(response);
             return response;
         } catch (error) {
@@ -54,9 +53,8 @@ export default class Login extends Component{
     }
     //Async Axios post request
     axiosPOST = async(serverPath, formData) => {
-        axios.post(serverPath, formData)
-            .then(function (response) {
-                console.log(response.data);
+        return axios.post(serverPath, formData)
+            .then(response => {
                 return response;
             })
             .catch(function (error) {
@@ -84,8 +82,13 @@ export default class Login extends Component{
 
         this.axiosPOST('/login', formData)
             .then(function(response){
-                return response;
+                
+                alert(response.data.serverMessage);
+                //return response;
             })
+            .catch(function (error) {
+                console.log(error);
+            });
 
         this.setState({ isLoading: false});
     };

@@ -1,4 +1,4 @@
-var express = require('express');
+/*var express = require('express');
 var router = express.Router();
 const path = require('path');
 
@@ -24,25 +24,6 @@ router.use(bodyParser.urlencoded({ extended: false }));
 
 
 
-const mysql = require('mysql');
-// For security reasons, database info is not pushed to the repository
-// user must create their own sqlDatabaseOptions.json file and add the information manually
-const sqlDbOptions = require("../sqlDatabaseOptions.json");
-
-// Create mysql database connection
-const db = mysql.createConnection(sqlDbOptions);
-
-db.connect(function(err){
-
-  if(err){
-  //  console.log(err.code);
-  //  console.log(err.fatal);
-    console.error('Error connecting: ' + err.stack);
-    return;
-  }
-  
-  console.log('Connected to db as id ' + db.threadId);
-});
 
 // Send message to login
 router.get('/login', (req, res, next) =>{ 
@@ -93,3 +74,4 @@ router.post('/login', (req, res, next) => {
   
 
 module.exports = router;
+*/

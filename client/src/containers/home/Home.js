@@ -2,7 +2,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import React, { Component } from "react";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
-import { Button, Nav, Navbar, ButtonToolbar, ButtonGroup} from "react-bootstrap";
+
 
 
 export default class Home extends Component{
