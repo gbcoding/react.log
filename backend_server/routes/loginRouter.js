@@ -69,21 +69,21 @@ loginRouter.post('/', (req, res, next) => {
             console.log("Email Found");
             console.log("Password Authenticated");
             console.log("Account Found and Authenticated");
-            var accountFound = {serverMessage: "Login Successful...redirecting", redirect: "/"};
+            var accountFound = {serverMessage: "Login Successful, redirecting...", redirect: "/"};
             return res.json(accountFound);
           }
           else {
             console.log("Email Found");
             console.log("Incorrect Password");
-            var accountFound = {serverMessage: "Login Info Invalid"};
+            var accountFound = {serverMessage: "Username/Email is incorrect"};
             return res.json(accountFound);
           }
         });
         //redirect to user's home page
       }
       else{
-        var accountFound = {serverMessage: "Login Info Invalid"}; 
-        console.log("Account Not Found (Incorrect Email)");
+        var accountFound = {serverMessage: "Username/Email is incorrect"}; 
+        console.log("Account Not Found");
         return res.json(accountFound);
       }
   
