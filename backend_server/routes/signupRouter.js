@@ -66,7 +66,7 @@ signupRouter.post('/', (req, res, next) => {
         }
         else{
             // Otherwise, add new user to the db
-            db.query('ALTER TABLE users MODIFY COLUMN user_id INT AUTO_INCREMENT', (incr_err, incr_result) => {
+            db.query('ALTER TABLE users AUTO_INCREMENT = 1', (incr_err, incr_result) => {
                 if (incr_err) {
                     console.log("Increment error:" + incr_err);  
                 }
@@ -93,25 +93,22 @@ signupRouter.post('/', (req, res, next) => {
                         console.log('salt = ' + salt);
                         console.log('password = ' + password);
                         console.log('password hash = ' + hash);
-
-
-                        /*
-                        const storeHashQuery = 'INSERT INTO login_info (user_id, password_salt, password_hash) VALUES (\''+ user_id + '\', \''+ salt + '\', \'' + hash +'\')';
-                        db.query(storeHashQuery, (storehash_err, storehash_res) =>{
-
+                        
+                        db.query('SELECT user_id FROM users WHERE email_address = \'' + email + '\'', (getID_err,getID_res) => {
+                            if(getID_err){
+                                console.log("getID Error: " + getID_err);
+                            }        
+                            const storeHashQuery = 'INSERT INTO login_info (user_id, password_salt, password_hash) VALUES (\''+ getID_res[0].user_id + '\', \''+ salt + '\', \'' + hash +'\')';
+                            db.query(storeHashQuery, (storehash_err, storehash_res) =>{
+                                if(storehash_err){
+                                    console.log("Store Hash Error: " + storehash_err);
+                                }
+                            });
                         });
-                        */
-                    
-
 
                     });
                 });
-                
-                
-
-                
-          
-                
+                                
             });
             accountFound = "You have registered for React.log!";
             //Then redirect new user to their home page
