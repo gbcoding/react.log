@@ -82,8 +82,13 @@ export default class Login extends Component{
 
         this.axiosPOST('/login', formData)
             .then(function(response){
-                
-                alert(response.data.serverMessage);
+                if (response.data.redirect == '/') {
+                    alert(response.data.serverMessage);
+                    window.location = '/home';
+                }
+                else {
+                    alert(response.data.serverMessage);
+                }
                 //return response;
             })
             .catch(function (error) {

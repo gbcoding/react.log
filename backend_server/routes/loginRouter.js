@@ -64,25 +64,30 @@ loginRouter.post('/', (req, res, next) => {
       var accountFound;
 
       if(result.length > 0){
-        bcrypt.compare(password, result[0].password_hash, function(err, res) {
-          if(res == true) {
+        bcrypt.compare(password, result[0].password_hash, function(err, match) {
+          if(match == true) {
             console.log("Email Found");
             console.log("Password Authenticated");
             console.log("Account Found and Authenticated");
+            var accountFound = {serverMessage: "Login Successful...redirecting", redirect: "/"};
+            return res.json(accountFound);
           }
           else {
             console.log("Email Found");
             console.log("Incorrect Password");
+            var accountFound = {serverMessage: "Login Info Invalid"};
+            return res.json(accountFound);
           }
         });
         //redirect to user's home page
       }
       else{
-        accountFound = "Incorrect Email"; 
+        var accountFound = {serverMessage: "Login Info Invalid"}; 
         console.log("Account Not Found (Incorrect Email)");
+        return res.json(accountFound);
       }
   
-      res.send({serverMessage: accountFound}); //Sends message as text
+      //res.send({serverMessage: accountFound}); //Sends message as text
     });
   });
 
