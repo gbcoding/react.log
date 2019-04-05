@@ -1,5 +1,6 @@
 var express = require('express');
 var loginRouter = express.Router();
+const bcrypt = require('bcrypt');
 
 const mysql = require('mysql');
 // For security reasons, database info is not pushed to the repository
@@ -54,22 +55,31 @@ loginRouter.post('/', (req, res, next) => {
     var email = data.email;
     const password = data.password;
   
-    const loginQuery = 'SELECT * FROM users WHERE email_address = \''+ email +'\'';
-  
+    const loginQuery = 'SELECT * FROM users INNER JOIN login_info ON users.user_id = login_info.user_id WHERE email_address = \''+ email +'\''; 
     db.query(loginQuery, function(err, result) {
   
       if (err) throw err;
   
       console.log(result);
       var accountFound;
+
       if(result.length > 0){
-        accountFound = "Your account was found!";
-        console.log("Account Found");
+        bcrypt.compare(password, result[0].password_hash, function(err, res) {
+          if(res == true) {
+            console.log("Email Found");
+            console.log("Password Authenticated");
+            console.log("Account Found and Authenticated");
+          }
+          else {
+            console.log("Email Found");
+            console.log("Incorrect Password");
+          }
+        });
         //redirect to user's home page
       }
       else{
-        accountFound = "You don't have an account"; 
-        console.log("Account Not Found");
+        accountFound = "Incorrect Email"; 
+        console.log("Account Not Found (Incorrect Email)");
       }
   
       res.send({serverMessage: accountFound}); //Sends message as text
