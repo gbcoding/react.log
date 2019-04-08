@@ -3,78 +3,9 @@ import { View, ScrollView } from 'react-native';
 import './LogView.css';
 import { LogEntry } from '../../components/log_entry/LogEntry';
 
+import axios from 'axios';
 
-const items = [
-    {
-        EID: '1',
-        UID: '1',
-        LID: '1',
-        type: 'dinner',
-        name: 'orange',
-        flag: "false",
-        date: "03/10/2019",
-        time: "6:30PM",
-        detail: "This is detail for orange."
-    },
-    {
-        EID: '10',
-        UID: '1',
-        LID: '2',
-        type: 'dinner',
-        name: 'apple',
-        flag: "false",
-        date: "03/11/2019",
-        time: "8:30PM",
-        detail: "Nothing is special about apple."
-    },
-    {
-        EID: '100',
-        UID: '1',
-        LID: '3',
-        type: 'breakfast',
-        name: 'egg',
-        flag: "true",
-        date: "03/21/2019",
-        time: "9:30AM",
-        detail: "N/A"
-    },
-    {
-        EID: '101',
-        UID: '1',
-        LID: '4',
-        type: 'lunch',
-        name: 'ramen',
-        flag: "true",
-        date: "03/21/2019",
-        time: "12:00PM",
-        detail: "N/A"
-    },
-    {
-        EID: '102',
-        UID: '1',
-        LID: '5',
-        type: 'dinner',
-        name: 'ramen',
-        flag: "true",
-        date: "03/21/2019",
-        time: "7:00PM",
-        detail: "N/A"
-    },
-    {
-        EID: '103',
-        UID: '1',
-        LID: '6',
-        type: 'lunch',
-        name: 'sandwich',
-        flag: "true",
-        date: "03/22/2019",
-        time: "1:00PM",
-        detail: "N/A"
-    }
-
-];
-
-localStorage.setItem('items', JSON.stringify(items));
+const current_user_id = '1';
 
 export default class LogView extends Component{
   
@@ -82,26 +13,47 @@ export default class LogView extends Component{
         super(props);
 
         this.state = {
-            items: []
+            error: null,
+            isLoaded: false,
+            items: [],
+            
         };
+
+
     }
 
-
-    componentWillMount() {
-
-        this.getItems();
+    componentDidMount(){
+        this.axiosGET('/logview', current_user_id)
+            .then(response => this.setState({ error: null, isLoaded: true, items: response.data.data}))
+            .catch(err => console.log(err));
+        
+    }
+    //Async Axios get request
+    axiosGET = async(serverPath, user_id) => {
+        try{
+            const response = await axios.get(serverPath, {
+                params: {
+                     user_id: user_id 
+                }
+            });;
+            return response;
+        } catch (error) {
+            console.log("here");
+            console.error(error);
+        }
     }
 
-    getItems(){
-        const items = JSON.parse(localStorage.getItem('items'));
+   
+  
 
-        this.setState({ items });
-    }
-
-
+   
 
     //Render view of view logs page
     render(){
+        
+        const { items } = this.state;
+
+
         return(
             <div className="view_logs">
                 <h1>View Logs</h1>
@@ -110,16 +62,21 @@ export default class LogView extends Component{
                     <View style={{ flexDirection: 'row', height: 450}}>
                         <ScrollView>
                             {
-                                this.state.items.map(item => {
-                                    return (
-                                        <LogEntry item={item}/>
-                                    );
+                                items.map(item => {
+                                            return (
+                                                <LogEntry item={item}/>
+                                            );
+                                        
                                 })
+ 
                             }
-                        </ScrollView>   
+                        </ScrollView>  
+                       
                     </View>
                 </div>
             </div>
         );
+        
+        
     }
 }

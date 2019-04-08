@@ -18,4 +18,6 @@ indexRouter.get('/', function(req, res, next) {
   console.log("Homepage Accessed");
 });
 
+
+
 module.exports = indexRouter;
