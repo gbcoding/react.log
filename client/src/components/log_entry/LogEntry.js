@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View } from 'react-native';
 import './LogEntry.css';
 
 export class LogEntry extends Component {
@@ -18,16 +18,18 @@ export class LogEntry extends Component {
 
         return(
             <View style={{ flexDirection: 'row', height: 100}}>
-                <div className="item" key={item.ID}>
+                <div className="item" key={item.log_id}>
                     <div className="firstline">
-                        <span> {item.time} {item.date} {item.type} Flag: {item.flag}</span>
+                        <span> Date: {item.date} Time: {item.time} </span>
                     </div>
                     <div className="secondline">
-                        <span>{item.name} </span>
+                        <span>Name: {item.food_consumed} Type: {item.meal_type}</span>
                     </div>
-
                     <div className="thirdline">
-                        <span>Note: {item.detail} </span>
+                        Flag: {item.issue_flag} Duration: {item.duration} Severity: {item.severity}
+                        </div>
+                    <div className="forthline">
+                        <span>Note: {item.notes} </span>
                     </div>
                 </div>
             </View>
