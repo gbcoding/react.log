@@ -1,9 +1,127 @@
 import React, { Component } from "react";
-import { Button, Form, FormGroup, FormControl, FormLabel, Col, Row} from "react-bootstrap";
+import { Button, Form, FormGroup, FormControl, FormCheck, FormLabel, Col, Row} from "react-bootstrap";
 import DateTimePicker from "react-datetime-picker";
 import "./AddLog.css";
+import axios from 'axios';
 
 export default class AddLog extends Component{
+
+    //for time component
+    state = {
+        time: new Date()
+      };
+    
+      componentDidMount() {
+        this.timerID = setInterval(() => this.tick(), 1000);
+      }
+    
+      componentWillUnmount() {
+        clearInterval(this.timerID);
+      }
+    
+      tick() {
+        this.setState({
+          time: new Date()
+        });
+    }
+    //end time component here
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            date: "",
+            time: "",
+            mealType: "",
+            foodName: "",
+            flag: "",
+            duration: "",
+            severity: "",
+            notes: "",    
+            isLoading: false
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentDidMount(){
+
+        // Call our fetch function below once the component mounts 
+        this.axiosGET('/add_log')
+        .then(response => {
+            this.setState({ serverMessage: response.data.serverMessage});
+            console.log("Add log component mounted and data recieved");
+            console.log(this.state.serverMessage);
+        })
+        .catch(err => console.log(err));
+
+    }
+
+    //Async Axios get request
+    axiosGET = async(serverPath) => {
+        try{
+            const response = await axios.get(serverPath);
+            console.log(response);
+            return response;
+        } catch (error) {
+            console.error(error);
+        }
+    }
+    //Async Axios post request
+    axiosPOST = async(serverPath, formData) => {
+        return axios.post(serverPath, formData)
+            .then(response => {
+                return response;
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    }
+
+    handleChange = event => {
+        this.setState({
+              [event.target.id]: event.target.value
+         });
+    }
+
+    handleSubmit = async event => {
+        event.preventDefault();
+
+        this.setState({ isLoading: true });
+        this.setState({ isLoading: false});
+
+            //Login and authenticate
+            const formData = {
+                date: this.state.date,
+                time: this.state.time,
+                mealType: this.state.mealType,
+                foodName: this.state.foodName,
+                flag: this.state.flag,
+                duration: this.state.duration,
+                severity: this.state.severity,
+                notes: this.state.notes
+            };
+
+            //Send form data to express
+            this.axiosPOST('/add_log', formData)
+                .then(function(response){
+                    console.log(response.data.serverMessage);
+                    alert(response.data.serverMessage);
+                    
+                    //return response;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+          
+        //For Testing
+        alert(
+             "Date: " + this.state.date + "\nTime: " + this.state.time + "\nMeal Type: " + this.state.mealType + "\nFood Name: " + 
+             this.state.foodName + "\nFlag: " + this.state.flag + "\nDuration: " + this.state.duration + "\nSeverity: " + 
+             this.state.severity + "\nNotes: " + this.state.notes
+        );
+
+    }
 
     state = {
         date: new Date(),
@@ -16,30 +134,63 @@ export default class AddLog extends Component{
         return( 
             <div className="new_log">
                 <h1>Add New Log</h1>
-                <h2>Input date/time</h2>
+                <h2>Input date/time (broken)</h2>
                     <div className="navy">
                     <DateTimePicker
                         onChange={this.onChange}
                         value={this.state.date}
                         //dateFormat="MM/d/YYYY h:mm aa"
                     />
-                    <Form>
+                    
+                    <form onSubmit={this.handleSubmit}>
+                    
+                            <FormGroup controlId="foodName">
+                                <FormLabel>Food Name</FormLabel>
+                                <FormControl 
+                                    type="foodName" 
+                                    placeholder="Enter food name" 
+                                    value={this.state.foodName} 
+                                    onChange={this.handleChange}
+                                />
+                            </FormGroup>
 
-                        <Form.Row>
-                            <Form.Group as={Col} controlId="formGridEmail">
-                                <Form.Label>Food Name</Form.Label>
-                                <Form.Control type="foodName" placeholder="Enter food name" />
+                            <Form.Group controlId="mealType">
+                            <Form.Label>Type of meal</Form.Label>
+                                <Form.Control as="select" type="mealType" value={this.state.mealType} onChange={this.handleChange}>
+                                    <option>Select</option>
+                                    <option>Breakfast</option>
+                                    <option>Lunch</option>
+                                    <option>Dinner</option>
+                                    <option>Snack</option>
+                                </Form.Control>
                             </Form.Group>
-                        </Form.Row>
+                        
+                        <FormGroup controlId="notes">
+                            <FormLabel>Notes</FormLabel>
+                            <FormControl 
+                                type="notes"
+                                as="textArea"
+                                placeholder="Add any notes" 
+                                rows="4"
+                                value={this.state.notes}
+                                onChange={this.handleChange} 
+                            />
+                        </FormGroup>
 
-                        <Form.Group controlId="textArea">
-                            <Form.Label>Notes</Form.Label>
-                            <Form.Control as="notes" rows="3" />
-                        </Form.Group>
+                        <FormGroup controlId="duration">
+                                <FormLabel>Reaction Duration</FormLabel>
+                                <FormControl 
+                                    type="duration" 
+                                    placeholder="Enter time in (mins) EX: 30" 
+                                    value={this.state.duration} 
+                                    onChange={this.handleChange}
+                                />
+                            </FormGroup>
 
-                        <Form.Group controlId="selection">
-                            <Form.Label>Severity scale (1-9)</Form.Label>
-                                <Form.Control as="select">
+                        <FormGroup controlId="severity">
+                            <FormLabel>Severity scale (1-9)</FormLabel>
+                                <FormControl as="select" type="severity" placeholder="Select" value={this.state.severity} onChange={this.handleChange}>
+                                    <option>Select</option>
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -49,38 +200,30 @@ export default class AddLog extends Component{
                                     <option>7</option>
                                     <option>8</option>
                                     <option>9</option>
+                                </FormControl>
+                        </FormGroup>
+
+                        <Form.Group controlId="flag">
+                            <Form.Label>Flag this log?</Form.Label>
+                                <Form.Control as="select" type="flag" value={this.state.flag} onChange={this.handleChange}>
+                                    <option>Select</option>
+                                    <option>Yes</option>
+                                    <option>No</option>
                                 </Form.Control>
-                        </Form.Group>
-
-                        <fieldset>
-                            <Form.Group as={Col}>
-                                <Form.Label as="legend" column sm={2}>
-                                Flag this log?
-                                </Form.Label>
-                                <Col sm={10}>
-                                    <Form.Check
-                                        type="radio"
-                                        label="YES"
-                                        name="YESradio"
-                                        id="YESradio1"
-                                    />
-                                    <Form.Check
-                                        type="radio"
-                                        label="NO"
-                                        name="NOradio"
-                                        id="NOradio1"
-                                    />
-                                </Col>
                             </Form.Group>
-                        </fieldset>
 
-                        <Form.Group as={Row}>
+                        <FormGroup as={Row}>
                             <Col sm={{ span: 10, offset: 2 }}>
-                                <Button type="submit">Submit log</Button>
+                                <Button
+                                    variant="primary"
+                                    type="submit"
+                                    >Submit log
+                                </Button>
                             </Col>
-                        </Form.Group>
+                        </FormGroup>
+                    </form>
 
-                    </Form>
+                    
                 </div>
             </div>
         );
