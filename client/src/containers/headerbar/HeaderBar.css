@@ -1,0 +1,23 @@
+
+.headerbar{
+    height: "93px";
+    text-align: right; 
+    display: inline-block;
+    padding-left: 15; 
+    background-color: #4E4A4A;
+}
+
+.logo{
+    align-self: left;
+}
+
+.profile_info{
+    align-self: right;
+    padding-top: 10px;
+    padding-bottom: 15px;
+    padding-right: 25px;
+    position: absolute;
+    top: 0%;
+    right:0%;
+    color: #F8F9FA;
+}

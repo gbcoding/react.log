@@ -1,39 +1,35 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, Image } from 'react-native';
 import { Switch, Route, BrowserRouter } from 'react-router-dom';
 import './App.css';
-import Login from './containers/login/Login';
-import SignUp from './containers/sign_up/SignUp';
-import Home from './containers/home/Home';
-import LogView from './containers/log_view/LogView';
-import AddLog from './containers/add_log/AddLog';
-import NavBar from './containers/navbar/NavBar';
-import Reports from './containers/reports/Reports';
-//
 
-// Main component
-const Main = () => (
+import Auth from './auth/Auth';
+import HeaderBar from './containers/headerbar/HeaderBar';
+import NavBar from './containers/navbar/NavBar';
+import MainAuth from './containers/main/MainAuth';
+import MainUnauth from './containers/main/MainUnauth';
+
+
+import Callback from './auth/Callback';
+
+
+const NotFound = () => (
   <main>
-    <Switch>
-      <Route exact path='/signup' component={SignUp}/>
-      <Route exact path='/login' component={Login}/>
-      <Route exact path='/home' component={Home}/>
-      <Route exact path='/reports' component={Reports}/>
-      <Route exact path='/add_log' component={AddLog}/>
-      <Route exact path='/log_view' component={LogView}/>    
-    </Switch>
+    <h1>Oops, page not found</h1>
   </main>
 )
 
-const Header = () => (
-  <header style={{textAlign: "left", paddingLeft: 15}}>
-    <h1>React.log</h1>
+
+const Header = (props) => (
+  <header>
+    <HeaderBar {...props}/>
+
   </header>
 )
 
-const Footer = () => (
+const Footer = (props) => (
   <footer>
-    <NavBar />
+    <NavBar {...props}/>
   </footer>
 )
 
@@ -47,40 +43,56 @@ class App extends Component {
       items: [],
       isLoaded: false,
     }
-
   }
 
   render() {
 
+    let mainComponent = "";
+
+    switch(this.props.location){
+      case "":
+        mainComponent = <MainUnauth {...this.props} />;
+        break;
+
+      case "callback":
+        mainComponent = <Callback />;
+        break;
+      case "home":
+        if(this.props.auth.isAuthenticated()){
+          console.log("Autenticated, transferring to <MainAuth />")
+          console.log(this.props)
+          mainComponent = <MainAuth {...this.props} />;
+        }
+        else{
+          console.log("Error Authenticating, transferring to <NotFound />");
+          mainComponent = <NotFound />;
+        }
+        break;
+      default:
+        console.log("Failed to find route");
+        mainComponent = <NotFound />;
+
+    }
+
+
      return (
-        <BrowserRouter>
-          <div className="App"> 
-            <View style={{ height: '100%', flexDirection: 'column', alignSelf:'stretch'}}>
-              <div className="mainContent">
-            
-                <Header />
-                <Main  />
-            
-              </div>
-              <Footer />
-            </View>
-          </div>
-        </BrowserRouter>
-      );
+      <div className="App">
+          <BrowserRouter>
+              <View style={{ height: '100%', flexDirection: 'column', alignSelf:'stretch'}}>
+                <Header {...this.props}/>
+                
+                <div className="mainContent"> 
+                {mainComponent}
+                               
+                </div>
+                
+                <Footer {...this.props} />  
+              </View>             
+          </BrowserRouter>
+      </div>
+    );
   }
 }
-
-
-//snippet for displaying lists
-/*
- <ul>
-                  {items.map(item => (
-                    <li key={item.id}>
-                      Name: {item.name} | Email: {item.email}
-                    </li>
-                  ))}
-                </ul>
-*/ 
 
 export default App;
 

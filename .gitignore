@@ -1,2 +1,3 @@
 node_modules
 backend_server/sqlDatabaseOptions.json
+client/src/auth/auth0-variables.js

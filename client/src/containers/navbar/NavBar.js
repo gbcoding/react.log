@@ -10,97 +10,120 @@ export default class NavBar extends Component{
 
     state = {
         time: new Date()
-      };
+    };
     
-      componentDidMount() {
+    componentDidMount() {
         this.timerID = setInterval(() => this.tick(), 1000);
-      }
+    }
     
-      componentWillUnmount() {
+    componentWillUnmount() {
         clearInterval(this.timerID);
-      }
+    }
     
-      tick() {
+    tick() {
         this.setState({
-          time: new Date()
+            time: new Date()
         });
     }
 
-    //Render view of home page
+    //Render navbar
     render(){
 
-        return(
-            <View style={{flexDirection: 'column', justifyContent: 'flex-end'}}>
-
+        // If user is authenticated
+        if(this.props.auth.isAuthenticated()){
+            return(
+                <View style={{flexDirection: 'column', justifyContent: 'flex-end'}}>  
                 <div className="mainNav">
                     <div className="button-bar">
- 
                         <div className="button-box">
-                        <Link to='/home'>
-                        <Button 
-                            as="input" 
-                            type="button" 
-                            value="Home"
-                            variant="light" 
-                            size="lg"
-                        /> </Link>
+                            <Link to='/home'>
+                            <Button 
+                                as="input" 
+                                type="button" 
+                                value="Home"
+                                variant="light" 
+                                size="lg"
+                            /> </Link>
+                        </div>
+    
+                        <div className="button-box">
+                            <Link to='/log_view'>
+                            <Button 
+                                as="input" 
+                                type="button" 
+                                value="View Logs"
+                                variant="light" 
+                                size="lg"
+                            /> </Link>
+                        </div>
+    
+                        <div className="button-box">
+                            <Link to='/add_log'>
+                            <Button 
+                                as="input" 
+                                type="button" 
+                                value="New Entry"
+                                variant="light"
+                                size="lg" 
+                            /></Link>
+                        </div>
+    
+                        <div className="button-box">
+                            <Link to='/reports'>
+                            <Button 
+                                as="input" 
+                                type="button" 
+                                value="Reports"
+                                variant="light"
+                                size="lg" 
+                            /> </Link>
+                        </div>
+    
+                        <div className="button-box">
+                            <Link to>
+                            <Button
+                                as="input" 
+                                type="button" 
+                                value="Logout"
+                                variant="light"
+                                size="lg"
+                                onClick={this.props.auth.logout}
+                            /></Link>
                         </div>
 
-                        <div className="button-box">
-                        <Link to='/log_view'>
-                        <Button 
-                            as="input" 
-                            type="button" 
-                            value="View Logs"
-                            variant="light" 
-                            size="lg"
-                        /> </Link>
-                        </div>
-
-                        <div className="button-box">
-                        <Link to='/add_log'>
-                        <Button 
-                            as="input" 
-                            type="button" 
-                            value="+"
-                            variant="light"
-                            size="lg" 
-                        /></Link>
-                        </div>
-
-                        <div className="button-box">
-                        <Link to='/reports'>
-                        <Button 
-                            as="input" 
-                            type="button" 
-                            value="Reports"
-                            variant="light"
-                            size="lg" 
-                        /> </Link>
-                        </div>
-
-                        <div className="button-box">
-                        <Link to='/login'>
-                        <Button
-                            as="input" 
-                            type="button" 
-                            value="Logout"
-                            variant="light"
-                            size="lg"
-                        />
-                        </Link>
-                        </div>
-                        
                         <div className="time">
                             <h5>{this.state.time.toLocaleTimeString()}</h5>
                         </div>
-
                     </div>
-                    
-                    
                 </div>
-            </View>
-        );
+                </View>
+            );
+        }
+        else{
+            return(
+
+                <View style={{flexDirection: 'column', justifyContent: 'flex-end'}}>  
+                <div className="mainNav">
+                    <div className="button-bar">
+                        <div className="button-box">
+                            <Link to>
+                            <Button
+                                as="input" 
+                                type="button" 
+                                value="Login"
+                                variant="light"
+                                size="lg"
+                                onClick={this.props.auth.login}
+                            /></Link>
+                        </div>
+
+                        <div className="time">
+                            <h5>{this.state.time.toLocaleTimeString()}</h5>
+                        </div>
+                    </div>
+                </div>
+                </View>
+            ); 
+        }
     }
 }
-

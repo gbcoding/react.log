@@ -5,7 +5,6 @@ import { LogEntry } from '../../components/log_entry/LogEntry';
 
 import axios from 'axios';
 
-const current_user_id = '1';
 
 export default class LogView extends Component{
   
@@ -15,19 +14,20 @@ export default class LogView extends Component{
         this.state = {
             error: null,
             isLoaded: false,
-            items: [],
-            
+            items: [],  
         };
-
-
     }
 
     componentDidMount(){
-        this.axiosGET('/logview', current_user_id)
+
+        const current_uid = this.props.UID;
+ 
+        this.axiosGET('/logview', current_uid)
             .then(response => this.setState({ error: null, isLoaded: true, items: response.data.data}))
             .catch(err => console.log(err));
         
     }
+    
     //Async Axios get request
     axiosGET = async(serverPath, user_id) => {
         try{
@@ -42,11 +42,6 @@ export default class LogView extends Component{
             console.error(error);
         }
     }
-
-   
-  
-
-   
 
     //Render view of view logs page
     render(){
