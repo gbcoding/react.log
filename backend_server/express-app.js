@@ -10,6 +10,10 @@ const createError = require('http-errors');
 
 const indexRouter = require('./routes/indexRouter');
 
+//for PDF
+const pdf = require('html-pdf');
+const pdfTemplate = require('./documents');
+
 // Start Express app
 const app = express();
 
@@ -27,6 +31,22 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
+
+//POST - PDF generation/fetching data
+app.post('/create-pdf', (req, res) => {
+  pdf.create(pdfTemplate(req.body), {}).toFile('results.pdf', (err) => {
+    if(err) {
+        res.send(Promise.reject());
+        //return console.log('error');
+    }
+      res.send(Promise.resolve())
+  });
+});
+
+//GET - Send generated PDF to client
+app.get('/fetch-pdf', (req, res) => {
+  res.sendFile(`${__dirname}/results.pdf`);
+});
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
