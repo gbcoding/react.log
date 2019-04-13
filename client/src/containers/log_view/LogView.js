@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { View, ScrollView } from 'react-native';
 import './LogView.css';
 import { LogEntry } from '../../components/log_entry/LogEntry';
+import LoadingIcon from '../../components/LoadingIcon';
 
 import axios from 'axios';
 
@@ -48,6 +49,39 @@ export default class LogView extends Component{
         
         const { items } = this.state;
 
+        let displayScreen = "";
+        const itemsLoaded = this.state.isLoaded;
+       
+        console.log(itemsLoaded);
+
+        if(itemsLoaded === true){
+            displayScreen = (
+                items.map(item => {
+                    return (
+                        <LogEntry item={item}/>
+                    );     
+                })
+            ); 
+        }
+        else{
+            displayScreen = (
+                <View style={{ backgroundColor: "#4E4A4A", 
+                    flexDirection: "row", 
+                    display: "inline-block", 
+                    justifySelf: "center", 
+                    justifyContent: "center",
+                    marginTop: "50px",
+                    marginLeft: "150px",
+                    marginRight: "150px",
+                    paddingTop: "15px", 
+                    paddingBottom: "15px", 
+                    borderRadius: "25px"
+                    }}>   
+                    <LoadingIcon />
+                </View>
+            );
+        }
+
 
         return(
             <div className="view_logs">
@@ -57,12 +91,7 @@ export default class LogView extends Component{
                     <View style={{ flexDirection: 'row', height: 450}}>
                         <ScrollView>
                             {
-                                items.map(item => {
-                                            return (
-                                                <LogEntry item={item}/>
-                                            );
-                                        
-                                })
+                                displayScreen
  
                             }
                         </ScrollView>  

@@ -59,6 +59,10 @@ export default class Home extends Component{
     render(){
 
         const {items} = this.state;
+
+
+
+        
         return(
             <div className="home">
                 <br></br>

@@ -8,9 +8,9 @@
     margin: auto;
     width: 100%;
     height: 466px;
-    border-style: solid;
+    border-style: ridge;
     border-width: 8px;
     border-radius: 8px;
-    border-color: black;
-    background-color: white;
+    border-color: grey;
+    background-color: lightgrey;
 }
