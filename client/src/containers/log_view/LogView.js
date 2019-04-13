@@ -14,7 +14,7 @@ export default class LogView extends Component{
         this.state = {
             error: null,
             isLoaded: false,
-            items: [],  
+            items: []
         };
     }
 

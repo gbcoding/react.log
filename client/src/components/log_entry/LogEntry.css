@@ -6,5 +6,10 @@
   border: 2px solid grey;
   border-radius: 8px;
   background-color: lightblue;
-  height: 100px;
+  
+}
+
+hr{
+  padding: 1px;
+  margin: 0px;    
 }
