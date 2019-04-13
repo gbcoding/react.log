@@ -1,0 +1,23 @@
+.view {
+    margin: auto;
+    width: 50%;
+    padding: 10px;
+}
+
+.scroll {
+    margin: auto;
+    width: 100%;
+    height: 466px;
+    border-style: ridge;
+    border-width: 8px;
+    border-radius: 8px;
+    border-color: gray;
+    background-color: lightgray;
+}
+
+.datepicker {
+    border-radius: 5px;
+    text-align: center;
+    background-color: white;
+    width: 200px
+}

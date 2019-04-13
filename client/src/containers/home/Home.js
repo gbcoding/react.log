@@ -1,9 +1,14 @@
 import 'bootstrap/dist/css/bootstrap.css';
+import './Home.css';
 import React, { Component } from "react";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
-
+import { LogEntry } from '../../components/log_entry/LogEntry';
+import { View, ScrollView } from 'react-native';
 import axios from 'axios';
+
+
+
 
 export default class Home extends Component{
 
@@ -11,26 +16,36 @@ export default class Home extends Component{
         super(props);
         this.state = {
             startDate: new Date(),
-            items: []  
+            error: null,
+            isLoaded: false,
+            items: [],
         };
         this.handleChange = this.handleChange.bind(this);
     }
 
-    componentDidMount(){
-        //const testvar = this.props.params.sub;
-        const current_user_id = this.props.UID;
+    handleChange(date) {
+        this.setState({
+            startDate: date,
+        });
+    }
 
-        this.axiosGET('/home', current_user_id)
+    componentDidMount(){
+        var today = new Date();
+        var time = today.getFullYear() + "/" + parseInt(today.getMonth() + 1) + "/" + today.getDate();
+        const current_uid = this.props.UID;
+        const current_Date = time;
+        this.axiosGET('/home', current_uid, current_Date)
             .then(response => this.setState({ error: null, isLoaded: true, items: response.data.data}))
             .catch(err => console.log(err));
         
     }
     //Async Axios get request
-    axiosGET = async(serverPath, user_id) => {
+    axiosGET = async(serverPath, user_id, current_date) => {
         try{
             const response = await axios.get(serverPath, {
                 params: {
-                     user_id: user_id 
+                    user_id: user_id,
+                    current_date: current_date 
                 }
             });;
             return response;
@@ -40,25 +55,40 @@ export default class Home extends Component{
         }
     }
 
-    handleChange(date) {
-        this.setState({
-            startDate: date
-        });
-    }
-
     //Render view of home page
     render(){
+
+        const {items} = this.state;
+
         return(
             <div className="home">
-                <h1>Home</h1>
-                <h2>Todays date</h2>
-                    <div className="navy"></div>
-                    <DatePicker
+                <br></br>
+                <div className="navy"></div>    
+                <div className="view">
+                    <h5 style={{textAlign: "center", fontWeight: "bold"}}>Today's Logs</h5>
+                    <DatePicker className="datepicker"
                         selected={this.state.startDate}
                         onChange={this.handleChange}
                         readOnly={true}
-                        //placeholderText="This is readOnly" 
+                        dateFormat="MMMM d, yyyy"
+                        //placeholderText="This is readOnly"
                     />
+                    <br></br>
+                    <br></br>
+                    <div className="scroll">
+                        <View style={{ flexDirection: 'row', height: 450}}>
+                            <ScrollView>
+                                {
+                                    items.map(item => {
+                                            return (
+                                                <LogEntry item={item}/>
+                                            );                                 
+                                    })
+                                }
+                            </ScrollView>  
+                        </View>
+                    </div>
+                </div>
             </div>
         );
     }
