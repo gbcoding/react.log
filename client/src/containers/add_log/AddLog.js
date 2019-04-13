@@ -3,6 +3,13 @@ import { Button, Form, FormGroup, FormControl, FormCheck, FormLabel, Col, Row} f
 import DateTimePicker from "react-datetime-picker";
 import "./AddLog.css";
 import axios from 'axios';
+import { DatePicker, TimePicker } from '@progress/kendo-react-dateinputs';
+import '@progress/kendo-react-intl'
+import '@progress/kendo-react-tooltip'
+import '@progress/kendo-react-common'
+import '@progress/kendo-react-popup'
+import '@progress/kendo-date-math'
+import '@progress/kendo-theme-default/dist/all.css';
 
 export default class AddLog extends Component{
 
@@ -136,11 +143,17 @@ export default class AddLog extends Component{
                 <h1>Add New Log</h1>
                 <h2>Input date/time (broken)</h2>
                     <div className="navy">
-                    <DateTimePicker
+                    <DatePicker
                         onChange={this.onChange}
                         value={this.state.date}
                         //dateFormat="MM/d/YYYY h:mm aa"
                     />
+                        <div classname="clock">
+                            <TimePicker
+                            onChange={this.onChange}
+                            value={this.state.time}
+                            />
+                        </div>
                     
                     <form onSubmit={this.handleSubmit}>
                     
