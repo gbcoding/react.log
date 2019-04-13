@@ -59,7 +59,6 @@ export default class Home extends Component{
     render(){
 
         const {items} = this.state;
-
         return(
             <div className="home">
                 <br></br>
@@ -79,11 +78,14 @@ export default class Home extends Component{
                         <View style={{ flexDirection: 'row', height: 450}}>
                             <ScrollView>
                                 {
-                                    items.map(item => {
-                                            return (
-                                                <LogEntry item={item}/>
-                                            );                                 
+                                    items.map(item => { 
+                                        return (        
+                                            <LogEntry item={item}/>
+                                        );                         
                                     })
+                                }
+                                {
+                                    items.length ? <span></span> : <span className="emptyMessage">No Entries Available</span>
                                 }
                             </ScrollView>  
                         </View>
