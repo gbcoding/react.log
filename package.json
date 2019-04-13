@@ -41,6 +41,7 @@
     "react-router-dom": "^4.3.1",
     "react-router-native": "^5.0.0",
     "react-scripts": "^2.1.8",
+    "reactstrap": "^8.0.0",
     "sql": "^0.78.0",
     "typescript": "^3.3.4000"
   },
