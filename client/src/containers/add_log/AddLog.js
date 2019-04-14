@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import {View} from "react-native";
 import { Button, Form, FormGroup, FormControl, FormCheck, FormLabel, Col, Row} from "react-bootstrap";
 import DateTimePicker from "react-datetime-picker";
 import "./AddLog.css";
@@ -106,10 +107,6 @@ export default class AddLog extends Component{
         if(this.state.flag === "Yes"){
             flagBinary = 1;
         }
-        else{
-            flagBinary = 0;
-        }
-
             //Login and authenticate
             const formData = {
                 UID: this.props.UID,
@@ -137,11 +134,11 @@ export default class AddLog extends Component{
                 });
           
         //For Testing
-        alert(
-             "Date: " + this.state.date + "\nTime: " + this.state.time + "\nMeal Type: " + this.state.mealType + "\nFood Name: " + 
-             this.state.foodName + "\nFlag: " + this.state.flag + "\nDuration: " + this.state.duration + "\nSeverity: " + 
-             this.state.severity + "\nNotes: " + this.state.notes
-        );
+    //    alert(
+    //         "Date: " + this.state.date + "\nTime: " + this.state.time + "\nMeal Type: " + this.state.mealType + "\nFood Name: " + 
+    //         this.state.foodName + "\nFlag: " + this.state.flag + "\nDuration: " + this.state.duration + "\nSeverity: " + 
+    //         this.state.severity + "\nNotes: " + this.state.notes
+    //    );
 
     }
 
@@ -153,109 +150,137 @@ export default class AddLog extends Component{
 
     //Render view of new logs page 
     render(){  
-        return( 
-            <div className="new_log">
-                <h1>Add New Log</h1>
-                <h2>Input date/time (broken)</h2>
-                    <div className="navy">
-                    <DatePicker
-                        onChange={this.onChange}
-                        value={this.state.date}
-                        //dateFormat="MM/d/YYYY h:mm aa"
-                    />
-                        <div classname="clock">
-                            <TimePicker
-                            onChange={this.onChange}
-                            value={this.state.time}
-                            />
-                        </div>
-                    
-                    <form onSubmit={this.handleSubmit}>
-                    
-                            <FormGroup controlId="foodName">
-                                <FormLabel>Food Name</FormLabel>
-                                <FormControl 
-                                    type="foodName" 
-                                    placeholder="Enter food name" 
-                                    value={this.state.foodName} 
-                                    onChange={this.handleChange}
-                                />
-                            </FormGroup>
+        return(
 
-                            <Form.Group controlId="mealType">
-                            <Form.Label>Type of meal</Form.Label>
-                                <Form.Control as="select" type="mealType" value={this.state.mealType} onChange={this.handleChange}>
-                                    <option>Select</option>
-                                    <option>Breakfast</option>
-                                    <option>Lunch</option>
-                                    <option>Dinner</option>
-                                    <option>Snack</option>
-                                </Form.Control>
-                            </Form.Group>
+            <View>   
+                <View style={{flexDirection: 'column', alignItems: 'stretch'}}>
+
+                    <View>
+                        <h1>Add New Log</h1>
+                    </View>
+
+                    <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
+                        <form onSubmit={this.handleSubmit}>
                         
-                        <FormGroup controlId="notes">
-                            <FormLabel>Notes</FormLabel>
-                            <FormControl 
-                                type="notes"
-                                as="textArea"
-                                placeholder="Add any notes" 
-                                rows="4"
-                                value={this.state.notes}
-                                onChange={this.handleChange} 
-                            />
-                        </FormGroup>
+                            
+                                <View style={{flex: 1, flexDirection: 'row', alignItems: 'stretch'}}>
+                                    <View style={{flexDirection: 'column'}}>
+                                        <FormGroup controlId="foodName">
+                                            <FormLabel>Food Name</FormLabel>
+                                            <FormControl 
+                                                type="foodName" 
+                                                placeholder="Enter food name" 
+                                                value={this.state.foodName} 
+                                                onChange={this.handleChange}
+                                            />
+                                        </FormGroup>
 
-                        <FormGroup controlId="duration">
-                                <FormLabel>Reaction Duration</FormLabel>
-                                <FormControl 
-                                    type="duration" 
-                                    placeholder="Enter time in (mins) EX: 30" 
-                                    value={this.state.duration} 
-                                    onChange={this.handleChange}
-                                />
-                            </FormGroup>
+                                        <Form.Group controlId="mealType">
+                                        <Form.Label>Type of meal</Form.Label>
+                                            <Form.Control as="select" type="mealType" value={this.state.mealType} onChange={this.handleChange}>
+                                                <option>Select</option>
+                                                <option>Breakfast</option>
+                                                <option>Lunch</option>
+                                                <option>Dinner</option>
+                                                <option>Snack</option>
+                                            </Form.Control>
+                                        </Form.Group>
+                                    </View>
+                                    <View>
+                                        <FormGroup controlId="duration">
+                                            <FormLabel>Reaction Duration</FormLabel>
+                                            <FormControl 
+                                                type="duration" 
+                                                placeholder="Enter time in (mins) EX: 30" 
+                                                value={this.state.duration} 
+                                                onChange={this.handleChange}
+                                            />
+                                        </FormGroup>
 
-                        <FormGroup controlId="severity">
-                            <FormLabel>Severity scale (1-9)</FormLabel>
-                                <FormControl as="select" type="severity" placeholder="Select" value={this.state.severity} onChange={this.handleChange}>
-                                    <option>Select</option>
-                                    <option>0</option>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                </FormControl>
-                        </FormGroup>
+                                        <FormGroup controlId="severity">
+                                            <FormLabel>Severity?</FormLabel>
+                                                <FormControl as="select" type="severity" placeholder="Select" value={this.state.severity} onChange={this.handleChange}>
+                                                    <option>Select</option>
+                                                    <option>0</option>
+                                                    <option>1</option>
+                                                    <option>2</option>
+                                                    <option>3</option>
+                                                    <option>4</option>
+                                                    <option>5</option>
+                                                    <option>6</option>
+                                                    <option>7</option>
+                                                    <option>8</option>
+                                                    <option>9</option>
+                                                </FormControl>
+                                        </FormGroup>
 
-                        <Form.Group controlId="flag">
-                            <Form.Label>Flag this log?</Form.Label>
-                                <Form.Control as="select" type="flag" value={this.state.flag} onChange={this.handleChange}>
-                                    <option>Select</option>
-                                    <option>Yes</option>
-                                    <option>No</option>
-                                </Form.Control>
-                            </Form.Group>
+                                    </View>
+                            </View>
+                            
+                            
+                            <View> 
+                                <FormGroup controlId="notes">
+                                    <FormLabel>Notes</FormLabel>
+                                    <FormControl 
+                                        type="notes"
+                                        as="textArea"
+                                        placeholder="Add any notes" 
+                                        rows="4"
+                                        value={this.state.notes}
+                                        onChange={this.handleChange} 
+                                    />
+                                </FormGroup>
 
-                        <FormGroup as={Row}>
-                            <Col sm={{ span: 10, offset: 2 }}>
-                                <Button
-                                    variant="primary"
-                                    disabled={!this.validateForm()}
-                                    type="submit"
-                                    >Submit log
-                                </Button>
-                            </Col>
-                        </FormGroup>
-                    </form>
+                            </View>
 
-                    
-                </div>
-            </div>
+                            <View style={{alignItems: 'center'}}>
+                            <Form.Group controlId="flag">
+                                <Form.Label>Flag this log?</Form.Label>
+                                    <Form.Control as="select" type="flag" value={this.state.flag} onChange={this.handleChange}>
+                                        <option>No</option>
+                                        <option>Yes</option>
+                                        
+                                    </Form.Control>
+                                </Form.Group>
+                            </View>
+
+                            <View style={{alignItems: 'center'}}>
+
+                                <FormGroup as={Row}>
+                                    <Col sm={{ span: 10, offset: 2 }}>
+                                        <Button
+                                            variant="primary"
+                                            disabled={!this.validateForm()}
+                                            type="submit"
+                                            >Submit log
+                                        </Button>
+                                    </Col>
+                                </FormGroup>
+                            </View>
+                            
+                            
+                        </form>   
+                    </View>  
+                </View>
+            </View>
         );
     }
 }
+
+
+// Broken DatePicker code
+
+/*   
+                    <h2>Input date/time </h2>
+                        <DatePicker
+                            onChange={this.onChange}
+                            value={this.state.date}
+                            //dateFormat="MM/d/YYYY h:mm aa"
+                        />
+                            <div classname="clock">
+                                <TimePicker
+                                onChange={this.onChange}
+                                value={this.state.time}
+                                />
+                            </div>
+                    */

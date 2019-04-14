@@ -51,12 +51,11 @@ export default class LogView extends Component{
 
         let displayScreen = "";
         const itemsLoaded = this.state.isLoaded;
-       
-        console.log(itemsLoaded);
 
         if(itemsLoaded === true){
             displayScreen = (
                 items.map(item => {
+
                     return (
                         <LogEntry item={item}/>
                     );     
@@ -82,7 +81,6 @@ export default class LogView extends Component{
             );
         }
 
-
         return(
             <div className="view_logs">
                 <h1>View Logs</h1>
@@ -99,8 +97,6 @@ export default class LogView extends Component{
                     </View>
                 </div>
             </div>
-        );
-        
-        
+        );   
     }
 }

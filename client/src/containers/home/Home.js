@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
 import { LogEntry } from '../../components/log_entry/LogEntry';
+import LoadingIcon from '../../components/LoadingIcon';
 import { View, ScrollView } from 'react-native';
 import axios from 'axios';
 
@@ -47,7 +48,7 @@ export default class Home extends Component{
                     user_id: user_id,
                     current_date: current_date 
                 }
-            });;
+            });
             return response;
         } catch (error) {
             console.log("here");
@@ -59,9 +60,48 @@ export default class Home extends Component{
     render(){
 
         const {items} = this.state;
+/*
 
+        let displayScreen = "";
+        const itemsLoaded = this.state.isLoaded;
+       
+        console.log(itemsLoaded);
 
+        if(itemsLoaded === true){
+            if(items.length){
+                displayScreen = (
+                    items.map(item => {
+                        
+                        return (
+                            <LogEntry item={item}/>
+                        );     
+                    })
+                ); 
+            }
+            else{
+                return <span className="emptyMessage">No Entries Available</span>;
+            }
 
+        }
+        else{
+            displayScreen = (
+                <View style={{ backgroundColor: "#4E4A4A", 
+                    flexDirection: "row", 
+                    display: "inline-block", 
+                    justifySelf: "center", 
+                    justifyContent: "center",
+                    marginTop: "50px",
+                    marginLeft: "150px",
+                    marginRight: "150px",
+                    paddingTop: "15px", 
+                    paddingBottom: "15px", 
+                    borderRadius: "25px"
+                    }}>   
+                    <LoadingIcon />
+                </View>
+            );
+        }
+*/
         
         return(
             <div className="home">
@@ -99,3 +139,7 @@ export default class Home extends Component{
         );
     }
 }
+
+/*
+
+                                */
