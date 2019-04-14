@@ -5,11 +5,31 @@
   width: 100%;
   border: 2px solid black;
   border-radius: 8px;
-  background-color: lightblue;
+  background-color: whitesmoke;
   
 }
 
 hr{
   padding: 1px;
   margin: 0px;    
+}
+
+.detailButton {
+  padding: 5px 10px;
+  margin-top: 10px;
+  margin-left: 10px;
+  font-size: 10px;
+}
+
+.NameCol {
+  margin-top: 10px;
+}
+
+.DateCol {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.TimeCol {
+  margin-top: 10px;
 }
