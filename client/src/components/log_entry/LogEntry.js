@@ -30,26 +30,26 @@ export class LogEntry extends Component {
             <View style={{ flexDirection: 'row', alignSelf: 'stretch'}}>
                 <div className="item" key={item.log_id}>
                     <Row>
-                        <Col xs="3">
-                            <Text  style={{fontSize: 20}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
+                        <Col className="NameCol" xs="3">
+                            <Text  style={{fontSize: 20, fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
                                 {item.food_consumed}
                             </Text>
                         </Col>
-                        <Col xs="2">
+                        <Col className="FlagCol" xs="2">
                             <img src={item.issue_flag=="1" ? flag_true : flag_false}/>
                         </Col>
-                        <Col xs="2">
-                            <Text  style={{fontSize: 20}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
+                        <Col className="DateCol" xs="2">
+                            <Text  style={{fontSize: 20, fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
                                 {item.date.substring(0,10)}
                             </Text>
                         </Col>
-                        <Col xs="2">
-                            <Text  style={{fontSize: 20}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
+                        <Col className="TimeCol" xs="2">
+                            <Text  style={{fontSize: 20, fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
                                 {item.time}
                             </Text>  
                         </Col>
-                        <Col  xs="2">
-                            <Button color="primary" size="sm" onClick={ this.showToggle } block>
+                        <Col xs="2">
+                            <Button className="detailButton" color="primary" onClick={ this.showToggle } block>
                                 {this.state.show ? "Hide Details" : "Show Details"}
                             </Button>
                         </Col>
