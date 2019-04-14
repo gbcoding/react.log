@@ -91,24 +91,39 @@ export default class AddLog extends Component{
          });
     }
 
+    validateForm(){
+        return this.state.duration != "" && this.state.serverity != "";
+    }
+
+
     handleSubmit = async event => {
         event.preventDefault();
 
         this.setState({ isLoading: true });
         this.setState({ isLoading: false});
 
+        var flagBinary = 0;
+        if(this.state.flag === "Yes"){
+            flagBinary = 1;
+        }
+        else{
+            flagBinary = 0;
+        }
+
             //Login and authenticate
             const formData = {
+                UID: this.props.UID,
                 date: this.state.date,
                 time: this.state.time,
                 mealType: this.state.mealType,
                 foodName: this.state.foodName,
-                flag: this.state.flag,
+                flag: flagBinary,
                 duration: this.state.duration,
                 severity: this.state.severity,
                 notes: this.state.notes
             };
 
+            console.log(formData);
             //Send form data to express
             this.axiosPOST('/add_log', formData)
                 .then(function(response){
@@ -204,6 +219,7 @@ export default class AddLog extends Component{
                             <FormLabel>Severity scale (1-9)</FormLabel>
                                 <FormControl as="select" type="severity" placeholder="Select" value={this.state.severity} onChange={this.handleChange}>
                                     <option>Select</option>
+                                    <option>0</option>
                                     <option>1</option>
                                     <option>2</option>
                                     <option>3</option>
@@ -229,6 +245,7 @@ export default class AddLog extends Component{
                             <Col sm={{ span: 10, offset: 2 }}>
                                 <Button
                                     variant="primary"
+                                    disabled={!this.validateForm()}
                                     type="submit"
                                     >Submit log
                                 </Button>
