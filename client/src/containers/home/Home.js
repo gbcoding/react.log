@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
 import { LogEntry } from '../../components/log_entry/LogEntry';
+import AutoScale from 'react-auto-scale';
 import LoadingIcon from '../../components/LoadingIcon';
 import { View, ScrollView } from 'react-native';
 import axios from 'axios';
@@ -119,7 +120,9 @@ export default class Home extends Component{
                     <br></br>
                     <br></br>
                     <div className="scroll">
+                   
                         <View style={{ flexDirection: 'row', height: 450}}>
+                        
                             <ScrollView>
                                 {
                                     items.map(item => { 
@@ -132,7 +135,9 @@ export default class Home extends Component{
                                     items.length ? <span></span> : <span className="emptyMessage">No Entries Available</span>
                                 }
                             </ScrollView>  
+                        
                         </View>
+                        
                     </div>
                 </div>
             </div>

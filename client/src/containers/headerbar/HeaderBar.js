@@ -5,7 +5,7 @@ import './HeaderBar.css';
 
 const HeaderBar = (props) => (
 
-    <View style={{flexDirection: 'column', justifyContent: 'flex'}} >
+    <View style={{flexDirection: 'column'}} >
 
         <div className="headerbar">
             <div className="logo">

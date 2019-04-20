@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { View, ScrollView } from 'react-native';
+import AutoScale from 'react-auto-scale';
 import './LogView.css';
 import { LogEntry } from '../../components/log_entry/LogEntry';
 import LoadingIcon from '../../components/LoadingIcon';
@@ -49,15 +50,29 @@ export default class LogView extends Component{
         
         const { items } = this.state;
 
+        try{
+            const myData = [].concat(items)
+                .sort((a, b) => a.log_id < b.log_id)
+                .map((item, i) => 
+                <div key={i}> {item}</div>
+            );
+        }
+        catch(err){
+            console.log(err);
+        }
+
+
+
         let displayScreen = "";
         const itemsLoaded = this.state.isLoaded;
 
+        
         if(itemsLoaded === true){
             displayScreen = (
                 items.map(item => {
-
+                        console.log(item.log_id);
                     return (
-                        <LogEntry item={item}/>
+                        <LogEntry item={item} key={item.log_id}/>
                     );     
                 })
             ); 
@@ -83,14 +98,13 @@ export default class LogView extends Component{
 
         return(
             <div className="view_logs">
-                <h1>View Logs</h1>
+                <h1 className="header1">View Logs</h1>
                 <hr></hr>
                 <div className="scroller">
                     <View style={{ flexDirection: 'row', height: 450}}>
                         <ScrollView>
                             {
                                 displayScreen
- 
                             }
                         </ScrollView>  
                        
