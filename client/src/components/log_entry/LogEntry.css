@@ -16,9 +16,9 @@ hr{
 
 .detailButton {
   padding: 5px 10px;
-  margin-top: 10px;
+  margin-top: 8px;
   margin-left: 10px;
-  font-size: 10px;
+  font-size: 14px;
 }
 
 .NameCol {
@@ -32,4 +32,20 @@ hr{
 
 .TimeCol {
   margin-top: 10px;
+}
+
+.EditCol {
+  margin-top: 10px;
+}
+
+.editButton {
+  padding: 5px 10px;
+  margin-top: 8px;
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+.applyButtons{
+  margin-right: 50px;
+  margin-bottom: 5px;
 }
