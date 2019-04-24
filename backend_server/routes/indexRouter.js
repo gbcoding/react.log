@@ -6,6 +6,7 @@ const signupRouter = require('./signupRouter');
 const homeRouter = require('./homeRouter');
 const logviewRouter = require('./logviewRouter');
 const addlogRouter = require('./addlogRouter');
+const reportsRouter = require('./reportsRouter');
 
 //Route requests
 indexRouter.use('/login', loginRouter); 
@@ -13,6 +14,7 @@ indexRouter.use('/signup', signupRouter);
 indexRouter.use('/home', homeRouter);
 indexRouter.use('/logview', logviewRouter);
 indexRouter.use('/add_log', addlogRouter);
+indexRouter.use('/reports', reportsRouter);
 
 /* GET home page. */
 indexRouter.get('/', function(req, res, next) {

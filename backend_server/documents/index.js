@@ -1,4 +1,4 @@
-module.exports = ({ foodName, severity, flag }) => {
+module.exports = ({ foodName, severity, flag, foodNameTest }) => {
     const today = new Date();
 return `
     <!doctype html>

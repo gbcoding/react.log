@@ -17,7 +17,7 @@ export default class MainAuth extends Component{
           <main>
             <Switch>
               <Route path='/home' render={(props) => <Home UID={this.props.UID}/>} />
-              <Route path='/reports' component={Reports}/>
+              <Route path='/reports' render={(props) => <Reports UID={this.props.UID}/>} />
               <Route path='/add_log' render={(props) => <AddLog UID={this.props.UID}/>}/>
               <Route path='/log_view' render={(props) => <LogView UID={this.props.UID}/>}  />    
             </Switch>
