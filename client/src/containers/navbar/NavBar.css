@@ -2,6 +2,8 @@
     .mainNav{
         height: 93px;
         background-color: #4E4A4A;
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
     }
 
     .button-bar{
@@ -20,6 +22,7 @@
     .time{
         display: inline-flex;
         position: absolute;
+        top: 28px;
         right: 20px;
         color: white
     }

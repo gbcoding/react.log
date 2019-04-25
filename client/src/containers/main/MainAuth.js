@@ -14,7 +14,7 @@ export default class MainAuth extends Component{
 
     render(){
         return(
-            <main>
+          <main>
             <Switch>
               <Route path='/home' render={(props) => <Home UID={this.props.UID}/>} />
               <Route path='/reports' component={Reports}/>

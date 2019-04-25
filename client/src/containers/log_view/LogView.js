@@ -119,12 +119,26 @@ export default class LogView extends Component{
         
         const {items, isEditing, isLoaded} = this.state;
 
+        try{
+            const myData = [].concat(items)
+                .sort((a, b) => a.log_id < b.log_id)
+                .map((item, i) => 
+                <div key={i}> {item}</div>
+            );
+        }
+        catch(err){
+            console.log(err);
+        }
+
+
+
         let displayScreen = "";
+
 
         if(isLoaded === true){
             displayScreen = (
                 items.map(item => {
-
+                        console.log(item.log_id);
                     return (
                         <LogEntry item={item} isEditing={isEditing} updateItem={this.updateItem} deleteItem={this.deleteItem}/>
                     );     
@@ -152,7 +166,7 @@ export default class LogView extends Component{
 
         return(
             <div className="view_logs">
-                <h1>View Logs</h1>
+                <h1 className="header1">View Logs</h1>
                 <hr></hr>
                 <div className="scroller">
                     <View style={{ flexDirection: 'row', height: 450}}>

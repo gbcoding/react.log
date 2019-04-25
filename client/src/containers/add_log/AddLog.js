@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import {View} from "react-native";
+import { Redirect } from 'react-router-dom'
 import { Button, Form, FormGroup, FormControl, FormCheck, FormLabel, Col, Row} from "react-bootstrap";
 import DateTimePicker from "react-datetime-picker";
 import "./AddLog.css";
@@ -45,7 +46,8 @@ export default class AddLog extends Component{
             duration: "",
             severity: "",
             notes: "",    
-            isLoading: false
+            isLoading: false,
+            redirect: false
         };
 
         this.handleChange = this.handleChange.bind(this);
@@ -125,21 +127,12 @@ export default class AddLog extends Component{
             this.axiosPOST('/add_log', formData)
                 .then(function(response){
                     console.log(response.data.serverMessage);
-                    alert(response.data.serverMessage);
-                    
+                    this.setState({redirect: true});
                     //return response;
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
-          
-        //For Testing
-    //    alert(
-    //         "Date: " + this.state.date + "\nTime: " + this.state.time + "\nMeal Type: " + this.state.mealType + "\nFood Name: " + 
-    //         this.state.foodName + "\nFlag: " + this.state.flag + "\nDuration: " + this.state.duration + "\nSeverity: " + 
-    //         this.state.severity + "\nNotes: " + this.state.notes
-    //    );
-
     }
 
     state = {
@@ -150,6 +143,15 @@ export default class AddLog extends Component{
 
     //Render view of new logs page 
     render(){  
+        let buttonResponse = "";
+
+        if(this.redirect == true){
+            buttonResponse = <Redirect to="/add_log"/>;
+        }
+        else{
+            buttonResponse = <p></p>;
+        }
+
         return(
 
             <View>   
@@ -252,13 +254,15 @@ export default class AddLog extends Component{
                                             variant="primary"
                                             disabled={!this.validateForm()}
                                             type="submit"
-                                            >Submit log
+                                            >Submit Log
                                         </Button>
                                     </Col>
                                 </FormGroup>
                             </View>
-                            
-                            
+
+                            <View style={{alignItems: 'center'}}>
+                                {buttonResponse}
+                            </View>                            
                         </form>   
                     </View>  
                 </View>

@@ -1,14 +1,18 @@
 
 .headerbar{
-    height: "93px";
+    background-color: #4E4A4A;
+    height: 93px;
     text-align: right; 
     display: inline-block;
     padding-left: 15; 
-    background-color: #4E4A4A;
+    border-bottom-left-radius: 6px;
+    border-bottom-right-radius: 6px;
+    
 }
 
 .logo{
     align-self: left;
+    margin-bottom: 10px;
 }
 
 .profile_info{
