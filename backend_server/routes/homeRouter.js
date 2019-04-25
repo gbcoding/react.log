@@ -33,7 +33,6 @@ router.get('/', function(req, res, next) {
         return res.send(error);
       } 
       else{
-            console.log(results);
             return res.json({
               data: results
             });

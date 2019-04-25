@@ -77,23 +77,23 @@ addlogRouter.post('/', (req, res, next) => {
         console.log("Incr result = " + JSON.stringify(incr_result));
     });
 
-    const getEIDSizeQuery = 'SELECT count(*) AS eidCount FROM food_log';
+    const getEIDSizeQuery = 'SELECT max(entry_id) AS eidMax FROM food_log';
     db.query(getEIDSizeQuery, (EIDsize_err, EIDsize_result) => {
         if (EIDsize_err){
             console.log(EIDsize_err);
         }
-        var entryID = EIDsize_result[0].eidCount;
+        var entryID = EIDsize_result[0].eidMax;
         console.log(entryID);
         entryID = entryID + 1;
         console.log(entryID);
 
-        const getLIDSizeQuery = 'SELECT count(*) AS lidCount FROM food_log WHERE user_id=\''+ userID +'\'';
+        const getLIDSizeQuery = 'SELECT max(log_id) AS lidMax FROM food_log WHERE user_id=\''+ userID +'\'';
         db.query(getLIDSizeQuery, (LIDsize_err, LIDsize_result) => {
             if (EIDsize_err){
                 console.log(LIDsize_err);
             }
 
-            var logID = LIDsize_result[0].lidCount;
+            var logID = LIDsize_result[0].lidMax;
             console.log(logID);
             logID = logID + 1;
             console.log(logID);

@@ -51,6 +51,7 @@ class App extends Component {
 
     switch(this.props.location){
       case "":
+
         mainComponent = <MainUnauth {...this.props} />;
         break;
 
@@ -69,9 +70,13 @@ class App extends Component {
         }
         break;
       default:
-        console.log("Failed to find route");
-        mainComponent = <NotFound />;
-
+        if(this.props.auth.isAuthenticated()){
+          mainComponent = <MainAuth {...this.props} />;
+        }
+        else{
+          console.log("Failed to find route");
+          mainComponent = <NotFound />;
+        }
     }
 
 

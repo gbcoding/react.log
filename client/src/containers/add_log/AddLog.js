@@ -1,6 +1,7 @@
+/*eslint no-restricted-globals: 0 */
 import React, { Component } from "react";
 import {View} from "react-native";
-import { Redirect } from 'react-router-dom'
+import { Redirect, Link } from 'react-router-dom'
 import { Button, Form, FormGroup, FormControl, FormCheck, FormLabel, Col, Row} from "react-bootstrap";
 import DateTimePicker from "react-datetime-picker";
 import "./AddLog.css";
@@ -103,7 +104,7 @@ export default class AddLog extends Component{
         event.preventDefault();
 
         this.setState({ isLoading: true });
-        this.setState({ isLoading: false});
+       
 
         var flagBinary = 0;
         if(this.state.flag === "Yes"){
@@ -127,12 +128,15 @@ export default class AddLog extends Component{
             this.axiosPOST('/add_log', formData)
                 .then(function(response){
                     console.log(response.data.serverMessage);
-                    this.setState({redirect: true});
+                    window.location.assign('http://localhost:3000/log_view');
                     //return response;
                 })
                 .catch(function (error) {
                     console.log(error);
                 });
+
+            this.setState({redirect: true});
+            this.setState({ isLoading: false});
     }
 
     state = {
@@ -143,17 +147,7 @@ export default class AddLog extends Component{
 
     //Render view of new logs page 
     render(){  
-        let buttonResponse = "";
-
-        if(this.redirect == true){
-            buttonResponse = <Redirect to="/add_log"/>;
-        }
-        else{
-            buttonResponse = <p></p>;
-        }
-
         return(
-
             <View>   
                 <View style={{flexDirection: 'column', alignItems: 'stretch'}}>
 
@@ -236,20 +230,21 @@ export default class AddLog extends Component{
                             </View>
 
                             <View style={{alignItems: 'center'}}>
-                            <Form.Group controlId="flag">
-                                <Form.Label>Flag this log?</Form.Label>
-                                    <Form.Control as="select" type="flag" value={this.state.flag} onChange={this.handleChange}>
+                            <FormGroup controlId="flag">
+                                <FormLabel>Flag this log?</FormLabel>
+                                    <FormControl as="select" type="flag" value={this.state.flag} onChange={this.handleChange}>
                                         <option>No</option>
                                         <option>Yes</option>
                                         
-                                    </Form.Control>
-                                </Form.Group>
+                                    </FormControl>
+                                </FormGroup>
                             </View>
 
                             <View style={{alignItems: 'center'}}>
 
                                 <FormGroup as={Row}>
                                     <Col sm={{ span: 10, offset: 2 }}>
+                                    
                                         <Button
                                             variant="primary"
                                             disabled={!this.validateForm()}
@@ -259,15 +254,13 @@ export default class AddLog extends Component{
                                     </Col>
                                 </FormGroup>
                             </View>
-
-                            <View style={{alignItems: 'center'}}>
-                                {buttonResponse}
-                            </View>                            
+                        
                         </form>   
                     </View>  
                 </View>
             </View>
         );
+        
     }
 }
 

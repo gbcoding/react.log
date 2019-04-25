@@ -121,7 +121,7 @@ export default class Home extends Component{
                     <br></br>
                     <div className="scroll">
                    
-                        <View style={{ flexDirection: 'row', height: 450}}>
+                        <View style={{ flexDirection: 'row', height: '100%'}}>
                         
                             <ScrollView>
                                 {

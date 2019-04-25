@@ -34,7 +34,6 @@ getlogRouter.get('/', function(req, res) {
       if(err) {
         return res.send(error);
       } else{
-            console.log(results);
             return res.json({
               data: results
             });

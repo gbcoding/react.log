@@ -19,7 +19,7 @@ const NavButtons = (props) => {
                         value="Home"
                         variant="light" 
                         size={props.size}
-                        block
+                        
                     /> </Link>
                 </div>
 
@@ -31,7 +31,7 @@ const NavButtons = (props) => {
                         value="View Logs"
                         variant="light" 
                         size={props.size}
-                        block
+                        
                     /> </Link>
                 </div>
 
@@ -43,7 +43,7 @@ const NavButtons = (props) => {
                         value="New Entry"
                         variant="light"
                         size={props.size}
-                        block
+                        
                     /></Link>
                 </div>
 
@@ -55,7 +55,7 @@ const NavButtons = (props) => {
                         value="Reports"
                         variant="light"
                         size={props.size} 
-                        block
+                        
                     /> </Link>
                 </div>
 
@@ -67,7 +67,7 @@ const NavButtons = (props) => {
                         value="Logout"
                         variant="light"
                         size={props.size}
-                        block
+                        
                         onClick={props.auth.logout}
                     /></Link>
                 </div>     

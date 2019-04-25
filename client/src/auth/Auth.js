@@ -19,6 +19,7 @@ export default class Auth{
 
     constructor() {
         this.login = this.login.bind(this);
+        this.logout = this.logout.bind(this);
     }
 
     login(){
@@ -55,7 +56,8 @@ export default class Auth{
         localStorage.removeItem("access_token");
         localStorage.removeItem("id_token");
         localStorage.removeItem("expires_at");
-        location.pathname = LOGIN_FAILURE_PAGE;
+      
+        this.auth.logout( {returnTo: 'http://localhost:3000/'});
         
     }
 

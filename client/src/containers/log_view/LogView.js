@@ -111,12 +111,10 @@ export default class LogView extends Component{
 
         this.getItems(this.props.UID);
     }
-    
 
 
     //Render view of view logs page
     render(){
-        
         const {items, isEditing, isLoaded} = this.state;
 
         try{
@@ -150,7 +148,6 @@ export default class LogView extends Component{
                 <View style={{ backgroundColor: "#4E4A4A", 
                     flexDirection: "row", 
                     display: "inline-block", 
-                    justifySelf: "center", 
                     justifyContent: "center",
                     marginTop: "50px",
                     marginLeft: "150px",
@@ -169,7 +166,7 @@ export default class LogView extends Component{
                 <h1 className="header1">View Logs</h1>
                 <hr></hr>
                 <div className="scroller">
-                    <View style={{ flexDirection: 'row', height: 450}}>
+                    <View style={{ flexDirection: 'row', height: '100%'}}>
                         <ScrollView>
                             {
                                 displayScreen
