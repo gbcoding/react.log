@@ -1,5 +1,5 @@
 var express = require('express');
-var logviewRouter = express.Router();
+var getlogRouter = express.Router();
 
 const mysql = require('mysql');
 // For security reasons, database info is not pushed to the repository
@@ -23,12 +23,12 @@ db.connect(function(err){
 
 
 // Send message to signup
-logviewRouter.get('/', function(req, res) { 
+getlogRouter.get('/', function(req, res) { 
    
     const user_id = req.query.user_id;
 
     console.log(user_id)
-   const logviewQuery = 'SELECT * FROM food_log WHERE user_id = \''+ user_id +'\''; 
+   const logviewQuery = 'SELECT * FROM food_log WHERE user_id = \''+ user_id +'\' ORDER BY log_id DESC'; 
    //const logviewQuery = 'SELECT * FROM food_log'; 
     db.query(logviewQuery, function(err, results) {
       if(err) {
@@ -44,4 +44,4 @@ logviewRouter.get('/', function(req, res) {
 });
 
 
-module.exports = logviewRouter;
+module.exports = getlogRouter;
