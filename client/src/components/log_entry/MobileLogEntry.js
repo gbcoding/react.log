@@ -4,8 +4,7 @@ import { Button, Row, Col, ButtonGroup } from 'reactstrap';
 import { Form, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import './MobileLogEntry.css';
 
-import flag_true from '../../images/flag_true.png';
-import flag_false from '../../images/flag_false.png';
+import flag_true from '../../images/flag3.png';
 
 export default class MobileEntry extends Component {
 
@@ -64,13 +63,17 @@ export default class MobileEntry extends Component {
             <View style={{ flexDirection: 'row', alignSelf: 'stretch'}}>
             <div className="Entry" key={item.log_id}>
                 <Row>
-                    <Col className="Name" xs="3">
-                        <Text  style={{fontSize: "3vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
+                    {item.issue_flag=="1" ? 
+                    <Col className="Flag" xs="1">
+                        <img className="flagged" src= {flag_true}/>
+                    </Col> : 
+                    <Col xs="1">
+                        <p></p>
+                    </Col>}
+                    <Col className="Name" xs="4">
+                        <Text className="name" style={{marginTop: "5px", fontSize: "3vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.1} numberOfLines={10} allowFontScaling> 
                             {item.food_consumed}
                         </Text>
-                    </Col>
-                    <Col className="Flag" xs="2">
-                        <img src={item.issue_flag=="1" ? flag_true : flag_false}/>
                     </Col>
                     <Col className="Date" xs="2">
                         <Text  style={{fontSize: "3vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
@@ -260,13 +263,12 @@ class MobileLogEdit extends Component {
                 <View style={{flex: 1, alignItems: 'flex-end'}}>
                     <ButtonGroup>
                         <Row>
-                            <Col xs="2">    
-                                <Button className="pull-right" color="success" onClick={this.handleSubmit} style={{fontsize: "1vw", marginBottom: "10px"}}>
+                            <Col xs="4">    
+                                <Button className="pull-right" color="success" onClick={this.handleSubmit} style={{fontsize: "1vw", marginLeft: "20px", marginRight: "150px", marginBottom: "10px"}}>
                                     Apply
                                 </Button>
                             </Col>
-                            <Col xs="1"></Col>
-                            <Col xs="8">
+                            <Col xs="6">
                                 <Button className="pull-right" color="danger" onClick={this.handleDelete}>
                                     Delete Item
                                 </Button>
@@ -282,7 +284,14 @@ class MobileLogEdit extends Component {
             ItemDisplay = (
                 <div>
                     <Row>
-                        <Col className="NameCol" xs="3">
+                        {this.state.temp_item.issue_flag=="1" ? 
+                        <Col className="Flag" xs="1">
+                            <img className="flagged" src= {flag_true}/>
+                        </Col> : 
+                        <Col xs="1">
+                            <p></p>
+                        </Col>}
+                        <Col className="NameCol" xs="4">
                             <FormGroup controlId="food_consumed">
                                 <FormControl 
                                     type="food_consumed" 
@@ -291,9 +300,6 @@ class MobileLogEdit extends Component {
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
-                        </Col>
-                        <Col className="FlagCol" xs="2">
-                            <img src={this.state.temp_item.issue_flag=="1" ? flag_true : flag_false}/>
                         </Col>
                         <Col className="DateCol" xs="2">
                             <Text  style={{fontSize: "3vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
@@ -396,15 +402,17 @@ class MobileLogEdit extends Component {
             ItemDisplay = (
                 <div className="detail">
                     <Row>
+                        {this.state.item.issue_flag=="1" ? 
+                        <Col className="Flag" xs="1">
+                            <img className="flagged" src= {flag_true}/>
+                        </Col> : 
+                        <Col xs="1">
+                            <p></p>
+                        </Col>}
                         <Col className="Name" xs="3">
-                            <Text  style={{fontSize: "3vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
+                            <Text className="name" style={{marginTop: "5px", fontSize: "3vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.1} numberOfLines={10} allowFontScaling> 
                                 {this.state.item.food_consumed}
                             </Text>
-
-
-                        </Col>
-                        <Col className="Flag" xs="2">
-                            <img src={this.state.item.issue_flag=="1" ? flag_true : flag_false}/>
                         </Col>
                         <Col className="Date" xs="2">
                             <Text  style={{fontSize: "3vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 

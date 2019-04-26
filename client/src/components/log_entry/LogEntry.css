@@ -1,5 +1,5 @@
 .item {
-  padding-left: 4em;
+  padding-left: 1em;
   text-align: left;
   margin-bottom: 5px;
   width: 100%;
@@ -25,6 +25,19 @@ hr{
 
 .NameCol {
   margin-top: 10px;
+}
+
+.nameCol {
+  word-wrap: normal;
+  white-space: normal;
+}
+
+.Flags {
+
+  background-color: red;
+  border: 1px solid black;
+  border-top-left-radius: 8px;
+  border-bottom-left-radius: 8px;
 }
 
 .DateCol {
@@ -53,9 +66,6 @@ img {
 }
 
 .applyButtons{
-  margin-left: 160px;
+  margin-left: 130px;
 }
 
-/*.pull-right {
-  font-size: vw;
-}*/
