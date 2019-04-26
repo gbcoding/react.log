@@ -379,7 +379,9 @@ class LogEdit extends Component {
                                         rows="4"
                                         value={this.state.temp_item.notes}
                                         onChange={this.handleChange} 
-                                    />
+                                    >
+                                    {this.state.temp_item.notes}
+                                    </FormControl>
                                     </FormGroup>
                                 </Text>
                             </Col>
