@@ -15,10 +15,12 @@ hr{
 }
 
 .detailButton {
-  padding: 5px 10px;
-  margin-top: 8px;
+  width: 100%;
+  height: auto;
+  padding: 3px 0px;
+  margin-top: 7px;
   margin-left: 10px;
-  font-size: 14px;
+  font-size: 1vw;
 }
 
 .NameCol {
@@ -34,18 +36,26 @@ hr{
   margin-top: 10px;
 }
 
-.EditCol {
-  margin-top: 10px;
+img {
+  width: 50%;
+  height: auto;
+  max-width: 50px;
+  max-block-size: 50px;
 }
 
 .editButton {
-  padding: 5px 10px;
-  margin-top: 8px;
+  width: 100%;
+  height: auto;
+  padding: 3px 0px;
+  margin-top: 7px;
   margin-left: 10px;
-  font-size: 14px;
+  font-size: 1vw;
 }
 
 .applyButtons{
-  margin-right: 50px;
-  margin-bottom: 5px;
+  margin-left: 160px;
 }
+
+/*.pull-right {
+  font-size: vw;
+}*/
