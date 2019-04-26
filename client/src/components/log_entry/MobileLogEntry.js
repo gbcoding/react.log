@@ -50,7 +50,6 @@ export default class MobileEntry extends Component {
     const isEditing = this.props.isEditing;
 
 
-    let EditingButton = "";
     let EntryDisplay = "";
 
     if(isEditing) {        
@@ -200,9 +199,17 @@ class MobileLogEdit extends Component {
     }
 
     handleChange = event => {
+        
+
         this.setState({
-              [event.target.id]: event.target.value
-         });
+            temp_item: {
+                  ...this.state.temp_item,
+                  [event.target.id]: event.target.value
+            }
+        });
+
+        
+
     }
 
     handleSubmit = async event => {
@@ -212,23 +219,29 @@ class MobileLogEdit extends Component {
         if(this.state.temp.issue_flag === "Yes"){
             flagBinary = 1;
         }
-            //Login and authenticate
             const formData = {
-                user_id: this.state.temp.user_id,
-                date: this.state.temp.date,
-                time: this.state.temp.time,
-                meal_type: this.state.temp.meal_type,
-                food_consumed: this.state.temp.food_consumed,
+                user_id: this.state.temp_item.user_id,
+                entry_id: this.state.temp_item.entry_id,
+                log_id: this.state.temp_item.log_id,
+                date: this.state.temp_item.date,
+                time: this.state.temp_item.time,
+                meal_type: this.state.temp_item.meal_type,
+                food_consumed: this.state.temp_item.food_consumed,
                 issue_flag: flagBinary,
-                duration: this.state.temp.duration,
-                severity: this.state.temp.severity,
-                notes: this.state.temp.notes
+                duration: this.state.temp_item.duration,
+                severity: this.state.temp_item.severity,
+                notes: this.state.temp_item.notes
             };
 
             console.log(formData);
             //Send form data to express
             this.props.updateItem(formData);
           
+    }
+
+    handleEdit = () => {
+        this.props.editItemToggle();
+        this.setState({temp_item: this.state.item});
     }
 
     validateForm(){
@@ -274,22 +287,22 @@ class MobileLogEdit extends Component {
                                 <FormControl 
                                     type="food_consumed" 
                                     placeholder="Enter food name" 
-                                    value={this.state.item.food_consumed} 
+                                    value={this.state.temp_item.food_consumed} 
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
                         </Col>
                         <Col className="FlagCol" xs="2">
-                            <img src={this.state.item.issue_flag=="1" ? flag_true : flag_false}/>
+                            <img src={this.state.temp_item.issue_flag=="1" ? flag_true : flag_false}/>
                         </Col>
                         <Col className="DateCol" xs="2">
                             <Text  style={{fontSize: "3vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
-                                {this.state.item.date.substring(0,10)}
+                                {this.state.temp_item.date.substring(0,10)}
                             </Text>
                         </Col>
                         {/*<Col className="TimeCol" xs="2">
                             <Text  style={{fontSize: "3vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
-                                {this.state.item.time}
+                                {this.state.temp_item.time}
                             </Text>  
                         </Col>*/}
                         <Col xs="2">
@@ -307,7 +320,7 @@ class MobileLogEdit extends Component {
                                     Type: 
                                     <Form.Group controlId="meal_type">
                                 
-                                        <Form.Control as="select" type="meal_type" value={this.state.meal_type} onChange={this.handleChange}>
+                                        <Form.Control as="select" type="meal_type" value={this.state.temp_item.meal_type} onChange={this.handleChange}>
                                             <option>Select</option>
                                             <option>Breakfast</option>
                                             <option>Lunch</option>
@@ -324,7 +337,7 @@ class MobileLogEdit extends Component {
                                             <FormControl 
                                                 type="duration" 
                                                 placeholder="Enter time in (mins) EX: 30" 
-                                                value={this.state.item.duration} 
+                                                value={this.state.temp_item.duration} 
                                                 onChange={this.handleChange}
                                             />
                                         </FormGroup>
@@ -334,7 +347,7 @@ class MobileLogEdit extends Component {
                                 <Text style={{fontSize: "3vw"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling>
                                     Severity: 
                                     <FormGroup controlId="severity">
-                                                <FormControl style={{width:"90%"}} as="select" type="severity" placeholder="Select" value={this.state.severity} onChange={this.handleChange}>
+                                                <FormControl style={{width:"90%"}} as="select" type="severity" placeholder="Select" value={this.state.temp_item.severity} onChange={this.handleChange}>
                                                     <option>Select</option>
                                                     <option>0</option>
                                                     <option>1</option>
@@ -362,7 +375,7 @@ class MobileLogEdit extends Component {
                                         as="textArea"
                                         placeholder="Add any notes" 
                                         rows="4"
-                                        value={this.state.notes}
+                                        value={this.state.temp_item.notes}
                                         onChange={this.handleChange} 
                                     />
                                     </FormGroup>

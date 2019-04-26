@@ -215,7 +215,6 @@ class LogEdit extends Component {
         if(this.state.temp_item.issue_flag === "Yes"){
             flagBinary = 1;
         }
-            //Login and authenticate
             const formData = {
                 user_id: this.state.temp_item.user_id,
                 entry_id: this.state.temp_item.entry_id,
