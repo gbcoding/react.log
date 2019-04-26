@@ -216,7 +216,7 @@ class MobileLogEdit extends Component {
         event.preventDefault();
 
         var flagBinary = 0;
-        if(this.state.temp.issue_flag === "Yes"){
+        if(this.state.temp_item.issue_flag === "Yes"){
             flagBinary = 1;
         }
             const formData = {
@@ -261,7 +261,7 @@ class MobileLogEdit extends Component {
                     <ButtonGroup>
                         <Row>
                             <Col xs="2">    
-                                <Button className="pull-right" color="success" style={{fontsize: "1vw", marginBottom: "10px"}}>
+                                <Button className="pull-right" color="success" onClick={this.handleSubmit} style={{fontsize: "1vw", marginBottom: "10px"}}>
                                     Apply
                                 </Button>
                             </Col>
@@ -415,7 +415,7 @@ class MobileLogEdit extends Component {
                             </Text>  
                         </Col>*/}
                         <Col xs="2">
-                            <Button className="editBttn" color="warning" onClick={ this.props.editItemToggle.bind(this) } block>
+                            <Button className="editBttn" color="warning" onClick={ this.handleEdit } block>
                                     {"Edit/Delete"}
                             </Button>
                         </Col>
