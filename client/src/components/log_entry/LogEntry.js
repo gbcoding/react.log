@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
-import { Button, Row, Col } from 'reactstrap';
+import { View } from 'react-native';
 import WebLogEntry from "./WebViewLogEntry";
 import MobileEntry from "./MobileLogEntry";
 
