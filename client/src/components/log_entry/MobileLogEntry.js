@@ -219,9 +219,7 @@ class MobileLogEdit extends Component {
         event.preventDefault();
 
         var flagBinary = 0;
-        if(this.state.temp_item.issue_flag === "Yes"){
-            flagBinary = 1;
-        }
+        
             const formData = {
                 user_id: this.state.temp_item.user_id,
                 entry_id: this.state.temp_item.entry_id,
@@ -230,7 +228,7 @@ class MobileLogEdit extends Component {
                 time: this.state.temp_item.time,
                 meal_type: this.state.temp_item.meal_type,
                 food_consumed: this.state.temp_item.food_consumed,
-                issue_flag: flagBinary,
+                issue_flag: this.state.temp_item.issue_flag,
                 duration: this.state.temp_item.duration,
                 severity: this.state.temp_item.severity,
                 notes: this.state.temp_item.notes
