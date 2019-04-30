@@ -20,7 +20,7 @@ Other Libraries and frameworks
 - Generate and email reports based on log entries. 
 
 ## Developers
-Garrett Brumley
-Muhammad Azam
-Carlos Sibrian
-Alex Yu
+- Garrett Brumley
+- Muhammad Azam
+- Carlos Sibrian
+- Alex Yu
