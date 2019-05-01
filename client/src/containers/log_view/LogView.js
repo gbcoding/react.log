@@ -48,10 +48,11 @@ export default class LogView extends Component{
             this.setState({ isLoaded: false})
 
             this.axiosPOST_edit('/update_log', itemForm)
-            .then(response => this.setState({ error: null, isLoaded: false, items: null}))
+            .then(this.setState({ error: null, isLoaded: false, items: null}))
+            .then(this.getItems(this.props.UID))
             .catch(err => console.log(err));
         
-            this.getItems(this.props.UID);
+            
         }
         else
         {
@@ -75,9 +76,10 @@ export default class LogView extends Component{
         {
             this.axiosGET_delete('/delete_log', item.user_id, item.entry_id)
             .then(this.setState({ error: null, isLoaded: false, items: null}))
+            .then(this.getItems(this.props.UID))
             .catch(err => console.log(err));
 
-            this.getItems(this.props.UID);
+           
         }
         else
         {

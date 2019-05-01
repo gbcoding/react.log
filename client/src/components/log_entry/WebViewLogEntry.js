@@ -4,8 +4,7 @@ import { Button, Row, Col, ButtonGroup } from 'reactstrap';
 import { Form, FormGroup, FormControl, FormLabel } from "react-bootstrap";
 import './LogEntry.css';
 
-import flag_true from '../../images/flag_true.png';
-import flag_false from '../../images/flag_false.png';
+import flag_true from '../../images/flag3.png';
 import { createModuleResolutionCache } from 'typescript';
 
 
@@ -66,13 +65,17 @@ export default class WebLogEntry extends Component {
                 <View style={{ flexDirection: 'row', alignSelf: 'stretch'}}>
                 <div className="item" key={item.log_id}>
                     <Row>
-                        <Col className="NameCol" xs="3">
-                            <Text  style={{fontSize: "1.5vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
+                        {item.issue_flag=="1" ? 
+                        <Col className="Flags" xs="1">
+                            <img className="flagged" src= {flag_true}/>
+                        </Col> : 
+                        <Col xs="1">
+                            <p></p>
+                        </Col>}
+                        <Col className="NameCol" xs="4">
+                            <Text className="nameCol" style={{fontSize: "1.5vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
                                 {item.food_consumed}
                             </Text>
-                        </Col>
-                        <Col className="FlagCol" xs="2">
-                            <img src={item.issue_flag=="1" ? flag_true : flag_false}/>
                         </Col>
                         <Col className="DateCol" xs="2">
                             <Text  style={{fontSize: "1.5vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
@@ -211,11 +214,8 @@ class LogEdit extends Component {
     handleSubmit = async event => {
         event.preventDefault();
 
-        var flagBinary = 0;
-        if(this.state.temp_item.issue_flag === "Yes"){
-            flagBinary = 1;
-        }
-            //Login and authenticate
+        
+        
             const formData = {
                 user_id: this.state.temp_item.user_id,
                 entry_id: this.state.temp_item.entry_id,
@@ -224,7 +224,7 @@ class LogEdit extends Component {
                 time: this.state.temp_item.time,
                 meal_type: this.state.temp_item.meal_type,
                 food_consumed: this.state.temp_item.food_consumed,
-                issue_flag: flagBinary,
+                issue_flag: this.state.temp_item.issue_flag,
                 duration: this.state.temp_item.duration,
                 severity: this.state.temp_item.severity,
                 notes: this.state.temp_item.notes
@@ -262,13 +262,13 @@ class LogEdit extends Component {
                         <View style={{flex: 1, alignItems: 'flex-end'}}>
                             <ButtonGroup>
                                 <Row>
-                                    <Col xs="2">    
-                                        <Button className="pull-right" color="success" onClick={this.handleSubmit} style={{fontSize: "1.2vw", marginBottom: "10px"}}>
+                                    <Col xs="4">    
+                                        <Button className="pull-right" color="success" onClick={this.handleSubmit} style={{fontSize: "1.2vw", marginRight: "50px", marginBottom: "10px"}}>
                                             Apply
                                         </Button>
                                     </Col>
-                                    <Col xs="9">
-                                        <Button className="pull-right" color="danger" onClick={this.handleDelete} style={{fontSize: "1.2vw", marginLeft: "30px", marginBottom: "10px"}}>
+                                    <Col xs="6">
+                                        <Button className="pull-right" color="danger" onClick={this.handleDelete} style={{fontSize: "1.2vw", marginBottom: "10px"}}>
                                             Delete Item
                                         </Button>
                                     </Col>
@@ -285,6 +285,13 @@ class LogEdit extends Component {
             ItemDisplay = (
                 <div>
                     <Row>
+                        {this.state.temp_item.issue_flag=="1" ? 
+                        <Col className="Flags" xs="1">
+                            <img className="flagged" src= {flag_true}/>
+                        </Col> : 
+                        <Col xs="1">
+                            <p></p>
+                        </Col>}
                         <Col className="NameCol" xs="3">
                             <FormGroup controlId="food_consumed">
                                 <FormControl 
@@ -294,9 +301,6 @@ class LogEdit extends Component {
                                     onChange={this.handleChange}
                                 />
                             </FormGroup>
-                        </Col>
-                        <Col className="FlagCol" xs="2">
-                            <img src={this.state.temp_item.issue_flag=="1" ? flag_true : flag_false}/>
                         </Col>
                         <Col className="DateCol" xs="2">
                             <Text  style={{fontSize: "1.5vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
@@ -380,7 +384,9 @@ class LogEdit extends Component {
                                         rows="4"
                                         value={this.state.temp_item.notes}
                                         onChange={this.handleChange} 
-                                    />
+                                    >
+                                    {this.state.temp_item.notes}
+                                    </FormControl>
                                     </FormGroup>
                                 </Text>
                             </Col>
@@ -397,16 +403,18 @@ class LogEdit extends Component {
             ItemDisplay = (
                 <div>
                     <Row>
-                        <Col className="NameCol" xs="3">
+                        {this.state.item.issue_flag=="1" ? 
+                        <Col className="Flags" xs="1">
+                            <img className="flagged" src= {flag_true}/>
+                        </Col> : 
+                        <Col xs="1">
+                            <p></p>
+                        </Col>}
+                        <Col className="NameCol" xs="4">
                             <Text  style={{fontSize: "1.5vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
                                 {this.state.item.food_consumed}
                             </Text>
-
-
-                        </Col>
-                        <Col className="FlagCol" xs="2">
-                            <img src={this.state.item.issue_flag=="1" ? flag_true : flag_false}/>
-                        </Col>
+                        </Col>  
                         <Col className="DateCol" xs="2">
                             <Text  style={{fontSize: "1.5vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
                                 {this.state.item.date.substring(0,10)}

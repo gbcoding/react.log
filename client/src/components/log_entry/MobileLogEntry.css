@@ -27,19 +27,32 @@
   .Name {
     margin-top: 0px;
   }
+
+  .name {
+    word-wrap: normal;
+    white-space: normal;
+  }
   
   .Date {
     margin-top: 0px;
     margin-right: 15px;
   }
   
+  .Flag {
+    background-color: red;
+    border: 1px solid black;
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+  }
+
   .Time {
     margin-top: 0px;
   }
   
   img {
-    width: 50%;
-    height: auto;
+    width: 3vw;
+    height: 3vw;
+    margin-bottom: 3px;
   }
 
   .editBttn {
@@ -56,5 +69,5 @@
   }
 
   .pull-right {
-      font-size: 3vw;
+    font-size: 3vw;
   }
