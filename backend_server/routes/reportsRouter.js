@@ -1,13 +1,27 @@
 var express = require('express');
 var reportsRouter = express.Router();
+const path = require('path');
 
-//for PDF
-const pdf = require('html-pdf');
-const pdfTemplate = require('../documents/index');
+var fs = require('fs');
+var pdf = require('dynamic-html-pdf');
+var html_full = fs.readFileSync(__dirname + '/../templates/fullReport.html', 'utf8');
+var html_flagged = fs.readFileSync(__dirname + '/../templates/flaggedReport.html', 'utf8');
 
-//for PDF 2
-const pdf2 = require('html-pdf');
-const pdfTemplate2 = require('../documents/index2');
+function currentTime(){
+  var today = new Date();
+  var hour = today.getHours(); 
+  var min = today.getMinutes();
+  var sec = today.getSeconds();
+  return hour + ':' + min + ':' + sec;
+}
+
+function currentDate(){
+  var today = new Date();
+  var d = today.getDate();
+  var m = today.getMonth() + 1;
+  var y = today.getFullYear();
+  return y + '-'+ m + '-' + d;
+}
 
 // Start Express app
 const mysql = require('mysql');
@@ -50,35 +64,118 @@ reportsRouter.get('/', function(req, res) {
 
 
 //POST - PDF generation/fetching data
-reportsRouter.post('/create-pdf', (req, res) => {
-  pdf.create(pdfTemplate(req.body), {}).toFile('results.pdf', (err) => {
+reportsRouter.post('/create-pdf-full', (req, res) => {
+
+  const user_id = req.body.UID;
+  const reportsQuery = 'SELECT * FROM food_log WHERE user_id = \''+ user_id +'\''; 
+
+  db.query(reportsQuery, function(err, results) {
     if(err) {
-        res.send(Promise.reject());
-        //return console.log('error');
-    }
-      res.send(Promise.resolve())
-  });
+      console.log(err);
+      return res.send(error);
+    } 
+    else{
+
+      // Custom handlebar helper
+    pdf.registerHelper('ifCond', function (v1, v2, options) {
+      if (v1 === v2) {
+          return options.fn(this);
+      }
+      return options.inverse(this);
+    })
+
+    var options = {
+      format: "A3",
+      orientation: "portrait",
+      border: "10mm"
+    };
+
+    
+    var document = {
+      type: 'file',     // 'file' or 'buffer'
+      template: html_full,
+      context: {
+          time: currentTime(),
+          date: currentDate(),
+          username: req.body.userName,
+          items: results,
+
+      },
+      path: "./documents/FullReport.pdf"    // it is not required if type is buffer
+    };
+
+    pdf.create(document, options)
+      .then(res1 => {
+          console.log(res1)
+          res.status(200).send({ serverMessage: "Success"});
+      })
+      .catch(error => {
+          console.error(error)
+      });
+    } 
+  });   
+
 });
 
 //GET - Send generated PDF to client
-reportsRouter.get('/fetch-pdf', (req, res) => {
-  res.sendFile(`${__dirname}/results.pdf`);
+reportsRouter.get('/fetch-pdf-full', (req, res) => {
+  res.sendFile(path.resolve('documents/FullReport.pdf'));
 });
+
 
 //POST - PDF generation/fetching data 2
-reportsRouter.post('/create-pdf2', (req, res) => {
-  pdf2.create(pdfTemplate2(req.body), {}).toFile('results.pdf', (err) => {
+reportsRouter.post('/create-pdf-flagged', (req, res) => {
+   const user_id = req.body.UID;
+  const reportsQuery = 'SELECT * FROM food_log WHERE user_id = \''+ user_id +'\' && issue_flag = 1'; 
+  
+  db.query(reportsQuery, function(err, results) {
     if(err) {
-        res.send(Promise.reject());
-        //return console.log('error');
-    }
-      res.send(Promise.resolve())
-  });
+      console.log(err);
+      return res.send(error);
+    } 
+    else{
+
+      // Custom handlebar helper
+    pdf.registerHelper('ifCond', function (v1, v2, options) {
+      if (v1 === v2) {
+          return options.fn(this);
+      }
+      return options.inverse(this);
+    })
+
+    var options = {
+      format: "A3",
+      orientation: "portrait",
+      border: "10mm"
+    };
+
+    var document = {
+      type: 'file',     // 'file' or 'buffer'
+      template: html_flagged,
+      context: {
+          time: currentTime(),
+          date: currentDate(),
+          username: req.body.userName,
+          items: results
+      },
+      path: "./documents/FlaggedReport.pdf"    // it is not required if type is buffer
+    };
+
+    pdf.create(document, options)
+      .then(res1 => {
+          console.log(res1)
+          res.status(200).send({ serverMessage: "Success"});
+      })
+      .catch(error => {
+          console.error(error)
+      });
+    } 
+  });   
 });
 
 //GET - Send generated PDF to client
-reportsRouter.get('/fetch-pdf2', (req, res) => {
-  res.sendFile(`${__dirname}/results.pdf`);
+reportsRouter.get('/fetch-pdf-flagged', (req, res) => {
+  res.sendFile(path.resolve('documents/FlaggedReport.pdf'));
 });
 
 

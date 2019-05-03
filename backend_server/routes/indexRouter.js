@@ -6,8 +6,7 @@ const getlogRouter = require('./getlogRouter');
 const addlogRouter = require('./addlogRouter');
 const updatelogRouter = require('./updatelogRouter');
 const deletelogRouter = require('./deletelogRouter');
-//const reportsRouter = require('./reportsRouter');
-const reportsRouter = require('./dynamicReportRouter');
+const reportsRouter = require('./reportsRouter');
 
 //Route requests
 indexRouter.use('/home', homeRouter);
@@ -22,7 +21,5 @@ indexRouter.get('/', function(req, res, next) {
 
   console.log("Homepage Accessed");
 });
-
-
 
 module.exports = indexRouter;

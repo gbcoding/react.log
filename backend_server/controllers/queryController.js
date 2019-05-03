@@ -26,7 +26,7 @@ db.connect(function(err){
 
 // Sanitize data
 /*
-create(){
+create(inputObject, params){
 
 
 };
@@ -43,4 +43,5 @@ updateQuery(){
 
 deleteQuery(){
 
-}*/
+}
+*/
