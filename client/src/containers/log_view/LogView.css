@@ -35,6 +35,10 @@
     font-size: 16px;
 }
 
+.editModeButton:active{
+    transform: translateY(4px);
+}
+
 .editModeButtonMobile{
     width: 2vw;
     height: auto;
