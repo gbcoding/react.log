@@ -1,18 +1,15 @@
 var express = require('express');
 var indexRouter = express.Router();
 
-const loginRouter = require('./loginRouter');
-const signupRouter = require('./signupRouter');
 const homeRouter = require('./homeRouter');
 const getlogRouter = require('./getlogRouter');
 const addlogRouter = require('./addlogRouter');
 const updatelogRouter = require('./updatelogRouter');
 const deletelogRouter = require('./deletelogRouter');
-const reportsRouter = require('./reportsRouter');
+//const reportsRouter = require('./reportsRouter');
+const reportsRouter = require('./dynamicReportRouter');
 
 //Route requests
-indexRouter.use('/login', loginRouter); 
-indexRouter.use('/signup', signupRouter);
 indexRouter.use('/home', homeRouter);
 indexRouter.use('/get_log', getlogRouter);
 indexRouter.use('/add_log', addlogRouter);

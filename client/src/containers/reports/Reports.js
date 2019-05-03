@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import axios from 'axios';
 import "./Reports.css";
-import { saveAs } from 'file-saver';
+import FileSaver from 'file-saver';
 import { Button, Form, FormGroup, FormControl, FormCheck, FormLabel, Col, Row} from "react-bootstrap";
 import {View} from "react-native";
 import { LogEntry } from '../../components/log_entry/LogEntry';
@@ -16,18 +16,23 @@ export default class Reports extends Component{
         this.state = {
             error: null,
             isLoaded: false,
-            items: []
+            items: [],
+            foodName: "",
+            severity: 0,
+            flag: 0,
+            userName: this.props.name,
+            UID: this.props.UID
         };
     }
 
     componentDidMount(){
-
+ /*
         const current_uid = this.props.UID;
  
         this.axiosGET('/reports', current_uid)
             .then(response => this.setState({ error: null, isLoaded: true, items: response.data.data}))
             .catch(err => console.log(err));
-        
+      */  
     }
     
     //Async Axios get request
@@ -37,42 +42,41 @@ export default class Reports extends Component{
                 params: {
                      user_id: user_id 
                 }
-            });;
+            });
             return response;
         } catch (error) {
-            console.log("here");
             console.error(error);
         }
     }
 
-    state = {
-        foodName: "",
-        severity: 0,
-        flag: 0,
-        foodNameTest: "",
-        userName: "",
-    }
 
     handleChange = ({ target: { value, name } }) => this.setState({ [name]: value });
     
     createAndDownloadPDF = () => {
-        axios.post('/create-pdf', this.state)
-        .then(() => axios.get('/fetch-pdf', { responseType: 'blob' }))
+        console.log(this.state);
+        axios.post('/reports/create-pdf-full', this.state)
+        .then(() => axios.get('/reports/fetch-pdf-full', { responseType: 'blob' }))
         .then((res) => { 
             const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
-
-            saveAs(pdfBlob, 'allLogs.pdf')
+            console.log(res.data);
+            FileSaver.saveAs(pdfBlob, 'FullReport.pdf')
         })
+        .catch(error => {
+            console.error(error)
+        });
     }
 
     createAndDownloadPDF2 = () => {
-        axios.post('/create-pdf2', this.state)
-        .then(() => axios.get('/fetch-pdf2', { responseType: 'blob' }))
+        axios.post('/reports/create-pdf-flagged', this.state)
+        .then(() => axios.get('/reports/fetch-pdf-flagged', { responseType: 'blob' }))
         .then((res) => { 
             const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
 
-            saveAs(pdfBlob, 'flaggedLogs.pdf')
+            FileSaver.saveAs(pdfBlob, 'FlaggedReport.pdf')
         })
+        .catch(error => {
+            console.error(error)
+        });
     }
     //Render view of reports page
     //<input type="text" name="foodName" id="fname" value="Chicken" onChange={this.handleChange} />
@@ -102,27 +106,8 @@ export default class Reports extends Component{
                     </View>
 
                     <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-                        <form onSubmit={this.handleSubmit}>
                         
-                            
-                                <View style={{flex: 1, flexDirection: 'row', alignItems: 'stretch'}}>
-                                    <View style={{flexDirection: 'column'}}>
-                                        <FormGroup controlId="userName">
-                                            <FormLabel>Food Name</FormLabel>
-                                                <FormControl 
-                                                    type="text" 
-                                                    placeholder="Type your name" 
-                                                    name="userName"
-                                                    onChange={this.handleChange}
-                                                />
-                                        </FormGroup>
-
-                                    </View>
-                                    
-                            </View>
-                            
-                            
-                            
+                                                                                                
                             <View style={{alignItems: 'center'}}>
 
                                 <FormGroup as={Row}>
@@ -142,7 +127,7 @@ export default class Reports extends Component{
                                 </FormGroup>
                             </View>
                         
-                        </form>   
+                        
                     </View>  
                 </View>
             </View>
