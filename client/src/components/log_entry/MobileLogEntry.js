@@ -63,7 +63,7 @@ export default class MobileEntry extends Component {
             <View style={{ flexDirection: 'row', alignSelf: 'stretch'}}>
             <div className="Entry" key={item.log_id}>
                 <Row>
-                    {item.issue_flag=="1" ? 
+                    {item.issue_flag=== 1 ? 
                     <Col className="Flag" xs="1">
                         <img className="flagged" src= {flag_true}/>
                     </Col> : 
@@ -252,7 +252,7 @@ class MobileLogEdit extends Component {
         this.props.editItemToggle();
         this.setState({temp_item: this.state.item}, () =>{
                 console.log("Flag = " + this.state.temp_item.issue_flag);
-                if(this.state.temp_item.issue_flag=="1")
+                if(this.state.temp_item.issue_flag===1)
                 {
                     this.setState({
                         temp_item: {
@@ -437,7 +437,7 @@ class MobileLogEdit extends Component {
             ItemDisplay = (
                 <div className="detail">
                     <Row>
-                        {this.state.item.issue_flag=="Flagged" ? 
+                        {this.state.item.issue_flag===1 ? 
                         <Col className="Flag" xs="1">
                             <img className="flagged" src= {flag_true}/>
                         </Col> : 
