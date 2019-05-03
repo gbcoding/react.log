@@ -242,7 +242,34 @@ class MobileLogEdit extends Component {
 
     handleEdit = () => {
         this.props.editItemToggle();
-        this.setState({temp_item: this.state.item});
+        this.setState({temp_item: this.state.item}, () =>{
+                console.log("Flag = " + this.state.temp_item.issue_flag);
+                if(this.state.temp_item.issue_flag=="1")
+                {
+                    this.setState({
+                        temp_item: {
+                            ...this.state.temp_item,
+                            issue_flag: "True"
+                        }
+                    });
+                }
+                else
+                {
+                    this.setState({
+                        temp_item: {
+                            ...this.state.temp_item,
+                            issue_flag: "False"
+                        }
+                    });
+                }
+            }
+            
+            
+            
+            
+            
+        );
+        
     }
 
     validateForm(){
@@ -282,13 +309,15 @@ class MobileLogEdit extends Component {
             ItemDisplay = (
                 <div>
                     <Row>
-                        {this.state.temp_item.issue_flag=="1" ? 
-                        <Col className="Flag" xs="1">
-                            <img className="flagged" src= {flag_true}/>
-                        </Col> : 
                         <Col xs="1">
-                            <p></p>
-                        </Col>}
+                                <Form.Group controlId="issue_flag">
+                                    <Form.Control as="select" type="issue_flag" value={this.state.temp_item.issue_flag} onChange={this.handleChange}>
+                                       <option>Flagged</option>
+                                        <option>Unflagged</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            
+                        </Col> 
                         <Col className="NameCol" xs="4">
                             <FormGroup controlId="food_consumed">
                                 <FormControl 

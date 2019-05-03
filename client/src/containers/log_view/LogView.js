@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import { View, ScrollView, Image } from 'react-native';
-import { Button, Row, Col } from 'reactstrap';
+import { Text, View, ScrollView} from 'react-native';
+import { Button } from 'reactstrap';
 import './LogView.css';
 import { LogEntry } from '../../components/log_entry/LogEntry';
+import { AddEntry } from '../../components/add_entry/AddEntry';
 import LoadingIcon from '../../components/LoadingIcon';
 
 
@@ -23,8 +24,9 @@ export default class LogView extends Component{
     }
 
     getItems = () => {
+        console.log("Called get_log");
         this.axiosGET_query('/get_log', this.props.UID)
-        .then(response => this.setState({ error: null, isLoaded: true, items: response.data.data}))
+        .then(response => this.setState({ error: null, isLoaded: true,items: response.data.data}))
         .catch(err => console.log(err));
     }
 
@@ -44,15 +46,8 @@ export default class LogView extends Component{
 
     updateItem = (itemForm) => {
         if(this.props.UID==itemForm.user_id) {
-
-            this.setState({ isLoaded: false})
-
-            this.axiosPOST_edit('/update_log', itemForm)
-            .then(this.setState({ error: null, isLoaded: false, items: null}))
-            .then(this.getItems(this.props.UID))
+            this.axiosPOST('/update_log', itemForm)
             .catch(err => console.log(err));
-        
-            
         }
         else
         {
@@ -60,14 +55,30 @@ export default class LogView extends Component{
         }
     }
 
-    axiosPOST_edit = async(serverPath, formData) => {
-        return axios.post(serverPath, formData)
-            .then(response => {
-                return response;
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
+    addItem = (itemForm) => {
+        if(this.props.UID==itemForm.user_id) {
+            this.axiosPOST('/add_entry', itemForm)
+            .catch(err => console.log(err));
+            
+        }
+        else
+        {
+            console.log("Cannot Add item.");
+        }
+    }
+
+    axiosPOST = async(serverPath, formData) => {
+        try{
+            const response = await axios.post(serverPath, formData)
+
+
+            this.setState({ error: null, isLoaded: false, items: null}, () => {this.getItems(this.props.UID);});
+
+            return response;
+        } catch (error) {
+            console.log("here");
+            console.error(error);
+        }
     }
 
 
@@ -75,8 +86,6 @@ export default class LogView extends Component{
         if(this.props.UID==item.user_id)
         {
             this.axiosGET_delete('/delete_log', item.user_id, item.entry_id)
-            .then(this.setState({ error: null, isLoaded: false, items: null}))
-            .then(this.getItems(this.props.UID))
             .catch(err => console.log(err));
 
            
@@ -96,7 +105,12 @@ export default class LogView extends Component{
                      user_id: user_id,
                      entry_id: entry_id
                 }
-            });;
+            });
+            
+            this.setState({ error: null, isLoaded: false, items: null}, () => {
+                this.getItems(this.props.UID);
+            });
+            
             return response;
         } catch (error) {
             console.log("here");
@@ -133,17 +147,29 @@ export default class LogView extends Component{
 
 
         let displayScreen = "";
-
+        let AddEntryScreen = "";
 
         if(isLoaded === true){
             displayScreen = (
+
                 items.map(item => {
                         console.log(item.log_id);
                     return (
-                        <LogEntry item={item} isEditing={isEditing} updateItem={this.updateItem} deleteItem={this.deleteItem}/>
+                        <div>
+                            <LogEntry item={item} isEditing={isEditing} updateItem={this.updateItem} deleteItem={this.deleteItem}/>
+                        
+                        </div>
                     );     
                 })
+                
+                
+
             ); 
+
+            AddEntryScreen = (
+                <div><AddEntry user_id={this.props.UID} addItem={this.addItem}/></div>
+                
+            );
         }
         else{
             displayScreen = (
@@ -161,6 +187,8 @@ export default class LogView extends Component{
                     <LoadingIcon />
                 </View>
             );
+
+            AddEntryScreen = "";
         }
 
         return(
@@ -177,15 +205,17 @@ export default class LogView extends Component{
                 <div className="scroller">
                     <View style={{ flexDirection: 'row', height: '100%'}}>
                         <ScrollView>
-                            {
-                                displayScreen
-                            }
+                            <div>
+                                {displayScreen}
+                                {AddEntryScreen}
+                            </div>
+                            
                         </ScrollView>  
                        
                     </View>
                 </div>
 
-                    
+ 
                     
 
                 
@@ -196,6 +226,4 @@ export default class LogView extends Component{
     }
 }
 
-/*
 
-*/

@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { Button, Row, Col, ButtonGroup } from 'reactstrap';
-import { Form, FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import './LogEntry.css';
+import { Form, FormGroup, FormControl } from "react-bootstrap";
+import './WebViewLogEntry.css';
 
 import flag_true from '../../images/flag3.png';
 import { createModuleResolutionCache } from 'typescript';
@@ -238,8 +238,37 @@ class LogEdit extends Component {
 
     handleEdit = () => {
         this.props.editItemToggle();
-        this.setState({temp_item: this.state.item});
+        this.setState({temp_item: this.state.item}, () =>{
+                console.log("Flag = " + this.state.temp_item.issue_flag);
+                if(this.state.temp_item.issue_flag=="1")
+                {
+                    this.setState({
+                        temp_item: {
+                            ...this.state.temp_item,
+                            issue_flag: "True"
+                        }
+                    });
+                }
+                else
+                {
+                    this.setState({
+                        temp_item: {
+                            ...this.state.temp_item,
+                            issue_flag: "False"
+                        }
+                    });
+                }
+            }
+            
+            
+            
+            
+            
+        );
+        
     }
+
+    
 
     validateForm(){
         return this.state.temp_item.duration != "" && this.state.temp_item.serverity != "";
@@ -285,13 +314,16 @@ class LogEdit extends Component {
             ItemDisplay = (
                 <div>
                     <Row>
-                        {this.state.temp_item.issue_flag=="1" ? 
-                        <Col className="Flags" xs="1">
-                            <img className="flagged" src= {flag_true}/>
-                        </Col> : 
                         <Col xs="1">
-                            <p></p>
-                        </Col>}
+                                <Form.Group controlId="issue_flag">
+                                    <Form.Control as="select" type="issue_flag" value={this.state.temp_item.issue_flag} onChange={this.handleChange}>
+                                    <option>Flagged</option>
+                                        <option>Unflagged</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            
+                        </Col> 
+                        
                         <Col className="NameCol" xs="3">
                             <FormGroup controlId="food_consumed">
                                 <FormControl 
