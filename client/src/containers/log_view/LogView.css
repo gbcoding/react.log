@@ -25,7 +25,7 @@
 }
 
 .editModeButton{
-    min-width: 32px;
+    min-width: 38px;
     min-height: auto;
     width: 3vw;
     height: auto;
@@ -36,7 +36,7 @@
 }
 
 .editModeButtonMobile{
-    width: 1vw;
+    width: 2vw;
     height: auto;
     padding: 5px 10px;
     margin-bottom: .2%;
