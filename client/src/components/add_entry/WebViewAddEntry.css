@@ -2,10 +2,41 @@
     padding-left: 1em;
     text-align: left;
     margin-bottom: 5px;
+    height: 100%;
     width: 100%;
     border: 2px solid black;
     border-radius: 8px;
     background-color: whitesmoke;
     
   }
+
+  hr{
+    padding: 1px;
+    margin: 0px;    
+  }
+
+  .FlagCol {
+    margin-top: 10px;
+  }
+
+.NameCol {
+  margin-top: 10px;
+}
+
+.nameCol {
+  word-wrap: normal;
+  white-space: normal;
+}
   
+.DateCol {
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.TimeCol {
+  margin-top: 10px;
+}
+
+.applyButtons{
+  margin-left: 130px;
+}

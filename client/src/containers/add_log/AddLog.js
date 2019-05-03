@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import {View} from "react-native";
 import { Redirect, Link } from 'react-router-dom'
 import { Button, Form, FormGroup, FormControl, FormCheck, FormLabel, Col, Row} from "react-bootstrap";
+import { AddEntry } from '../../components/add_entry/AddEntry';
 import DateTimePicker from "react-datetime-picker";
 import "./AddLog.css";
 import axios from 'axios';
@@ -39,35 +40,20 @@ export default class AddLog extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            date: "",
-            time: "",
-            mealType: "",
-            foodName: "",
-            flag: "",
-            duration: "",
-            severity: "",
-            notes: "",    
-            isLoading: false,
+            isLoaded: false,
             redirect: false
+            
         };
 
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     componentDidMount(){
 
-        // Call our fetch function below once the component mounts 
-        this.axiosGET('/add_log')
-        .then(response => {
-            this.setState({ serverMessage: response.data.serverMessage});
-            console.log("Add log component mounted and data recieved");
-            console.log(this.state.serverMessage);
-        })
-        .catch(err => console.log(err));
 
     }
 
+    /*
     //Async Axios get request
     axiosGET = async(serverPath) => {
         try{
@@ -78,6 +64,7 @@ export default class AddLog extends Component{
             console.error(error);
         }
     }
+    
     //Async Axios post request
     axiosPOST = async(serverPath, formData) => {
         return axios.post(serverPath, formData)
@@ -144,122 +131,160 @@ export default class AddLog extends Component{
     } 
 
     onChange = date => this.setState({ date })
+    */
+
+    addItem = (itemForm) => {
+        if(this.props.UID===itemForm.user_id) {
+            this.axiosPOST('/add_entry', itemForm)
+            .then(function(){
+                window.location.assign('http://localhost:3000/log_view');
+            })
+            .catch(err => console.log(err));
+            
+        }
+        else
+        {
+            console.log("Cannot Add item.");
+        }
+        this.setState({redirect: true});
+    }
+
+    axiosPOST = async(serverPath, formData) => {
+        try{
+            const response = await axios.post(serverPath, formData)
+
+            return response;
+        } catch (error) {
+            console.log("here");
+            console.error(error);
+        }
+    }
 
     //Render view of new logs page 
     render(){  
         return(
-            <View>   
-                <View style={{flexDirection: 'column', alignItems: 'stretch'}}>
+            <div className='add_logs'>
 
-                    <View>
-                        <h1>Add New Log</h1>
-                    </View>
-
-                    <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-                        <form onSubmit={this.handleSubmit}>
+                <h1 className="header1">Add New Log</h1>
+            
+                <div className="adder">
+                    <View style={{ flexDirection: 'row', height: '100%'}}>   
                         
+                     
+                            <AddEntry user_id={this.props.UID} addItem={this.addItem} />
                             
-                                <View style={{flex: 1, flexDirection: 'row', alignItems: 'stretch'}}>
-                                    <View style={{flexDirection: 'column'}}>
-                                        <FormGroup controlId="foodName">
-                                            <FormLabel>Food Name</FormLabel>
-                                            <FormControl 
-                                                type="foodName" 
-                                                placeholder="Enter food name" 
-                                                value={this.state.foodName} 
-                                                onChange={this.handleChange}
-                                            />
-                                        </FormGroup>
-
-                                        <Form.Group controlId="mealType">
-                                        <Form.Label>Type of meal</Form.Label>
-                                            <Form.Control as="select" type="mealType" value={this.state.mealType} onChange={this.handleChange}>
-                                                <option>Select</option>
-                                                <option>Breakfast</option>
-                                                <option>Lunch</option>
-                                                <option>Dinner</option>
-                                                <option>Snack</option>
-                                            </Form.Control>
-                                        </Form.Group>
-                                    </View>
-                                    <View>
-                                        <FormGroup controlId="duration">
-                                            <FormLabel>Reaction Duration</FormLabel>
-                                            <FormControl 
-                                                type="duration" 
-                                                placeholder="Enter time in (mins) EX: 30" 
-                                                value={this.state.duration} 
-                                                onChange={this.handleChange}
-                                            />
-                                        </FormGroup>
-
-                                        <FormGroup controlId="severity">
-                                            <FormLabel>Severity?</FormLabel>
-                                                <FormControl as="select" type="severity" placeholder="Select" value={this.state.severity} onChange={this.handleChange}>
-                                                    <option>Select</option>
-                                                    <option>0</option>
-                                                    <option>1</option>
-                                                    <option>2</option>
-                                                    <option>3</option>
-                                                    <option>4</option>
-                                                    <option>5</option>
-                                                    <option>6</option>
-                                                    <option>7</option>
-                                                    <option>8</option>
-                                                    <option>9</option>
-                                                </FormControl>
-                                        </FormGroup>
-
-                                    </View>
-                            </View>
-                            
-                            
-                            <View> 
-                                <FormGroup controlId="notes">
-                                    <FormLabel>Notes</FormLabel>
-                                    <FormControl 
-                                        type="notes"
-                                        as="textArea"
-                                        placeholder="Add any notes" 
-                                        rows="4"
-                                        value={this.state.notes}
-                                        onChange={this.handleChange} 
-                                    />
-                                </FormGroup>
-
-                            </View>
-
-                            <View style={{alignItems: 'center'}}>
-                            <FormGroup controlId="flag">
-                                <FormLabel>Flag this log?</FormLabel>
-                                    <FormControl as="select" type="flag" value={this.state.flag} onChange={this.handleChange}>
-                                        <option>No</option>
-                                        <option>Yes</option>
-                                        
-                                    </FormControl>
-                                </FormGroup>
-                            </View>
-
-                            <View style={{alignItems: 'center'}}>
-
-                                <FormGroup as={Row}>
-                                    <Col sm={{ span: 10, offset: 2 }}>
+                            {/*
+                            <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
+                                <form onSubmit={this.handleSubmit}>
+                                
                                     
-                                        <Button
-                                            variant="primary"
-                                            disabled={!this.validateForm()}
-                                            type="submit"
-                                            >Submit Log
-                                        </Button>
-                                    </Col>
-                                </FormGroup>
-                            </View>
+                                        <View style={{flex: 1, flexDirection: 'row', alignItems: 'stretch'}}>
+                                            <View style={{flexDirection: 'column'}}>
+                                                <FormGroup controlId="foodName">
+                                                    <FormLabel>Food Name</FormLabel>
+                                                    <FormControl 
+                                                        type="foodName" 
+                                                        placeholder="Enter food name" 
+                                                        value={this.state.foodName} 
+                                                        onChange={this.handleChange}
+                                                    />
+                                                </FormGroup>
+
+                                                <Form.Group controlId="mealType">
+                                                <Form.Label>Type of meal</Form.Label>
+                                                    <Form.Control as="select" type="mealType" value={this.state.mealType} onChange={this.handleChange}>
+                                                        <option>Select</option>
+                                                        <option>Breakfast</option>
+                                                        <option>Lunch</option>
+                                                        <option>Dinner</option>
+                                                        <option>Snack</option>
+                                                    </Form.Control>
+                                                </Form.Group>
+                                            </View>
+                                            <View>
+                                                <FormGroup controlId="duration">
+                                                    <FormLabel>Reaction Duration</FormLabel>
+                                                    <FormControl 
+                                                        type="duration" 
+                                                        placeholder="Enter time in (mins) EX: 30" 
+                                                        value={this.state.duration} 
+                                                        onChange={this.handleChange}
+                                                    />
+                                                </FormGroup>
+
+                                                <FormGroup controlId="severity">
+                                                    <FormLabel>Severity?</FormLabel>
+                                                        <FormControl as="select" type="severity" placeholder="Select" value={this.state.severity} onChange={this.handleChange}>
+                                                            <option>Select</option>
+                                                            <option>0</option>
+                                                            <option>1</option>
+                                                            <option>2</option>
+                                                            <option>3</option>
+                                                            <option>4</option>
+                                                            <option>5</option>
+                                                            <option>6</option>
+                                                            <option>7</option>
+                                                            <option>8</option>
+                                                            <option>9</option>
+                                                        </FormControl>
+                                                </FormGroup>
+
+                                            </View>
+                                    </View>
+                                    
+                                    
+                                    <View> 
+                                        <FormGroup controlId="notes">
+                                            <FormLabel>Notes</FormLabel>
+                                            <FormControl 
+                                                type="notes"
+                                                as="textArea"
+                                                placeholder="Add any notes" 
+                                                rows="4"
+                                                value={this.state.notes}
+                                                onChange={this.handleChange} 
+                                            />
+                                        </FormGroup>
+
+                                    </View>
+
+                                    <View style={{alignItems: 'center'}}>
+                                    <FormGroup controlId="flag">
+                                        <FormLabel>Flag this log?</FormLabel>
+                                            <FormControl as="select" type="flag" value={this.state.flag} onChange={this.handleChange}>
+                                                <option>No</option>
+                                                <option>Yes</option>
+                                                
+                                            </FormControl>
+                                        </FormGroup>
+                                    </View>
+
+                                    <View style={{alignItems: 'center'}}>
+
+                                        <FormGroup as={Row}>
+                                            <Col sm={{ span: 10, offset: 2 }}>
+                                            
+                                                <Button
+                                                    variant="primary"
+                                                    disabled={!this.validateForm()}
+                                                    type="submit"
+                                                    >Submit Log
+                                                </Button>
+                                            </Col>
+                                        </FormGroup>
+                                    </View>
+                                
+                                </form>   
+                            </View> */} 
+
                         
-                        </form>   
-                    </View>  
-                </View>
-            </View>
-        );
+
+                    </View>
+                </div>
+            </div>
+                
+            );
+            
         
     }
 }

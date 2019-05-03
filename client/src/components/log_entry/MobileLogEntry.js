@@ -317,7 +317,7 @@ class MobileLogEdit extends Component {
             ItemDisplay = (
                 <div>
                     <Row>
-                        <Col xs="1">
+                    <Col className="FlagCol" xs="3">
                                 <Form.Group controlId="issue_flag">
                                     <Form.Control as="select" type="issue_flag" value={this.state.temp_item.issue_flag} onChange={this.handleChange}>
                                        <option>Flagged</option>
@@ -336,8 +336,8 @@ class MobileLogEdit extends Component {
                                 />
                             </FormGroup>
                         </Col>
-                        <Col className="DateCol" xs="2">
-                            <Text  style={{fontSize: "3vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
+                        <Col className="DateCol" xs="1">
+                            <Text  style={{fontSize: "2vw", fontWeight: "bold"}} adjustsFontSizeToFit minimumFontScale={.5} numberOfLines={1} allowFontScaling> 
                                 {this.state.temp_item.date.substring(0,10)}
                             </Text>
                         </Col>
