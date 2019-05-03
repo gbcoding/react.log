@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { Button, Row, Col, ButtonGroup } from 'reactstrap';
-import { Form, FormGroup, FormControl, FormLabel } from "react-bootstrap";
-import './LogEntry.css';
+import { Form, FormGroup, FormControl } from "react-bootstrap";
+import './WebViewLogEntry.css';
 
 import flag_true from '../../images/flag3.png';
 import { createModuleResolutionCache } from 'typescript';
@@ -61,11 +61,13 @@ export default class WebLogEntry extends Component {
             );
         }
         else {
+            console.log("Flag = " + item.issue_flag)
             EntryDisplay = (
                 <View style={{ flexDirection: 'row', alignSelf: 'stretch'}}>
                 <div className="item" key={item.log_id}>
                     <Row>
-                        {item.issue_flag=="1" ? 
+                        
+                        {item.issue_flag === 1 ? 
                         <Col className="Flags" xs="1">
                             <img className="flagged" src= {flag_true}/>
                         </Col> : 
@@ -214,7 +216,16 @@ class LogEdit extends Component {
     handleSubmit = async event => {
         event.preventDefault();
 
-        
+            console.log(this.state.temp_item);
+            var issue_flag = "";
+            if(this.state.temp_item.issue_flag==="Flagged")
+            {
+                issue_flag = "1";
+            }
+            else
+            {
+                issue_flag = "0";
+            }
         
             const formData = {
                 user_id: this.state.temp_item.user_id,
@@ -224,7 +235,7 @@ class LogEdit extends Component {
                 time: this.state.temp_item.time,
                 meal_type: this.state.temp_item.meal_type,
                 food_consumed: this.state.temp_item.food_consumed,
-                issue_flag: this.state.temp_item.issue_flag,
+                issue_flag: issue_flag,
                 duration: this.state.temp_item.duration,
                 severity: this.state.temp_item.severity,
                 notes: this.state.temp_item.notes
@@ -238,8 +249,37 @@ class LogEdit extends Component {
 
     handleEdit = () => {
         this.props.editItemToggle();
-        this.setState({temp_item: this.state.item});
+        this.setState({temp_item: this.state.item}, () =>{
+                console.log("Temp Flag = " + this.state.temp_item.issue_flag);
+                if(this.state.temp_item.issue_flag===1)
+                {
+                    this.setState({
+                        temp_item: {
+                            ...this.state.temp_item,
+                            issue_flag: "Flagged"
+                        }
+                    });
+                }
+                else
+                {
+                    this.setState({
+                        temp_item: {
+                            ...this.state.temp_item,
+                            issue_flag: "Unflagged"
+                        }
+                    });
+                }
+            }
+            
+            
+            
+            
+            
+        );
+        
     }
+
+    
 
     validateForm(){
         return this.state.temp_item.duration != "" && this.state.temp_item.serverity != "";
@@ -285,13 +325,16 @@ class LogEdit extends Component {
             ItemDisplay = (
                 <div>
                     <Row>
-                        {this.state.temp_item.issue_flag=="1" ? 
-                        <Col className="Flags" xs="1">
-                            <img className="flagged" src= {flag_true}/>
-                        </Col> : 
                         <Col xs="1">
-                            <p></p>
-                        </Col>}
+                                <Form.Group controlId="issue_flag">
+                                    <Form.Control as="select" type="issue_flag" value={this.state.temp_item.issue_flag} onChange={this.handleChange}>
+                                    <option>Flagged</option>
+                                        <option>Unflagged</option>
+                                    </Form.Control>
+                                </Form.Group>
+                            
+                        </Col> 
+                        
                         <Col className="NameCol" xs="3">
                             <FormGroup controlId="food_consumed">
                                 <FormControl 
@@ -403,7 +446,7 @@ class LogEdit extends Component {
             ItemDisplay = (
                 <div>
                     <Row>
-                        {this.state.item.issue_flag=="1" ? 
+                        {this.state.item.issue_flag===1 ? 
                         <Col className="Flags" xs="1">
                             <img className="flagged" src= {flag_true}/>
                         </Col> : 
