@@ -12,7 +12,6 @@ export class AddEntry extends Component {
         super(props);
 
         this.state = {
-            isItemAdding: false,
             temp_item: {
                 entry_id: "",
                 user_id: "",
@@ -21,7 +20,7 @@ export class AddEntry extends Component {
                 time: "",
                 meal_type: "",
                 food_consumed: "",
-                issue_flag: "",
+                issue_flag: "Unflagged",
                 duration: "",
                 severity: "",
                 notes: ""   
@@ -48,6 +47,15 @@ export class AddEntry extends Component {
     handleSubmit = async event => {
         event.preventDefault();
 
+            var issue_flag;
+            if(this.state.temp_item.issue_flag==="Flagged")
+            {
+                issue_flag=1;
+            }
+            else
+            {
+                issue_flag=0;
+            }
         
         
             const formData = {
@@ -58,7 +66,7 @@ export class AddEntry extends Component {
                 time: this.state.temp_item.time,
                 meal_type: this.state.temp_item.meal_type,
                 food_consumed: this.state.temp_item.food_consumed,
-                issue_flag: this.state.temp_item.issue_flag,
+                issue_flag: issue_flag,
                 duration: this.state.temp_item.duration,
                 severity: this.state.temp_item.severity,
                 notes: this.state.temp_item.notes
@@ -74,10 +82,6 @@ export class AddEntry extends Component {
         return this.state.temp_item.duration != "" && this.state.temp_item.serverity != "";
     }
 
-    handleAdd = () => {
-        const {isItemAdding} = this.state;
-        this.setState( { isItemAdding: !isItemAdding } );
-    }
 
     render(){
         let ApplyButton = "";
@@ -99,11 +103,12 @@ export class AddEntry extends Component {
         
         let ItemDisplay = "";
 
-        if(this.state.isItemAdding){
-            ItemDisplay = (
+        ItemDisplay = (
+           
                 <div className="item">
+                <View>
                     <Row>
-                        <Col xs="1">
+                        <Col className="FlagCol" xs="3">
                                 <Form.Group controlId="issue_flag">
                                     <Form.Control as="select" type="issue_flag" value={this.state.temp_item.issue_flag} onChange={this.handleChange}>
                                         <option>{"Flagged"}</option>
@@ -133,11 +138,7 @@ export class AddEntry extends Component {
                                 {this.state.temp_item.time}
                             </Text>  
                         </Col>*/}
-                        <Col xs="2">
-                            <Button className="AddButton" color="primary" onClick={this.handleAdd} block>
-                                    {"Cancel"}
-                            </Button>
-                        </Col>
+                        
                     </Row>
 
                     <div className="detail">
@@ -216,34 +217,19 @@ export class AddEntry extends Component {
                     </div>
 
                     {ApplyButton}
-                </div>
-              
-            );
-        }
-        else{
-            ItemDisplay = (
-                <div className="item">
-                    {<Row>
-                        <Col xs="2">
-                            <Button className="AddButton" color="warning" onClick={ this.handleAdd } block>
-                                    {"Add"}
-                            </Button>
-                        </Col>
-                    </Row>}
 
-                    
-                </div>
+                    </View>
+                    </div>      
             );
-        }
+
+        
 
         return(
-            <View>
-                <div>
-                    {ItemDisplay}
-                </div>
-                
-                
-            </View>
+                <View style={{flexDirection: 'column', width: "100%", alignItems: 'stretch'}}>
+                        {ItemDisplay}
+                         
+                    
+                </View>
         );
     }
 }
