@@ -105,14 +105,14 @@ export default class Reports extends Component{
                         <h1>Reports</h1>
                     </View>
 
-                    <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
+                    <View className="pdfBttns" /*style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}*/>
                         
                                                                                                 
                             <View style={{alignItems: 'center'}}>
 
                                 <FormGroup as={Row}>
-                                    <Col sm={{ span: 9, offset: .75 }}>
-                                    <Button onClick={this.createAndDownloadPDF}>Download PDF (all logs)</Button>
+                                    <Col>
+                                    <Button className="noFlagBttn" onClick={this.createAndDownloadPDF}>Download PDF (all logs)</Button>
                                         
                                     </Col>
                                 </FormGroup>
@@ -120,8 +120,8 @@ export default class Reports extends Component{
                             <View style={{alignItems: 'center'}}>
 
                                 <FormGroup as={Row}>
-                                    <Col sm={{ span: 10, offset: .75 }}>
-                                    <Button onClick={this.createAndDownloadPDF2}>Download PDF (flagged logs)</Button>
+                                    <Col>
+                                    <Button className="FlagBttn" onClick={this.createAndDownloadPDF2}>Download PDF (flagged logs)</Button>
                                         
                                     </Col>
                                 </FormGroup>

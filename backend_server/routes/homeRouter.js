@@ -18,7 +18,7 @@ db.connect(function(err){
     return;
   }
   
-  console.log('Connected to db as id ' + db.threadId);
+  console.log('Connected home to db as id ' + db.threadId);
 });
 /* GET users listing. */
 router.get('/', function(req, res, next) {

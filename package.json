@@ -8,7 +8,8 @@
     "start": "nodemon backend_server",
     "server": "npm start --prefix backend_server",
     "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "test": "jest"
   },
   "author": "",
   "license": "MIT",
@@ -23,7 +24,7 @@
     "@progress/kendo-theme-default": "^3.5.1",
     "auth0-js": "^9.10.1",
     "axios": "^0.18.0",
-    "bcrypt": "^3.0.5",
+    "bcryptjs": "^2.4.3",
     "bootstrap": "^4.3.1",
     "concurrently": "^4.1.0",
     "cookie-parser": "^1.4.4",

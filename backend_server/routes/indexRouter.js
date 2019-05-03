@@ -3,6 +3,7 @@ var indexRouter = express.Router();
 
 const homeRouter = require('./homeRouter');
 const getlogRouter = require('./getlogRouter');
+const addentryRouter = require('./addentryRouter');
 const addlogRouter = require('./addlogRouter');
 const updatelogRouter = require('./updatelogRouter');
 const deletelogRouter = require('./deletelogRouter');
@@ -12,6 +13,7 @@ const reportsRouter = require('./reportsRouter');
 indexRouter.use('/home', homeRouter);
 indexRouter.use('/get_log', getlogRouter);
 indexRouter.use('/add_log', addlogRouter);
+indexRouter.use('/add_entry', addentryRouter);
 indexRouter.use('/update_log', updatelogRouter);
 indexRouter.use('/delete_log', deletelogRouter);
 indexRouter.use('/reports', reportsRouter);

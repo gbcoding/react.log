@@ -18,7 +18,7 @@ db.connect(function(err){
     return;
   }
   
-  console.log('Connected to db as id ' + db.threadId);
+  console.log('Connected getlog to db as id ' + db.threadId);
 });
 
 
@@ -41,6 +41,8 @@ getlogRouter.get('/', function(req, res) {
         } 
     });   
 });
+
+
 
 
 module.exports = getlogRouter;

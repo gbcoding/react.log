@@ -18,7 +18,7 @@ db.connect(function(err){
     return;
   }
   
-  console.log('Connected to db as id ' + db.threadId);
+  console.log('Connected updatelog to db as id ' + db.threadId);
 });
 
 
@@ -46,8 +46,8 @@ updatelogRouter.post('/', function(req, res) {
   var duration = data.duration;
   var severity = data.severity;
   var notes = data.notes;
-  var date = data.date;
-  var time = data.time;
+  //var date = data.date;
+  //var time = data.time;
 
   
   const updatelogQuery = 'UPDATE food_log SET meal_type = \''+ meal_type + '\', food_consumed = \'' + food_consumed + '\', issue_flag = \'' + issue_flag + '\', duration = \'' + duration +'\', severity = \'' + severity + '\', notes = \'' + notes +'\' WHERE entry_id = \'' + entry_id + '\'';
