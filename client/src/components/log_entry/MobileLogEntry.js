@@ -218,7 +218,15 @@ class MobileLogEdit extends Component {
     handleSubmit = async event => {
         event.preventDefault();
 
-        var flagBinary = 0;
+        var issue_flag = "";
+        if(this.state.temp_item.issue_flag==="Flagged")
+        {
+            issue_flag = "1";
+        }
+        else
+        {
+            issue_flag = "0";
+        }
         
             const formData = {
                 user_id: this.state.temp_item.user_id,
@@ -228,7 +236,7 @@ class MobileLogEdit extends Component {
                 time: this.state.temp_item.time,
                 meal_type: this.state.temp_item.meal_type,
                 food_consumed: this.state.temp_item.food_consumed,
-                issue_flag: this.state.temp_item.issue_flag,
+                issue_flag: issue_flag,
                 duration: this.state.temp_item.duration,
                 severity: this.state.temp_item.severity,
                 notes: this.state.temp_item.notes
@@ -249,7 +257,7 @@ class MobileLogEdit extends Component {
                     this.setState({
                         temp_item: {
                             ...this.state.temp_item,
-                            issue_flag: "True"
+                            issue_flag: "Flagged"
                         }
                     });
                 }
@@ -258,7 +266,7 @@ class MobileLogEdit extends Component {
                     this.setState({
                         temp_item: {
                             ...this.state.temp_item,
-                            issue_flag: "False"
+                            issue_flag: "Unflagged"
                         }
                     });
                 }
@@ -429,7 +437,7 @@ class MobileLogEdit extends Component {
             ItemDisplay = (
                 <div className="detail">
                     <Row>
-                        {this.state.item.issue_flag=="1" ? 
+                        {this.state.item.issue_flag=="Flagged" ? 
                         <Col className="Flag" xs="1">
                             <img className="flagged" src= {flag_true}/>
                         </Col> : 

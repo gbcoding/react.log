@@ -71,14 +71,7 @@ updatelogRouter.post('/', function(req, res) {
         console.log("Incr result = " + JSON.stringify(incr_result));
     });
 
-    if(issue_flag=="True")
-  {
-    issue_flag = "1";
-  }
-  else
-  {
-    issue_flag = "0";
-  }
+   
 
     const getEIDSizeQuery = 'SELECT max(entry_id) AS eidMax FROM food_log';
     db.query(getEIDSizeQuery, (EIDsize_err, EIDsize_result) => {

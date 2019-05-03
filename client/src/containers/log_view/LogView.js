@@ -45,7 +45,7 @@ export default class LogView extends Component{
     }
 
     updateItem = (itemForm) => {
-        if(this.props.UID==itemForm.user_id) {
+        if(this.props.UID===itemForm.user_id) {
             this.axiosPOST('/update_log', itemForm)
             .catch(err => console.log(err));
         }
@@ -56,7 +56,7 @@ export default class LogView extends Component{
     }
 
     addItem = (itemForm) => {
-        if(this.props.UID==itemForm.user_id) {
+        if(this.props.UID===itemForm.user_id) {
             this.axiosPOST('/add_entry', itemForm)
             .catch(err => console.log(err));
             
@@ -83,7 +83,7 @@ export default class LogView extends Component{
 
 
     deleteItem = (item) => {
-        if(this.props.UID==item.user_id)
+        if(this.props.UID===item.user_id)
         {
             this.axiosGET_delete('/delete_log', item.user_id, item.entry_id)
             .catch(err => console.log(err));

@@ -46,17 +46,9 @@ updatelogRouter.post('/', function(req, res) {
   var duration = data.duration;
   var severity = data.severity;
   var notes = data.notes;
-  var date = data.date;
-  var time = data.time;
+  //var date = data.date;
+  //var time = data.time;
 
-  if(issue_flag=="True")
-  {
-    issue_flag = "1";
-  }
-  else
-  {
-    issue_flag = "0";
-  }
   
   const updatelogQuery = 'UPDATE food_log SET meal_type = \''+ meal_type + '\', food_consumed = \'' + food_consumed + '\', issue_flag = \'' + issue_flag + '\', duration = \'' + duration +'\', severity = \'' + severity + '\', notes = \'' + notes +'\' WHERE entry_id = \'' + entry_id + '\'';
   db.query(updatelogQuery, (updatelog_err, updatelog_result) => {
