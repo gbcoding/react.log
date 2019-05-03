@@ -57,17 +57,7 @@ export default class LogView extends Component{
         }
     }
 
-    addItem = (itemForm) => {
-        if(this.props.UID===itemForm.user_id) {
-            this.axiosPOST('/add_entry', itemForm)
-            .catch(err => console.log(err));
-            
-        }
-        else
-        {
-            console.log("Cannot Add item.");
-        }
-    }
+    
 
     axiosPOST = async(serverPath, formData) => {
         try{
@@ -148,7 +138,7 @@ export default class LogView extends Component{
 
 
         let displayScreen = "";
-        let AddEntryScreen = "";
+
 
         if(isLoaded === true){
             displayScreen = (
@@ -167,10 +157,6 @@ export default class LogView extends Component{
 
             ); 
 
-            AddEntryScreen = (
-                <div><AddEntry user_id={this.props.UID} addItem={this.addItem}/></div>
-                
-            );
         }
         else{
             displayScreen = (
@@ -189,7 +175,6 @@ export default class LogView extends Component{
                 </View>
             );
 
-            AddEntryScreen = "";
         }
 
         return(
@@ -207,9 +192,11 @@ export default class LogView extends Component{
                         <ScrollView>
                             <div>
                                 {displayScreen}
-                                {AddEntryScreen}
-                            </div>    
-                        </ScrollView>    
+                            </div>
+                            
+                        </ScrollView>  
+                       
+
                     </View>
                 </div>
             </div>

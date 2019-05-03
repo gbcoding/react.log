@@ -22,7 +22,9 @@ hr{
   margin-left: 10px;
   font-size: 1vw;
 }
-
+.FlagCol {
+  margin-top: 10px;
+}
 .NameCol {
   margin-top: 10px;
 }
