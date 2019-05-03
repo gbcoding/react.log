@@ -21,7 +21,9 @@ export default class LogView extends Component{
             isEditing: false,
             items: []
         };
+ 
     }
+
 
     getItems = () => {
         console.log("Called get_log");
@@ -145,7 +147,6 @@ export default class LogView extends Component{
         }
 
 
-
         let displayScreen = "";
         let AddEntryScreen = "";
 
@@ -199,6 +200,7 @@ export default class LogView extends Component{
                 <div className="editor">
                     <input className="editModeButton" type="image" src={EditIcon} onClick={this.editToggle} active={isLoaded}></input>
                 </div>
+               
     
                 <div className="scroller">
                     <View style={{ flexDirection: 'row', height: '100%'}}>
@@ -210,13 +212,6 @@ export default class LogView extends Component{
                         </ScrollView>    
                     </View>
                 </div>
-
- 
-                    
-
-                
-
-
             </div>
         );   
     }

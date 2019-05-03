@@ -32,3 +32,12 @@
     margin-left: 86vw;
     font-size: 16px;
 }
+
+.editModeButtonMobile{
+    width: 1vw;
+    height: auto;
+    padding: 5px 10px;
+    margin-bottom: .2%;
+    margin-left: 86vw;
+    font-size: 16px;
+}
