@@ -17,7 +17,7 @@ db.connect(function(err){
     return;
   }
   
-  console.log('Connected to db as id ' + db.threadId);
+  console.log('Connected reports to db as id ' + db.threadId);
 });
 
 // Send message to signup

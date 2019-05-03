@@ -14,7 +14,7 @@ db.connect(function(err){
         return;
     }
   
-    console.log('Connected to db as id ' + db.threadId);
+    console.log('Connected addlog to db as id ' + db.threadId);
 });
 
 

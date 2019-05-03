@@ -1,6 +1,6 @@
 var express = require('express');
 var loginRouter = express.Router();
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 
 const mysql = require('mysql');
 // For security reasons, database info is not pushed to the repository
@@ -19,7 +19,7 @@ db.connect(function(err){
     return;
   }
   
-  console.log('Connected to db as id ' + db.threadId);
+  console.log('Connected login to db as id ' + db.threadId);
 });
 
 loginRouter.use((req, res, next) => {
