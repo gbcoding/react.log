@@ -24,12 +24,13 @@
     background-color: lightgrey;
 }
 
-
-
 .editModeButton{
+    min-width: 32px;
+    min-height: auto;
+    width: 3vw;
+    height: auto;
     padding: 5px 10px;
-    margin-top: 8px;
-    margin-left: 10px;
+    margin-bottom: .2%;
+    margin-left: 97%;
     font-size: 16px;
-  
 }

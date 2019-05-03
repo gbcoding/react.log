@@ -5,7 +5,7 @@ import './LogView.css';
 import { LogEntry } from '../../components/log_entry/LogEntry';
 import { AddEntry } from '../../components/add_entry/AddEntry';
 import LoadingIcon from '../../components/LoadingIcon';
-
+import EditIcon from '../../images/edit_icon.png';
 
 import axios from 'axios';
 
@@ -182,9 +182,7 @@ export default class LogView extends Component{
                 <h1 className="header1">View Logs</h1>
 
                 <div className="editor">
-                    <Button className="editModeButton" color="primary" onClick={ this.editToggle } active={isLoaded} >
-                        {this.state.isEditing ? "Exit Editing Mode" : "Edit/Delete Items"}
-                    </Button>
+                    <input className="editModeButton" type="image" src={EditIcon} onClick={this.editToggle} active={isLoaded}></input>
                 </div>
     
                 <div className="scroller">
@@ -196,6 +194,7 @@ export default class LogView extends Component{
                             
                         </ScrollView>  
                        
+
                     </View>
                 </div>
 
