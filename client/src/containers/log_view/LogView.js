@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { View, ScrollView } from 'react-native';
+import { View, ScrollView, Image } from 'react-native';
 import { Button, Row, Col } from 'reactstrap';
 import './LogView.css';
 import { LogEntry } from '../../components/log_entry/LogEntry';
@@ -165,8 +165,15 @@ export default class LogView extends Component{
 
         return(
             <div className="view_logs">
+                
                 <h1 className="header1">View Logs</h1>
-                <hr></hr>
+
+                <div className="editor">
+                    <Button className="editModeButton" color="primary" onClick={ this.editToggle } active={isLoaded} >
+                        {this.state.isEditing ? "Exit Editing Mode" : "Edit/Delete Items"}
+                    </Button>
+                </div>
+    
                 <div className="scroller">
                     <View style={{ flexDirection: 'row', height: '100%'}}>
                         <ScrollView>
@@ -177,17 +184,18 @@ export default class LogView extends Component{
                        
                     </View>
                 </div>
-                <div className="editor">
-                    <Button className="editModeButton" color="primary" onClick={ this.editToggle } active={isLoaded} >
-                        {this.state.isEditing ? "Exit Editing Mode" : "Edit/Delete Items"}
-                    </Button>
+
                     
                     
 
-                </div>
+                
 
 
             </div>
         );   
     }
 }
+
+/*
+
+*/

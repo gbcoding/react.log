@@ -61,7 +61,6 @@ class App extends Component {
       case "home":
         if(this.props.auth.isAuthenticated()){
           console.log("Autenticated, transferring to <MainAuth />")
-          console.log(this.props)
           mainComponent = <MainAuth {...this.props} />;
         }
         else{

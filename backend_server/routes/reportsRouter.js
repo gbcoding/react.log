@@ -1,7 +1,15 @@
 var express = require('express');
 var reportsRouter = express.Router();
 
+//for PDF
+const pdf = require('html-pdf');
+const pdfTemplate = require('../documents/index');
 
+//for PDF 2
+const pdf2 = require('html-pdf');
+const pdfTemplate2 = require('../documents/index2');
+
+// Start Express app
 const mysql = require('mysql');
 // For security reasons, database info is not pushed to the repository
 // user must create their own sqlDatabaseOptions.json file and add the information manually
@@ -39,5 +47,39 @@ reportsRouter.get('/', function(req, res) {
         } 
     });   
 });
+
+
+//POST - PDF generation/fetching data
+reportsRouter.post('/create-pdf', (req, res) => {
+  pdf.create(pdfTemplate(req.body), {}).toFile('results.pdf', (err) => {
+    if(err) {
+        res.send(Promise.reject());
+        //return console.log('error');
+    }
+      res.send(Promise.resolve())
+  });
+});
+
+//GET - Send generated PDF to client
+reportsRouter.get('/fetch-pdf', (req, res) => {
+  res.sendFile(`${__dirname}/results.pdf`);
+});
+
+//POST - PDF generation/fetching data 2
+reportsRouter.post('/create-pdf2', (req, res) => {
+  pdf2.create(pdfTemplate2(req.body), {}).toFile('results.pdf', (err) => {
+    if(err) {
+        res.send(Promise.reject());
+        //return console.log('error');
+    }
+      res.send(Promise.resolve())
+  });
+});
+
+//GET - Send generated PDF to client
+reportsRouter.get('/fetch-pdf2', (req, res) => {
+  res.sendFile(`${__dirname}/results.pdf`);
+});
+
 
 module.exports = reportsRouter;

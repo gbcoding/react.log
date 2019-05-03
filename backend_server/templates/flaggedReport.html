@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+   table {
+   font-family: arial, sans-serif;
+   border-collapse: collapse;
+   width: 100%;
+   }
+
+   td, th {
+   border: 1px solid #dddddd;
+   text-align: left;
+   padding: 8px;
+   }
+
+   tr:nth-child(even) {
+   background-color: #dddddd;
+   }
+   img {
+      width: 100%;
+   }
+</style>
+</head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<body>
+   <h1 style="text-align:center"> React.log Flagged Report</h1>
+   <h2 style="text-align:left"> Name: {{username}}</h2>
+   <h3 style="text-align:left"> Date printed: {{date}}</h3>
+   <h3 style="text-align:left"> Time printed: {{time}}</h3>
+   <table>
+      <tr>
+            <th>Time</th>
+            <th>Date</th>
+            <th>Food name</th>
+            <th>Type</th>
+            <th>Duration (mins)</th>
+            <th>Severity (0- 9)</th>
+            <th>Notes</th>
+      </tr>
+
+
+      {{#each items}}
+        <tr>
+            <td>{{this.time}}</td>
+            <td>{{this.date}}</td>
+            <td>{{this.food_consumed}}</td>
+            <td>{{this.meal_type}}</td>
+            <td>{{this.duration}}</td>
+            <td>{{this.severity}}</td>
+            <td>{{this.notes}}</td>
+        </tr>
+        {{/each}}
+
+   </table>
+
+   </body>
+</html>
