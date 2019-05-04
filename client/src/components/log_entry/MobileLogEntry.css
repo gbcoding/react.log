@@ -62,7 +62,16 @@
     height: auto;  
     margin-left: 8vw;
     padding: 3px 7px;
-    margin-top: 7px;
+    margin-top: 5vw;
+    font-size: 1.2vw;
+  }
+
+  .editBttn2 {
+    width: auto;
+    height: auto;  
+    margin-left: 8vw;
+    padding: 3px 7px;
+    margin-top: 8px;
     font-size: 1.2vw;
   }
   

@@ -460,7 +460,7 @@ class MobileLogEdit extends Component {
                             </Text>  
                         </Col>*/}
                         <Col xs="2">
-                            <Button className="editBttn" color="warning" onClick={ this.handleEdit } block>
+                            <Button className="editBttn2" color="warning" onClick={ this.handleEdit } block>
                                     {"Edit/Delete"}
                             </Button>
                         </Col>

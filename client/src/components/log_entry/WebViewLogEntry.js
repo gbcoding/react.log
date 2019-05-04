@@ -325,9 +325,9 @@ class LogEdit extends Component {
             ItemDisplay = (
                 <div>
                     <Row>
-                    <Col className="FlagCol" xs="3">
+                    <Col className="FlagCol" xs="2">
                                 <Form.Group controlId="issue_flag">
-                                    <Form.Control as="select" type="issue_flag" value={this.state.temp_item.issue_flag} onChange={this.handleChange}>
+                                    <Form.Control style={{width: "70%"}}as="select" type="issue_flag" value={this.state.temp_item.issue_flag} onChange={this.handleChange}>
                                     <option>Flagged</option>
                                         <option>Unflagged</option>
                                     </Form.Control>
