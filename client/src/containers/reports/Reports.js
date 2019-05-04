@@ -50,7 +50,7 @@ export default class Reports extends Component{
     createAndDownloadPDF = () => {
         console.log(this.state);
         axios.post('/reports/create-pdf-full', this.state)
-        .then(() => axios.get('/reports/fetch-pdf-full', { responseType: 'blob' }))
+        .then(() => axios.get('/reports/fetch-pdf-full?user_id='+this.props.UID, { responseType: 'blob' }))
         .then((res) => { 
             const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
             console.log(res.data);
@@ -63,7 +63,7 @@ export default class Reports extends Component{
 
     createAndDownloadPDF2 = () => {
         axios.post('/reports/create-pdf-flagged', this.state)
-        .then(() => axios.get('/reports/fetch-pdf-flagged', { responseType: 'blob' }))
+        .then(() => axios.get('/reports/fetch-pdf-flagged?user_id='+this.props.UID, { responseType: 'blob' }))
         .then((res) => { 
             const pdfBlob = new Blob([res.data], { type: 'application/pdf' });
 

@@ -81,10 +81,10 @@ updatelogRouter.post('/', function(req, res) {
         var entryID = EIDsize_result[0].eidMax;
         console.log(entryID);
         entryID = entryID + 1;
-        console.log(entryID);
+        console.log(entryID); 
 
-        const getLIDSizeQuery = 'SELECT max(log_id) AS lidMax FROM food_log WHERE user_id=\''+ user_id +'\'';
-        db.query(getLIDSizeQuery, (LIDsize_err, LIDsize_result) => {
+        const getLIDSizeQuery = 'SELECT max(log_id) AS lidMax FROM food_log WHERE user_id = ?';
+        db.query(getLIDSizeQuery, [user_id], (LIDsize_err, LIDsize_result) => {
             if (EIDsize_err){
                 console.log(LIDsize_err);
             }
@@ -95,8 +95,8 @@ updatelogRouter.post('/', function(req, res) {
             console.log(logID);
 
             // Insert new log into add log table
-            const addlogQuery = 'INSERT INTO food_log (entry_id, user_id, log_id, date, time, meal_type, food_consumed, issue_flag, duration, severity, notes) VALUES (\''+ entryID + '\', \'' + user_id + '\', \'' + logID + '\', \'' + date +'\', \'' + time + '\', \'' + meal_type +'\', \'' + food_consumed + '\', \'' + issue_flag +'\', \'' + duration + '\', \'' + severity +'\', \'' + notes + '\')';
-            db.query(addlogQuery, (addlog_err, addlog_result) => {
+            const addlogQuery = 'INSERT INTO food_log (entry_id, user_id, log_id, date, time, meal_type, food_consumed, issue_flag, duration, severity, notes) VALUES (?, ?, ?, \'' + date +'\', \'' + time +'\', ?, ?, ?, ?, ?, ?)';
+            db.query(addlogQuery, [entryID, user_id, logID, meal_type, food_consumed, issue_flag, duration, severity, notes], (addlog_err, addlog_result) => {
                 var returnMsg = "";
                 if (addlog_err){
                     console.log(addlog_err);

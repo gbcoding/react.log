@@ -26,9 +26,9 @@ router.get('/', function(req, res, next) {
   const user_id = req.query.user_id;
   const date = req.query.current_date;
   console.log("Home data: " + user_id + ".... " + date)
-  const homeQuery = 'SELECT * FROM food_log WHERE user_id = \''+ user_id +'\' AND date = \'' + date + '\''; 
+  const homeQuery = 'SELECT * FROM food_log WHERE user_id = ? AND date = \'' + date + '\''; 
    
-  db.query(homeQuery, function(err, results) {
+  db.query(homeQuery, [user_id], function(err, results) {
       if(err) {
         return res.send(error);
       } 

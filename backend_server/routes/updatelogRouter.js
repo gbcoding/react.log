@@ -50,8 +50,8 @@ updatelogRouter.post('/', function(req, res) {
   //var time = data.time;
 
   
-  const updatelogQuery = 'UPDATE food_log SET meal_type = \''+ meal_type + '\', food_consumed = \'' + food_consumed + '\', issue_flag = \'' + issue_flag + '\', duration = \'' + duration +'\', severity = \'' + severity + '\', notes = \'' + notes +'\' WHERE entry_id = \'' + entry_id + '\'';
-  db.query(updatelogQuery, (updatelog_err, updatelog_result) => {
+  const updatelogQuery = 'UPDATE food_log SET meal_type = ?, food_consumed = ?, issue_flag = ?, duration = ?, severity = ?, notes = ? WHERE entry_id = ?';
+    db.query(updatelogQuery, [meal_type, food_consumed, issue_flag, duration, severity, notes, entry_id], (updatelog_err, updatelog_result) => {
   var returnMsg = "";
   if (updatelog_err){
     console.log(updatelog_err);

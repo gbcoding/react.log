@@ -5,7 +5,6 @@ import { Form, FormGroup, FormControl } from "react-bootstrap";
 import './WebViewLogEntry.css';
 
 import flag_true from '../../images/flag3.png';
-import { createModuleResolutionCache } from 'typescript';
 
 
 export default class WebLogEntry extends Component {
@@ -69,7 +68,7 @@ export default class WebLogEntry extends Component {
                         
                         {item.issue_flag === 1 ? 
                         <Col className="Flags" xs="1">
-                            <img className="flagged" src= {flag_true}/>
+                            <img className="flagged" alt="Flagged" src= {flag_true}/>
                         </Col> : 
                         <Col xs="1">
                             <p></p>
@@ -113,10 +112,7 @@ export default class WebLogEntry extends Component {
 
 class LogDetail extends Component {
 
-    constructor(props) {
-        super(props);
 
-    }
 
     render(){
     const item = this.props.item;
@@ -239,12 +235,12 @@ class LogEdit extends Component {
                 alert(JSON.stringify(errors.DurationLength));
                 ErrorFound = 1;
             }
-            if(/[~`!#$@%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.food_consumed)) {
+            if(/[~`!#$@%^&*+=\-[\]\\';,/{}|\\":<>?]/g.test(this.state.temp_item.food_consumed)) {
                 errors.SpecialCharsInFoodName = "Food names cannot contain special characters!";
                 alert(JSON.stringify(errors.SpecialCharsInFoodName));
                 ErrorFound = 1;
             }
-            if(/[~`!#$@%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.duration)) {
+            if(/[~`!#$@%^&*+=\-[\]\\';,/{}|\\":<>?]/g.test(this.state.temp_item.duration)) {
                 errors.SpecialCharsInDuration = "Durations cannot contain special characters!";
                 alert(JSON.stringify(errors.SpecialCharsInDuration));
                 ErrorFound = 1;
@@ -286,7 +282,7 @@ class LogEdit extends Component {
 
             console.log(formData);
             //Send form data to express
-            if(ErrorFound != 1) {
+            if(ErrorFound !== 1) {
                 this.props.updateItem(formData);
             }
           
@@ -327,7 +323,7 @@ class LogEdit extends Component {
     
 
     validateForm(){
-        return this.state.temp_item.duration != "" && this.state.temp_item.serverity != "";
+        return this.state.temp_item.duration !== "" && this.state.temp_item.serverity !== "";
     }
 
     componentDidMount (){
@@ -489,7 +485,7 @@ class LogEdit extends Component {
                     <Row>
                         {this.state.item.issue_flag===1 ? 
                         <Col className="Flags" xs="1">
-                            <img className="flagged" src= {flag_true}/>
+                            <img className="flagged" alt="Flagged" src= {flag_true}/>
                         </Col> : 
                         <Col xs="1">
                             <p></p>
