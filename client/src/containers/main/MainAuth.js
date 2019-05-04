@@ -7,10 +7,6 @@ import AddLog from '../add_log/AddLog';
 import Reports from '../reports/Reports';
 
 export default class MainAuth extends Component{
-    constructor(props){
-        super(props);
-
-    }
 
     render(){
         return(

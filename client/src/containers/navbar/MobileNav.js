@@ -69,7 +69,7 @@ export default class MobileNav extends Component{
             {
                 btnSize = "sm";
             }
-            console.log(btnSize);
+           
             return(
                 <div className="button-box">
               

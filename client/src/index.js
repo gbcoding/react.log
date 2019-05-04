@@ -21,8 +21,7 @@ window.setState = (changes) => {
 /*eslint no-restricted-globals: 0*/
 let username = auth.getProfile().nickname || "Visitor";
 let user_id = auth.getProfile().sub || "0";
-//var tok = subject.split("|");
-//let user_id = tok[1];
+
 username = username.charAt(0).toUpperCase() + username.slice(1);
 let uid = user_id.split("|");
 

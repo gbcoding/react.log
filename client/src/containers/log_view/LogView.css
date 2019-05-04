@@ -25,13 +25,13 @@
 }
 
 .editModeButton{
-    min-width: 45px;
+    min-width: 50px;
     min-height: auto;
     width: 3vw;
     height: auto;
     padding: 5px 10px;
-    margin-bottom: .2%;
-    margin-left: 97%;
+    margin-top: -20px;
+    margin-left: 92%;
     font-size: 16px;
 }
 

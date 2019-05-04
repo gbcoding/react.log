@@ -20,3 +20,23 @@ ol li {
     background: white;
     margin: 5px;
 }
+
+.view_logs {
+    margin: auto;
+    flex-direction: row;
+    height: 60vh;
+    width: 90%;
+    padding: 10px;
+}
+
+.scroller {
+    flex: 5;
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    border-style: ridge;
+    border-width: 8px;
+    border-radius: 8px;
+    border-color: grey;
+    background-color: lightgrey;
+}

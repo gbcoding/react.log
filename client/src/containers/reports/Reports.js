@@ -113,7 +113,7 @@ export default class Reports extends Component{
         return(
             <View>   
                 <View style={{flexDirection: 'column', alignItems: 'stretch'}}>
-
+                <div className="view_logs">
                     <View>
                         <h1>Reports</h1>
                     </View>
@@ -134,7 +134,7 @@ export default class Reports extends Component{
 
                                 <FormGroup as={Row}>
                                     <Col>
-                                    <Button className="noFlagBttn" onClick={this.createAndDownloadPDF}>Download PDF (all logs)</Button>
+                                    <Button className="noFlagBttn" onClick={this.createAndDownloadPDF}>Download Full Report PDF</Button>
                                         
                                     </Col>
                                 </FormGroup>
@@ -143,12 +143,13 @@ export default class Reports extends Component{
 
                                 <FormGroup as={Row}>
                                     <Col>
-                                    <Button className="FlagBttn" onClick={this.createAndDownloadPDF2}>Download PDF (flagged logs)</Button>
+                                    <Button className="FlagBttn" onClick={this.createAndDownloadPDF2}>Download Flagged Report PDF</Button>
                                         
                                     </Col>
                                 </FormGroup>
                             </View>
                     </View>  
+                    </div>
                 </View>
             </View>
         );

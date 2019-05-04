@@ -34,7 +34,7 @@ const db = mysql.createConnection(sqlDbOptions);
 
 db.connect(function(err){
 
-  if(err){
+  if(err){s
     console.error('Error connecting: ' + err.stack);
     return;
   }
@@ -53,7 +53,7 @@ reportsRouter.get('/', function(req, res) {
       if(err) {
         return res.send(error);
       } else{
-            console.log(results);
+            
             return res.json({
               data: results
             });

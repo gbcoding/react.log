@@ -61,7 +61,7 @@ export default class WebLogEntry extends Component {
             );
         }
         else {
-            console.log("Flag = " + item.issue_flag)
+          
             EntryDisplay = (
                 <View style={{ flexDirection: 'row', alignSelf: 'stretch'}}>
                 <div className="item" key={item.log_id}>

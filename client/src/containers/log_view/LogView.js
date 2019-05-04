@@ -1,9 +1,7 @@
 import React, { Component } from "react";
 import { Text, View, ScrollView} from 'react-native';
-import { Button } from 'reactstrap';
 import './LogView.css';
 import { LogEntry } from '../../components/log_entry/LogEntry';
-import { AddEntry } from '../../components/add_entry/AddEntry';
 import LoadingIcon from '../../components/LoadingIcon';
 import EditIcon from '../../images/edit_icon.png';
 
@@ -41,7 +39,6 @@ export default class LogView extends Component{
             });;
             return response;
         } catch (error) {
-            console.log("here");
             console.error(error);
         }
     }
@@ -143,11 +140,10 @@ export default class LogView extends Component{
         if(isLoaded === true){
             displayScreen = (
 
-                items.map(item => {
-                        console.log(item.log_id);
+                items.map(item => {                       
                     return (
                         <div>
-                            <LogEntry item={item} isEditing={isEditing} updateItem={this.updateItem} deleteItem={this.deleteItem}/>
+                            <LogEntry key={item.log_id} item={item} isEditing={isEditing} updateItem={this.updateItem} deleteItem={this.deleteItem}/>
                         
                         </div>
                     );     
@@ -189,7 +185,7 @@ export default class LogView extends Component{
     
                 <div className="scroller">
                     <View style={{ flexDirection: 'row', height: '100%'}}>
-                        <ScrollView indicatorStyle='black' bounces={true}>
+                        <ScrollView>
                             <div>
                                 {displayScreen}
                             </div>
