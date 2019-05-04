@@ -1,12 +1,10 @@
 import React, { Component } from "react";
+import { View, ScrollView} from 'react-native';
 import axios from 'axios';
 import "./Reports.css";
 import FileSaver from 'file-saver';
-import { Button, Form, FormGroup, FormControl, FormCheck, FormLabel, Col, Row} from "react-bootstrap";
-import {View} from "react-native";
-import { LogEntry } from '../../components/log_entry/LogEntry';
+import { Button, FormGroup, Col, Row} from "react-bootstrap";
 import LoadingIcon from '../../components/LoadingIcon';
-
 
 export default class Reports extends Component{
 
@@ -26,13 +24,11 @@ export default class Reports extends Component{
     }
 
     componentDidMount(){
- /*
         const current_uid = this.props.UID;
  
         this.axiosGET('/reports', current_uid)
             .then(response => this.setState({ error: null, isLoaded: true, items: response.data.data}))
             .catch(err => console.log(err));
-      */  
     }
     
     //Async Axios get request
@@ -48,7 +44,6 @@ export default class Reports extends Component{
             console.error(error);
         }
     }
-
 
     handleChange = ({ target: { value, name } }) => this.setState({ [name]: value });
     
@@ -78,25 +73,43 @@ export default class Reports extends Component{
             console.error(error)
         });
     }
-    //Render view of reports page
-    //<input type="text" name="foodName" id="fname" value="Chicken" onChange={this.handleChange} />
-    //<input type="text" placeholder="Food Name" name="asda" onChange={this.handleChange} />
-    //<input type="number" placeholder="Severity" name="severity" onChange={this.handleChange} />
-    //<input type="number" placeholder="Flag" name="flag" onChange={this.handleChange} />
-    //<ul>
-    //{this.state.items.map(item => {
-    //    const names = `${item.entry_id} ${item.user_id} ${item.log_id} ${item.date}
-    //    ${item.time} ${item.meal_type}  ${item.issue_flag}
-    //    ${item.duration} ${item.severity} ${item.notes}`;
-    //    const foodNames = `${item.food_consumed}`;
-    //    return <li classname="testItems"> {names} {foodNames} </li>;
-    //})}
-    
-
-//</ul>
 
     render(){
-        //const {items} = this.state;
+        const {isLoaded} = this.state;
+        let displayScreen = "";
+
+        if(isLoaded === true){
+            displayScreen = (
+
+                <ol>
+                    {this.state.items.map(item => {
+                        const names = `Time: ${item.time} | Date: ${item.date} | Food name: ${item.food_consumed} 
+                        | Type: ${item.meal_type} | Duration (mins): ${item.duration} | Severity(0-9): ${item.severity}
+                        | Flagged: ${item.issue_flag} | Notes: ${item.notes}`;
+                        
+                        return <li classname="testItems"> {names} </li>;
+                    })}
+                </ol>
+            ); 
+        }
+        else{
+            displayScreen = (
+                <View style={{ backgroundColor: "#4E4A4A", 
+                    flexDirection: "row", 
+                    display: "inline-block", 
+                    justifyContent: "center",
+                    marginTop: "50px",
+                    marginLeft: "150px",
+                    marginRight: "150px",
+                    paddingTop: "15px", 
+                    paddingBottom: "15px", 
+                    borderRadius: "25px"
+                    }}>   
+                    <LoadingIcon />
+                </View>
+            );
+        }
+        
         return(
             <View>   
                 <View style={{flexDirection: 'column', alignItems: 'stretch'}}>
@@ -104,10 +117,19 @@ export default class Reports extends Component{
                     <View>
                         <h1>Reports</h1>
                     </View>
-
-                    <View className="pdfBttns" /*style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}*/>
-                        
-                                                                                                
+                        <div className="scroller">
+                            <View style={{ flexDirection: 'row', height: '100%'}}>
+                                <ScrollView>
+                                    <div>
+                                        <p>Log preview</p>
+                                        {displayScreen}
+                                    </div>
+                                    
+                                </ScrollView>  
+                            </View>
+                        </div>
+                        <p> </p>
+                    <View className="pdfBttns">                                                                  
                             <View style={{alignItems: 'center'}}>
 
                                 <FormGroup as={Row}>
@@ -126,13 +148,9 @@ export default class Reports extends Component{
                                     </Col>
                                 </FormGroup>
                             </View>
-                        
-                        
                     </View>  
                 </View>
             </View>
-
-            
         );
     }
 }

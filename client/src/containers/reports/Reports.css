@@ -10,3 +10,13 @@
 .noFlagBttn {
     border: 2px solid black;
 }
+
+li {
+    color: black;
+    text-align: left;
+}
+
+ol li {
+    background: white;
+    margin: 5px;
+}
