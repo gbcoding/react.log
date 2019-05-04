@@ -228,6 +228,49 @@ class MobileLogEdit extends Component {
             issue_flag = "0";
         }
         
+        const errors = {};
+        var ErrorFound = 0;
+        if(this.state.temp_item.food_consumed.length >= 50 ) {
+            errors.FoodNameLength = "Food names cannot exceed 50 characters!";
+            alert(JSON.stringify(errors.FoodNameLength));
+            ErrorFound = 1;
+        }
+        if(this.state.temp_item.duration.length >= 50) {
+            errors.DurationLength = "Duration cannot exceed 50 characters!";
+            alert(JSON.stringify(errors.DurationLength));
+            ErrorFound = 1;
+        }
+        if(/[~`!#@$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.food_consumed)) {
+            errors.SpecialCharsInFoodName = "Food names cannot contain special characters!";
+            alert(JSON.stringify(errors.SpecialCharsInFoodName));
+            ErrorFound = 1;
+        }
+        if(/[~`!#@$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.duration)) {
+            errors.SpecialCharsInDuration = "Durations cannot contain special characters!";
+            alert(JSON.stringify(errors.SpecialCharsInDuration));
+            ErrorFound = 1;
+        }
+        if(this.state.temp_item.duration === "") {
+            errors.DurationIsEmpty = "Please provide a duration!";
+            alert(JSON.stringify(errors.DurationIsEmpty));
+            ErrorFound = 1;
+        }
+        if(this.state.temp_item.food_consumed === "") {
+            errors.FoodNameIsEmpty = "Please provide a food name!";
+            alert(JSON.stringify(errors.FoodNameIsEmpty));
+            ErrorFound = 1;
+        }
+        if(this.state.temp_item.meal_type === "") {
+            errors.MealTypeIsEmpty = "A meal type must be selected!";
+            alert(JSON.stringify(errors.MealTypeIsEmpty));
+            ErrorFound = 1;
+        }
+        if(this.state.temp_item.severity === "") {
+            errors.SeverityIsEmpty = "A severity rating must be selected!";
+            alert(JSON.stringify(errors.SeverityIsEmpty));
+            ErrorFound = 1;
+        }
+        
             const formData = {
                 user_id: this.state.temp_item.user_id,
                 entry_id: this.state.temp_item.entry_id,
@@ -244,7 +287,9 @@ class MobileLogEdit extends Component {
 
             console.log(formData);
             //Send form data to express
-            this.props.updateItem(formData);
+            if(ErrorFound != 1) {
+                this.props.updateItem(formData);
+            }
           
     }
 

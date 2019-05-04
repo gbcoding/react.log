@@ -28,6 +28,7 @@ export class AddEntry extends Component {
         };
 
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.validateForm = this.validateForm.bind(this);
     }
 
     handleChange = event => {
@@ -56,8 +57,51 @@ export class AddEntry extends Component {
             {
                 issue_flag=0;
             }
-        
-        
+
+            //Form Checking
+            const errors = {};
+            var ErrorFound = 0;
+            if(this.state.temp_item.food_consumed.length >= 50 ) {
+                errors.FoodNameLength = "Food names cannot exceed 50 characters!";
+                alert(JSON.stringify(errors.FoodNameLength));
+                ErrorFound = 1;
+            }
+            if(this.state.temp_item.duration.length >= 50) {
+                errors.DurationLength = "Duration cannot exceed 50 characters!";
+                alert(JSON.stringify(errors.DurationLength));
+                ErrorFound = 1;
+            }
+            if(/[~`!#@$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.food_consumed)) {
+                errors.SpecialCharsInFoodName = "Food names cannot contain special characters!";
+                alert(JSON.stringify(errors.SpecialCharsInFoodName));
+                ErrorFound = 1;
+            }
+            if(/[~`!#@$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.duration)) {
+                errors.SpecialCharsInDuration = "Durations cannot contain special characters!";
+                alert(JSON.stringify(errors.SpecialCharsInDuration));
+                ErrorFound = 1;
+            }
+            if(this.state.temp_item.duration === "") {
+                errors.DurationIsEmpty = "Please provide a duration!";
+                alert(JSON.stringify(errors.DurationIsEmpty));
+                ErrorFound = 1;
+            }
+            if(this.state.temp_item.food_consumed === "") {
+                errors.FoodNameIsEmpty = "Please provide a food name!";
+                alert(JSON.stringify(errors.FoodNameIsEmpty));
+                ErrorFound = 1;
+            }
+            if(this.state.temp_item.meal_type === "") {
+                errors.MealTypeIsEmpty = "A meal type must be selected!";
+                alert(JSON.stringify(errors.MealTypeIsEmpty));
+                ErrorFound = 1;
+            }
+            if(this.state.temp_item.severity === "") {
+                errors.SeverityIsEmpty = "A severity rating must be selected!";
+                alert(JSON.stringify(errors.SeverityIsEmpty));
+                ErrorFound = 1;
+            }
+            
             const formData = {
                 user_id: this.props.user_id,
                 entry_id: this.state.temp_item.entry_id,
@@ -71,15 +115,19 @@ export class AddEntry extends Component {
                 severity: this.state.temp_item.severity,
                 notes: this.state.temp_item.notes
             };
-
             console.log(formData);
             //Send form data to express
-            this.props.addItem(formData);
-          
+            if(ErrorFound != 1) {
+                this.props.addItem(formData);
+            }
+
     }
 
     validateForm(){
-        return this.state.temp_item.duration != "" && this.state.temp_item.serverity != "";
+        return this.state.temp_item.duration != "" && this.state.temp_item.serverity != "" 
+        && this.state.temp_item.food_consumed != "" && this.state.temp_item.meal_type != "" && 
+        !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.food_consumed) && 
+        !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.duration);
     }
 
 
@@ -91,7 +139,7 @@ export class AddEntry extends Component {
                         <View style={{flex: 1, alignItems: 'flex-end'}}>
                                 <Row>
                                     <Col xs="4">    
-                                        <Button className="pull-right" color="success" disabled={!this.validateForm()} onClick={this.handleSubmit} style={{fontSize: "1.2vw", marginRight: "50px", marginBottom: "10px"}}>
+                                        <Button className="pull-right" color="success" onClick={this.handleSubmit} style={{fontSize: "1.2vw", marginRight: "50px", marginBottom: "10px"}}>
                                             Submit
                                         </Button>
                                     </Col>
