@@ -48,8 +48,8 @@ reportsRouter.get('/', function(req, res) {
     const user_id = req.query.user_id;
 
     console.log(user_id)
-   const reportsQuery = 'SELECT * FROM food_log WHERE user_id = \''+ user_id +'\''; 
-    db.query(reportsQuery, function(err, results) {
+   const reportsQuery = 'SELECT * FROM food_log WHERE user_id = ?'; 
+    db.query(reportsQuery, [user_id], function(err, results) {
       if(err) {
         return res.send(error);
       } else{
@@ -67,9 +67,9 @@ reportsRouter.get('/', function(req, res) {
 reportsRouter.post('/create-pdf-full', (req, res) => {
 
   const user_id = req.body.UID;
-  const reportsQuery = 'SELECT * FROM food_log WHERE user_id = \''+ user_id +'\''; 
+  const reportsQuery = 'SELECT * FROM food_log WHERE user_id = ?'; 
 
-  db.query(reportsQuery, function(err, results) {
+  db.query(reportsQuery, [user_id], function(err, results) {
     if(err) {
       console.log(err);
       return res.send(error);
@@ -101,7 +101,7 @@ reportsRouter.post('/create-pdf-full', (req, res) => {
           items: results,
 
       },
-      path: "./documents/FullReport.pdf"    // it is not required if type is buffer
+      path: './documents/FullReport-'+user_id+'.pdf'    // it is not required if type is buffer
     };
 
     pdf.create(document, options)
@@ -119,16 +119,18 @@ reportsRouter.post('/create-pdf-full', (req, res) => {
 
 //GET - Send generated PDF to client
 reportsRouter.get('/fetch-pdf-full', (req, res) => {
-  res.sendFile(path.resolve('documents/FullReport.pdf'));
+  const user_id = req.query.user_id;
+  console.log(user_id);
+  res.sendFile(path.resolve('documents/FullReport-'+user_id+'.pdf'));
 });
 
 
 //POST - PDF generation/fetching data 2
 reportsRouter.post('/create-pdf-flagged', (req, res) => {
    const user_id = req.body.UID;
-  const reportsQuery = 'SELECT * FROM food_log WHERE user_id = \''+ user_id +'\' && issue_flag = 1'; 
+  const reportsQuery = 'SELECT * FROM food_log WHERE user_id = ? && issue_flag = 1'; 
   
-  db.query(reportsQuery, function(err, results) {
+  db.query(reportsQuery, [user_id], function(err, results) {
     if(err) {
       console.log(err);
       return res.send(error);
@@ -158,7 +160,7 @@ reportsRouter.post('/create-pdf-flagged', (req, res) => {
           username: req.body.userName,
           items: results
       },
-      path: "./documents/FlaggedReport.pdf"    // it is not required if type is buffer
+      path: './documents/FlaggedReport-'+user_id+'.pdf'    // it is not required if type is buffer
     };
 
     pdf.create(document, options)
@@ -175,7 +177,8 @@ reportsRouter.post('/create-pdf-flagged', (req, res) => {
 
 //GET - Send generated PDF to client
 reportsRouter.get('/fetch-pdf-flagged', (req, res) => {
-  res.sendFile(path.resolve('documents/FlaggedReport.pdf'));
+  const user_id = req.query.user_id;
+  res.sendFile(path.resolve('documents/FlaggedReport-'+user_id+'.pdf'));
 });
 
 
