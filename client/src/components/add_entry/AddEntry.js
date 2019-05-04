@@ -71,12 +71,12 @@ export class AddEntry extends Component {
                 alert(JSON.stringify(errors.DurationLength));
                 ErrorFound = 1;
             }
-            if(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.food_consumed)) {
+            if(/[~`!#@$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.food_consumed)) {
                 errors.SpecialCharsInFoodName = "Food names cannot contain special characters!";
                 alert(JSON.stringify(errors.SpecialCharsInFoodName));
                 ErrorFound = 1;
             }
-            if(/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.duration)) {
+            if(/[~`!#@$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.duration)) {
                 errors.SpecialCharsInDuration = "Durations cannot contain special characters!";
                 alert(JSON.stringify(errors.SpecialCharsInDuration));
                 ErrorFound = 1;
