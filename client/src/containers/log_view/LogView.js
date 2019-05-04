@@ -189,13 +189,11 @@ export default class LogView extends Component{
     
                 <div className="scroller">
                     <View style={{ flexDirection: 'row', height: '100%'}}>
-                        <ScrollView>
+                        <ScrollView indicatorStyle='black' bounces={true}>
                             <div>
                                 {displayScreen}
                             </div>
-                            
                         </ScrollView>  
-                       
 
                     </View>
                 </div>

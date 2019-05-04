@@ -25,7 +25,7 @@
 }
 
 .editModeButton{
-    min-width: 38px;
+    min-width: 45px;
     min-height: auto;
     width: 3vw;
     height: auto;
@@ -43,3 +43,4 @@
     margin-left: 86vw;
     font-size: 16px;
 }
+
