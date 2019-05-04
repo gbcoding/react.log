@@ -1,13 +1,9 @@
 /*eslint no-restricted-globals: 0 */
 import React, { Component } from "react";
 import {View} from "react-native";
-import { Redirect, Link } from 'react-router-dom'
-import { Button, Form, FormGroup, FormControl, FormCheck, FormLabel, Col, Row} from "react-bootstrap";
 import { AddEntry } from '../../components/add_entry/AddEntry';
-import DateTimePicker from "react-datetime-picker";
 import "./AddLog.css";
 import axios from 'axios';
-import { DatePicker, TimePicker } from '@progress/kendo-react-dateinputs';
 import '@progress/kendo-react-intl'
 import '@progress/kendo-react-tooltip'
 import '@progress/kendo-react-common'
@@ -48,10 +44,6 @@ export default class AddLog extends Component{
 
     }
 
-    componentDidMount(){
-
-
-    }
 
  
 

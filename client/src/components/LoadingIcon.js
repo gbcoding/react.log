@@ -1,5 +1,5 @@
 import React, { Component } from "react"; 
-import {Animated, Easing, Image, Text, View } from 'react-native';
+import {Animated, Easing } from 'react-native';
 
 
 export default class LoadingIcon extends Component{

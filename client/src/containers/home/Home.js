@@ -4,8 +4,6 @@ import React, { Component } from "react";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
 import { LogEntry } from '../../components/log_entry/LogEntry';
-import AutoScale from 'react-auto-scale';
-import LoadingIcon from '../../components/LoadingIcon';
 import { View, ScrollView } from 'react-native';
 import axios from 'axios';
 

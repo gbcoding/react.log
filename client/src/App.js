@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
-import { View, Image } from 'react-native';
-import { Switch, Route, BrowserRouter } from 'react-router-dom';
+import { View } from 'react-native';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 
-import Auth from './auth/Auth';
 import HeaderBar from './containers/headerbar/HeaderBar';
 import NavBar from './containers/navbar/NavBar';
 import MainAuth from './containers/main/MainAuth';
