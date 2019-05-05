@@ -1,7 +1,6 @@
 /*eslint no-restricted-globals: 0 */
 import React, { Component } from "react";
 import {View} from "react-native";
-
 import { AddEntry } from '../../components/add_entry/AddEntry';
 import "./AddLog.css";
 import axios from 'axios';
@@ -39,6 +38,7 @@ export default class AddLog extends Component{
           time: new Date()
         });
     }
+    //end time component here
 
     addItem = (itemForm) => {
         if(this.props.UID===itemForm.user_id) {

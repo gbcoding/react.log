@@ -71,12 +71,12 @@ export class AddEntry extends Component {
                 alert(JSON.stringify(errors.DurationLength));
                 ErrorFound = 1;
             }
-            if(/[~`!#@$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.food_consumed)) {
+            if(/[~`!#@$%^&*+=\-[\]\\';,/{}|\\":<>?]/g.test(this.state.temp_item.food_consumed)) {
                 errors.SpecialCharsInFoodName = "Food names cannot contain special characters!";
                 alert(JSON.stringify(errors.SpecialCharsInFoodName));
                 ErrorFound = 1;
             }
-            if(/[~`!#@$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.duration)) {
+            if(/[~`!#@$%^&*+=\-[\]\\';,/{}|\\":<>?]/g.test(this.state.temp_item.duration)) {
                 errors.SpecialCharsInDuration = "Durations cannot contain special characters!";
                 alert(JSON.stringify(errors.SpecialCharsInDuration));
                 ErrorFound = 1;
@@ -117,17 +117,17 @@ export class AddEntry extends Component {
             };
             console.log(formData);
             //Send form data to express
-            if(ErrorFound != 1) {
+            if(ErrorFound !== 1) {
                 this.props.addItem(formData);
             }
 
     }
 
     validateForm(){
-        return this.state.temp_item.duration != "" && this.state.temp_item.serverity != "" 
-        && this.state.temp_item.food_consumed != "" && this.state.temp_item.meal_type != "" && 
-        !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.food_consumed) && 
-        !/[~`!#$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.duration);
+        return this.state.temp_item.duration !== "" && this.state.temp_item.serverity !== "" 
+        && this.state.temp_item.food_consumed !== "" && this.state.temp_item.meal_type !== "" && 
+        !/[~`!#$%^&*+=\-[\]\\';,/{}|\\":<>?]/g.test(this.state.temp_item.food_consumed) && 
+        !/[~`!#$%^&*+=\-[\]\\';,/{}|\\":<>?]/g.test(this.state.temp_item.duration);
     }
 
 
@@ -139,7 +139,7 @@ export class AddEntry extends Component {
                         <View style={{flex: 1, alignItems: 'flex-end'}}>
                                 <Row>
                                     <Col xs="4">    
-                                        <Button className="pull-right" color="success" onClick={this.handleSubmit} style={{fontSize: "1.2vw", marginRight: "50px", marginBottom: "10px"}}>
+                                        <Button className="pull-right" color="success" onClick={this.handleSubmit} style={{fontSize: "100%", marginRight: "50px", marginBottom: "10px"}}>
                                             Submit
                                         </Button>
                                     </Col>

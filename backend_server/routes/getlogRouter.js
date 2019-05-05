@@ -28,9 +28,9 @@ getlogRouter.get('/', function(req, res) {
     const user_id = req.query.user_id;
 
     console.log(user_id)
-   const logviewQuery = 'SELECT * FROM food_log WHERE user_id = \''+ user_id +'\' ORDER BY log_id DESC'; 
+   const logviewQuery = 'SELECT * FROM food_log WHERE user_id = ? ORDER BY log_id DESC'; 
    //const logviewQuery = 'SELECT * FROM food_log'; 
-    db.query(logviewQuery, function(err, results) {
+    db.query(logviewQuery, [user_id], function(err, results) {
       if(err) {
         return res.send(error);
       } else{

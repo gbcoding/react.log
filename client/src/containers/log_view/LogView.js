@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Text, View, ScrollView} from 'react-native';
+import { View, ScrollView} from 'react-native';
 import './LogView.css';
 import { LogEntry } from '../../components/log_entry/LogEntry';
 import LoadingIcon from '../../components/LoadingIcon';
@@ -122,16 +122,7 @@ export default class LogView extends Component{
     render(){
         const {items, isEditing, isLoaded} = this.state;
 
-        try{
-            const myData = [].concat(items)
-                .sort((a, b) => a.log_id < b.log_id)
-                .map((item, i) => 
-                <div key={i}> {item}</div>
-            );
-        }
-        catch(err){
-            console.log(err);
-        }
+        
 
 
         let displayScreen = "";
@@ -179,7 +170,7 @@ export default class LogView extends Component{
                 <h1 className="header1">View Logs</h1>
 
                 <div className="editor">
-                    <input className="editModeButton" type="image" src={EditIcon} onClick={this.editToggle} active={isLoaded}></input>
+                    <input className="editModeButton" type="image" alt="Click here to Enter/Exit Edit Mode" src={EditIcon} onClick={this.editToggle} active={isLoaded}></input>
                 </div>
                
     

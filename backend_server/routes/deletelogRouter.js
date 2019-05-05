@@ -29,9 +29,9 @@ deletelogRouter.get('/', function(req, res) {
     const entry_id = req.query.entry_id;
 
     console.log(user_id)
-   const deleteQuery = ' DELETE FROM food_log WHERE user_id = \''+ user_id +'\' AND entry_id =  \''+ entry_id +'\''; 
+   const deleteQuery = ' DELETE FROM food_log WHERE user_id = ? AND entry_id =  ?'; 
    
-    db.query(deleteQuery, function(err, results) {
+    db.query(deleteQuery, [user_id, entry_id], function(err, results) {
       if(err) {
         return res.send(error);
       } else{

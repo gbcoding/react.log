@@ -1,5 +1,4 @@
 /*eslint no-restricted-globals: 0 */
-import React, {Component} from "react";
 import auth0 from 'auth0-js';
 import jwtDecode from 'jwt-decode';
 

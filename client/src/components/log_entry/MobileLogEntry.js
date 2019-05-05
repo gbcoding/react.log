@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { Button, Row, Col, ButtonGroup } from 'reactstrap';
-import { Form, FormGroup, FormControl, FormLabel } from "react-bootstrap";
+import { Form, FormGroup, FormControl } from "react-bootstrap";
 import './MobileLogEntry.css';
 
 import flag_true from '../../images/flag3.png';
@@ -65,7 +65,7 @@ export default class MobileEntry extends Component {
                 <Row>
                     {item.issue_flag=== 1 ? 
                     <Col className="Flag" xs="1">
-                        <img className="flagged" src= {flag_true}/>
+                        <img className="flagged" alt="Flagged" src= {flag_true}/>
                     </Col> : 
                     <Col xs="1">
                         <p></p>
@@ -86,7 +86,7 @@ export default class MobileEntry extends Component {
                         </Text>  
                     </Col>*/}
                     <Col xs="3">
-                        <Button className="bttn" color="primary" onClick={ this.showToggle } block>
+                        <Button className="bttn" color="primary" onClick={ this.showToggle } block style={{fontSize: "2vw", marginRight: "50px", marginBottom: "10px"}}>
                             {this.state.show ? "Hide Details" : "Show Details"}
                         </Button>
                     </Col>
@@ -108,10 +108,6 @@ export default class MobileEntry extends Component {
 
 class MobileLogDetail extends Component {
     
-    constructor(props) {
-        super(props);
-
-    }
 
     render(){
         const item = this.props.item;
@@ -240,12 +236,12 @@ class MobileLogEdit extends Component {
             alert(JSON.stringify(errors.DurationLength));
             ErrorFound = 1;
         }
-        if(/[~`!#@$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.food_consumed)) {
+        if(/[~`!#@$%^&*+=\-[\]\\';,/{}|\\":<>?]/g.test(this.state.temp_item.food_consumed)) {
             errors.SpecialCharsInFoodName = "Food names cannot contain special characters!";
             alert(JSON.stringify(errors.SpecialCharsInFoodName));
             ErrorFound = 1;
         }
-        if(/[~`!#@$%\^&*+=\-\[\]\\';,/{}|\\":<>\?]/g.test(this.state.temp_item.duration)) {
+        if(/[~`!#@$%^&*+=\-[\]\\';,/{}|\\":<>?]/g.test(this.state.temp_item.duration)) {
             errors.SpecialCharsInDuration = "Durations cannot contain special characters!";
             alert(JSON.stringify(errors.SpecialCharsInDuration));
             ErrorFound = 1;
@@ -287,7 +283,7 @@ class MobileLogEdit extends Component {
 
             console.log(formData);
             //Send form data to express
-            if(ErrorFound != 1) {
+            if(ErrorFound !== 1) {
                 this.props.updateItem(formData);
             }
           
@@ -326,7 +322,7 @@ class MobileLogEdit extends Component {
     }
 
     validateForm(){
-        return this.state.item.duration != "" && this.state.item.serverity != "";
+        return this.state.item.duration !== "" && this.state.item.serverity !== "";
     }
 
     componentDidMount (){
@@ -348,7 +344,7 @@ class MobileLogEdit extends Component {
                             </Col>
                             <Col xs="6">
                                 <Button className="pull-right" color="danger" onClick={this.handleDelete}>
-                                    Delete Item
+                                    Delete
                                 </Button>
                             </Col>
                         </Row>
@@ -484,7 +480,7 @@ class MobileLogEdit extends Component {
                     <Row>
                         {this.state.item.issue_flag===1 ? 
                         <Col className="Flag" xs="1">
-                            <img className="flagged" src= {flag_true}/>
+                            <img className="flagged" alt="Flagged" src= {flag_true} />
                         </Col> : 
                         <Col xs="1">
                             <p></p>
@@ -505,7 +501,7 @@ class MobileLogEdit extends Component {
                             </Text>  
                         </Col>*/}
                         <Col xs="2">
-                            <Button className="editBttn2" color="warning" onClick={ this.handleEdit } block>
+                            <Button className="editBttn2" color="warning" onClick={ this.handleEdit } block style={{fontSize: "2.5vw", marginBottom: "10px"}}>
                                     {"Edit/Delete"}
                             </Button>
                         </Col>

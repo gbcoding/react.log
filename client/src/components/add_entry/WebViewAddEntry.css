@@ -17,10 +17,12 @@
 
   .FlagCol {
     margin-top: 10px;
+    min-width: 140px;
   }
 
 .NameCol {
   margin-top: 10px;
+  min-width: 190px;
 }
 
 .nameCol {
@@ -38,5 +40,6 @@
 }
 
 .applyButtons{
-  margin-left: 130px;
+  margin-left: 50px;
+  min-width: 300px;
 }
