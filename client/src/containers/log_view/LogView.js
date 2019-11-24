@@ -121,12 +121,7 @@ export default class LogView extends Component{
     //Render view of view logs page
     render(){
         const {items, isEditing, isLoaded} = this.state;
-
-        
-
-
         let displayScreen = "";
-
 
         if(isLoaded === true){
             displayScreen = (
@@ -143,7 +138,6 @@ export default class LogView extends Component{
                 
 
             ); 
-
         }
         else{
             displayScreen = (

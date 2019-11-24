@@ -13,7 +13,7 @@ const HeaderBar = (props) => (
             </div>
             <div className="profile_info">
                 <p> Welcome, {props.name}</p>
-                <p> UID: {props.UID}</p>
+                { /*<p> UID: {props.UID}</p> */}
             </div>
         </div>
 

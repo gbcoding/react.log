@@ -111,8 +111,9 @@ export default class Reports extends Component{
         }
         
         return(
-            <View>   
+            <View>  
                 <View style={{flexDirection: 'column', alignItems: 'stretch'}}>
+                
                 <div className="view_logs">
                     <View>
                         <h1>Reports</h1>
@@ -150,6 +151,7 @@ export default class Reports extends Component{
                             </View>
                     </View>  
                     </div>
+                
                 </View>
             </View>
         );

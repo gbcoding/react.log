@@ -34,7 +34,7 @@ const db = mysql.createConnection(sqlDbOptions);
 
 db.connect(function(err){
 
-  if(err){s
+  if(err){
     console.error('Error connecting: ' + err.stack);
     return;
   }

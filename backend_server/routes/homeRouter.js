@@ -24,11 +24,14 @@ db.connect(function(err){
 router.get('/', function(req, res, next) {
   console.log("inside homeRouter")
   const user_id = req.query.user_id;
-  const date = req.query.current_date;
+  //const date = req.query.current_date;
+  const date_today = new Date();
+  const date = date_today.getFullYear() + '-' + (date_today.getMonth()+1) + '-' + date_today.getDate();
+
   console.log("Home data: " + user_id + ".... " + date)
-  const homeQuery = 'SELECT * FROM food_log WHERE user_id = ? AND date = \'' + date + '\''; 
-   
-  db.query(homeQuery, [user_id], function(err, results) {
+  const homeQuery = 'SELECT * FROM food_log WHERE user_id = \'' + user_id + '\' AND date = \'' + date + '\''; 
+  
+  db.query(homeQuery, function(err, results) {
       if(err) {
         return res.send(error);
       } 

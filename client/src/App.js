@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 
@@ -83,12 +83,13 @@ class App extends Component {
           <BrowserRouter>
               <View style={{ height: '100%', flexDirection: 'column', alignSelf:'stretch'}}>
                 <Header {...this.props}/>
-                
-                <div className="mainContent"> 
-                {mainComponent}
-                               
+                <ScrollView>
+                <div className="mainContent">
+                   
+                    {mainComponent}
+                  
                 </div>
-                
+                </ScrollView> 
                 <Footer {...this.props} />  
               </View>             
           </BrowserRouter>

@@ -4,6 +4,7 @@ import React, { Component } from "react";
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css"
 import { LogEntry } from '../../components/log_entry/LogEntry';
+import LoadingIcon from '../../components/LoadingIcon';
 import { View, ScrollView } from 'react-native';
 import axios from 'axios';
 
@@ -58,27 +59,32 @@ export default class Home extends Component{
     //Render view of home page
     render(){
 
-        const {items} = this.state;
-/*
+        const {items, isLoaded} = this.state;
+
 
         let displayScreen = "";
-        const itemsLoaded = this.state.isLoaded;
        
-        console.log(itemsLoaded);
+       
+        console.log(isLoaded);
 
-        if(itemsLoaded === true){
+        if(isLoaded === true){
             if(items.length){
                 displayScreen = (
                     items.map(item => {
                         
                         return (
-                            <LogEntry item={item}/>
+                            <div>
+                                <LogEntry item={item}/>
+                            </div>
                         );     
                     })
                 ); 
             }
             else{
-                return <span className="emptyMessage">No Entries Available</span>;
+
+                displayScreen = (
+                    <span className="emptyMessage">No Entries Available</span>
+                );
             }
 
         }
@@ -86,8 +92,7 @@ export default class Home extends Component{
             displayScreen = (
                 <View style={{ backgroundColor: "#4E4A4A", 
                     flexDirection: "row", 
-                    display: "inline-block", 
-                    justifySelf: "center", 
+                    display: "inline-block",  
                     justifyContent: "center",
                     marginTop: "50px",
                     marginLeft: "150px",
@@ -100,7 +105,7 @@ export default class Home extends Component{
                 </View>
             );
         }
-*/
+
         
         return(
             <div className="home">
@@ -117,21 +122,12 @@ export default class Home extends Component{
                     />
                     <br></br>
                     <br></br>
-                    <div className="scroll">
+                    <div className="scroller">
                    
                         <View style={{ flexDirection: 'row', height: '100%'}}>
                         
                             <ScrollView>
-                                {
-                                    items.map(item => { 
-                                        return (        
-                                            <LogEntry item={item}/>
-                                        );                         
-                                    })
-                                }
-                                {
-                                    items.length ? <span></span> : <span className="emptyMessage">No Entries Available</span>
-                                }
+                                {displayScreen} 
                             </ScrollView>  
                         
                         </View>
@@ -142,7 +138,3 @@ export default class Home extends Component{
         );
     }
 }
-
-/*
-
-                                */
