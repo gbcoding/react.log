@@ -33,7 +33,7 @@
     "dynamic-html-pdf": "^1.0.1",
     "express": "^4.16.4",
     "file-saver": "^2.0.1",
-    "html-pdf": "^2.2.0",
+    "html-pdf": "^3.0.1",
     "jade": "^1.11.0",
     "jquery": "^3.4.1",
     "jwt-decode": "^2.2.0",
